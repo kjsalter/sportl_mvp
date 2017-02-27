@@ -1,0 +1,68 @@
+<div class="page-container">
+
+  <div class="container main-content">
+    <div class="row">
+      <!-- user profile sidebar -->
+      <div class="col-md-3 hidden-xs hidden-sm flexbox-column">
+        <div>
+          <!-- profile picture -->
+          <div class="square-image">
+            <% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url || "http://placehold.it/30x30" ) %>
+            <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
+          </div>
+
+          <!-- about me -->
+          <div class="panel">
+            <div class="panel-header text-center"><h4>About Me</h4></div>
+              <div class="panel-body">
+                <dl>
+                  <dt style="padding: 10px 0px">Job</dt>
+                    <% if @user.job %>
+                      <dd> <%= @user.job %></dd>
+                    <% else %>
+                      <dd>No job info to show </dd>
+                    <% end %>
+                  <dt style="padding: 10px 0px">Likes</dt>
+                    <% if @user.likes? %>
+                      <% likes = @user.likes.split(',') %>
+                      <% likes.each do |like| %>
+                      <dd> <%= like %> </dd>
+                      <% end %>
+                    <% else %>
+                      <dd>No likes to show</dd>
+                    <% end %>
+                </dl>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Profile -->
+      <div class="col-sm-9 white-main">
+
+        <!-- small screen only profile pic -->
+        <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img">
+          <%= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
+        </div>
+
+        <div class="info-bit">
+          <!-- profile header -->
+          <div>
+            <h1>Hey, I'm <%= @user.first_name %>!</h1>
+            <h5><%= @user.location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+          </div>
+
+          <!-- profile main -->
+          <div>
+            <p> <%= @user.bio %></p>
+            <h2>Reviews</h2>
+            <h4>Reviews from pet owners</h4>
+            <%= render "reviews" %>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
