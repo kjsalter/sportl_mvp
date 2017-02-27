@@ -1,9 +1,26 @@
-<div class="row">
-  <% @events.each do |event| %>
-    <ul>
-      <li><%= event.title %> <%= link_to 'Show', event_path(event) %> |
-      <%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' } %> |
-        <%= link_to 'Edit', edit_event_path(event) %></li>
-    </ul>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-xs-12 col-md-6">
+        <div class="card">
+          <div class="sport-image">
+            <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 15vmin" %>
+          </div>
+          <div class="card-info">
+            <h3><%= event.title %></h3>
+            <p><%= event.start %></p>
+          </div>
+          <div class="right-side">
+           <%# #avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+           <p>PIC</p>
+            <%# avatar_url = "http://placehold.it/30x30" %>
+            <%# image_tag avatar_url, class: "avatar" %>
+          </div>
+          <!-- <div class="card-link"> -->
+            <%# link_to "", event_path(event) %>
+          <!-- </div> -->
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
