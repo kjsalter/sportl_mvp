@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_event, only: [:edit, :update, :destroy, :show]
+
   # list all animals
   def index
     @events = policy_scope(Event)
@@ -16,8 +18,9 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     authorize @event
 
+    @event.user = current_user
     if @event.save
-      redirect_to root_path
+      redirect_to events_path
     else
       render :new
     end
@@ -34,7 +37,9 @@ class EventsController < ApplicationController
   def update
   end
 
-  def destory
+  def destroy
+    @event.destroy
+    redirect_to events_path
   end
 
   private

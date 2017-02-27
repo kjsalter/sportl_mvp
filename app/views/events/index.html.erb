@@ -1,0 +1,9 @@
+<div class="row">
+  <% @events.each do |event| %>
+    <ul>
+      <li><%= event.title %> <%= link_to 'Show', event_path(event) %> |
+      <%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' } %> |
+        <%= link_to 'Edit', edit_event_path(event) %></li>
+    </ul>
+  <% end %>
+</div>
