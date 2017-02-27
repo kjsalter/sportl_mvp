@@ -2,19 +2,24 @@ class EventsController < ApplicationController
   before_action :set_event
   # list all animals
   def index
-    @events = Event.all
+    @events = policy_scope(Event)
   end
 
   # create a new animal
   def new
     @event = Event.new
+    authorize @event
   end
 
   # perform create action
   def create
     @event = Event.new(event_params)
+    authorize @event
+
     if @event.save
       redirect_to root_path
+    else
+      render :new
     end
   end
 
@@ -36,6 +41,7 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
+    authorize @event
   end
 
   def event_params
