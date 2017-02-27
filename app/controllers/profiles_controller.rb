@@ -2,8 +2,6 @@ class ProfilesController < ApplicationController
 before_action :authenticate_user!, only: [:edit, :update]
   def my_profile
     @user = current_user
-
-    @bookings = review_list
   end
 
   def show
@@ -31,4 +29,5 @@ before_action :authenticate_user!, only: [:edit, :update]
       render :new
     end
 
+  end
 end

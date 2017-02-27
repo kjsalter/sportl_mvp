@@ -1,0 +1,63 @@
+.page-container {
+  padding: 60px;
+  margin-bottom: 48px;
+  margin-top: 24px;
+  margin-right: 24px;
+}
+
+.flexbox-column {
+  .square-image {
+    padding: 10px;
+    img {
+      width: 100%;
+    }
+  }
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-radius:3px;
+  flex-direction: column;
+}
+
+.white-main {
+  padding: 0px 10px;
+  .small-img {
+    img {
+      width: 100%;
+    }
+  }
+
+  .info-bit {
+    padding: 20px;
+    h1, h2, h4, h5, h6, p {
+      padding: 10px;
+    }
+  }
+}
+
+.panel-header {
+  padding: 10px;
+  background-color: RGBA(238, 109, 102, 0.1);
+}
+
+.panel {
+  border: 1px solid RGBA(238, 109, 102, 1.00);
+}
+
+.profile-dashboard {
+  margin-top: 60px;
+}
+
+.page-contents {
+  margin: 60px 0px;
+}
+
+.container {
+  height: 100%;
+}
+
+.price {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
