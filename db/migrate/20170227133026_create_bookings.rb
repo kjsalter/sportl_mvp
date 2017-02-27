@@ -1,7 +1,7 @@
 class CreateBookings < ActiveRecord::Migration[5.0]
   def change
     create_table :bookings do |t|
-      t.integer :booking_state
+      t.integer :booking_state, :default => 0
       t.references :user, foreign_key: true
       t.references :event, foreign_key: true
 

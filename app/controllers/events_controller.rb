@@ -28,6 +28,8 @@ class EventsController < ApplicationController
 
   # display particular event
   def show
+    @booking = Booking.new
+    # authorize @booking
   end
 
   # edit event details

@@ -9,15 +9,17 @@ class BookingsController < ApplicationController
   end
 
   # create a new booking
-  # def new
-  #   @booking = Booking.new
-  #   authorize @booking
-  # end
+  def new
+    @booking = Booking.new
+    # authorize @booking
+  end
 
   # perform create action
   def create
-    @booking = Booking.new(booking_params)
-    authorize @booking
+    @booking = Booking.new
+    # authorize @booking
+    @booking.event = @event
+    @booking.user = current_user
 
     if @booking.save
       redirect_to root_path
@@ -55,12 +57,8 @@ class BookingsController < ApplicationController
 
   private
 
-  def set_booking
-    @booking = Booking.find(params[:id])
-    authorize @booking
-  end
-
-  def booking_params
-    params.require(:booking).permit(:title, :user_id, :description, :sport_id, :start, :end)
+  def set_event
+    @event = Event.find(params[:event_id])
+    authorize @event
   end
 end
