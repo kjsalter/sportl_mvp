@@ -1,1 +1,27 @@
 // Your footer style
+.footer {
+  background-color: $brand-color;
+  height: 80px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.footer-items{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.item{
+  margin: 10px;
+}
+
+.footer-icon{
+  margin: 20px;
+  font-size: 30px;
+}
