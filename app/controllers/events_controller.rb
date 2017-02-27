@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_event, only: [:edit, :update, :destroy, :show]
+
   # list all animals
   def index
     @events = Event.all
@@ -13,8 +15,11 @@ class EventsController < ApplicationController
   # perform create action
   def create
     @event = Event.new(event_params)
+    @event.user = current_user
     if @event.save
-      redirect_to root_path
+      redirect_to events_path
+    else
+      render :new
     end
   end
 
@@ -29,7 +34,9 @@ class EventsController < ApplicationController
   def update
   end
 
-  def destory
+  def destroy
+    @event.destroy
+    redirect_to events_path
   end
 
   private
