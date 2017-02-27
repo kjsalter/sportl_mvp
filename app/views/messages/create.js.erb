@@ -1,0 +1,15 @@
+
+
+  var new_message = $("<%= j render 'messages/show', message: @message, user: @message.user %>").hide();
+
+  $('.messages').append(new_message);
+
+  new_message.slideDown();
+
+
+  // Reset the form
+  $('.new_message').html("<%= j render 'messages/form', message: Message.new, conversation: @conversation %>");
+
+
+
+
