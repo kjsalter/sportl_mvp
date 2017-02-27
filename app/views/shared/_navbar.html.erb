@@ -9,7 +9,7 @@
         <%= link_to "Sportl.", root_path, id: "logo-name"%>
       </div>
       <div class="navbar-wagon-item" style="margin-left: 20px">
-        <%= link_to "find a player", "#" %>
+        <%= link_to "find a player", new_event_path %>
       </div>
     </div>
   <% else %>
@@ -70,7 +70,7 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "#" do %>
+              <%= link_to root_path do %>
                 <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
               <% end %>
             </li>
