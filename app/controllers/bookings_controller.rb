@@ -22,7 +22,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
 
     if @booking.save
-      redirect_to root_path
+      redirect_to booking_path(@booking)
     else
       render :new
     end
@@ -30,6 +30,7 @@ class BookingsController < ApplicationController
 
   # display particular booking
   def show
+    @booking = Booking.find(params[:id])
   end
 
   # accept the booking
@@ -58,7 +59,7 @@ class BookingsController < ApplicationController
   private
 
   def set_event
-    @event = Event.find(params[:event_id])
+    @event = Event.find(params[:id])
     authorize @event
   end
 end

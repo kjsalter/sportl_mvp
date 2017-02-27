@@ -1,0 +1,32 @@
+<div class="brand-wrapper">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>
+          You have requested a place on <%= link_to @booking.event.title, event_path(@booking.event) %>
+        </h2>
+      </div>
+      <div class="col-xs-4">
+        <%= @booking.event.start.strftime("%d-%m-%Y") %>
+      </div>
+      <div class="col-xs-4">
+        <%= @booking.event.description.capitalize %>
+      </div>
+      <div class="col-xs-4">
+        You are playing <%= @booking.event.sport.name %>
+      </div>
+      <div class="col-xs-12">
+        Event leader <%= @booking.event.user.first_name + " " + @booking.event.user.last_name %>
+
+      <% if @booking.booking_state == 0 %>
+        needs to review your request to join
+      <% elsif @booking.booking_state == 1 %>
+        has accepted your request to join
+      <% elsif @booking.booking_state == 2 %>
+        has denied your request to join
+      <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
