@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
+gem 'geocoder'
 gem 'pundit'
 gem 'rails', '5.0.1'
 gem 'puma'
