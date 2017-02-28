@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :events
   has_many :events, through: :bookings
   has_many :bookings
+  has_many :sports
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,6 +13,9 @@ class User < ApplicationRecord
   has_many :conversations, dependent: :destroy
   has_many :messages, through: :conversations, dependent: :destroy
   has_attachment :photo
+
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
 
   def self.find_for_facebook_oauth(auth)
     user_params = auth.slice(:provider, :uid)
