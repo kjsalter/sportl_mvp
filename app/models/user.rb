@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :conversations, dependent: :destroy
+  has_many :messages, through: :conversations, dependent: :destroy
   has_attachment :photo
 
   def self.find_for_facebook_oauth(auth)
