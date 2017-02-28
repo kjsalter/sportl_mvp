@@ -56,7 +56,7 @@
         <div class="dropdown">
 
 
-          <%= link_to "username", "#", class: "dropdown-toggle", id: "username-link", "data-toggle" => "dropdown" %>
+          <%= link_to @user.username, "#", class: "dropdown-toggle", id: "username-link", "data-toggle" => "dropdown" %>
           <% avatar_url = current_user.facebook_picture_url || "http://placehold.it/30x30" %>
           <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
 

@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>My requests</h2>
+  <div class="row">
+    <% current_user.event_bookings.each do |booking| %>
+    <div class="col-xs-12 col-md-6">
+      <div class="card">
+        <div class="sport-image">
+          <%= image_tag ("sports/" + booking.event.sport.name + ".png"), style: "width: 15vmin" %>
+        </div>
+        <div class="card-info">
+          <h3><%= booking.event.title %></h3>
+          <p><%= booking.event.start %></p>
+          <br>
+          <h3><%= booking.booking_state %></h3>
+        </div>
+        <div class="right-side">
+          <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+          <%= image_tag avatar_url, class: "avatar-large" %>
+        </div>
+        <% if booking.pending? %>
+          <div class="bottom-buttons">
+            <%= simple_form_for(booking) do |f| %>
+              <%= f.hidden_field :booking_state, value: 1 %>
+              <%= f.button :submit, "Accept!" %>
+            <% end %>
+
+            <%= simple_form_for(booking) do |f| %>
+              <%= f.hidden_field :booking_state, value: 2 %>
+              <%= f.button :submit, "Deny!" %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to "", profile_path(booking.user), class:"card-link-request" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
