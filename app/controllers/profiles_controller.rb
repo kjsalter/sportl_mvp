@@ -21,7 +21,7 @@ skip_after_action :verify_authorized
     @user.username = params[:user][:username]
     @user.bio = params[:user][:bio]
     @user.photo = params[:user][:photo]
-    @user.sports = params[:user][:likes]
+    # @user.sports = params[:user][:likes]
 
 
     if @user.save

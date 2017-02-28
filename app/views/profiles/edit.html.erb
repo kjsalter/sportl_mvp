@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
 
-      <%= link_to profile_path do %>
+      <%= link_to my_profile_path do %>
      <h1> <i class="fa fa-undo" aria-hidden="true"></i> </h1>
       <% end %>
 
@@ -10,7 +10,7 @@
       <h1 class="text-center">Edit your profile</h1>
 
       <div class="edit-form">
-        <%= simple_form_for @user, url: profile_edit_path  do |f| %>
+        <%= simple_form_for @user, url: my_profile_edit_path  do |f| %>
         <%= f.input :username, placeholder: "How users will see you" %>
         <%= f.input :first_name %>
         <%= f.input :last_name %>
