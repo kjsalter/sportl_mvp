@@ -1,10 +1,11 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_event, only: [:edit, :update, :destroy, :show]
+  skip_after_action :verify_policy_scoped, only: :index
 
   # list all animals
   def index
-    @events = policy_scope(Event)
+    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
   end
 
   # create a new animal
