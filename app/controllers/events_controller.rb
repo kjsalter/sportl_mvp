@@ -1,18 +1,18 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_event, only: [:edit, :update, :destroy, :show]
+  skip_after_action :verify_policy_scoped, only: :index
 
   # list all animals
   def index
-    @events = policy_scope(Event)
 
-    @events = Event.where.not(latitude: nil, longitude: nil)
+    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
+
   end
 
   # create a new animal
