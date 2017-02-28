@@ -1,3 +1,4 @@
+<!-- tabs for each section -->
 <div class="profile-dashboard">
   <ul class="nav nav-tabs tabbles">
     <li role="presentation" class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
@@ -7,12 +8,15 @@
   </ul>
 </div>
 
+<!-- where each tab goes -->
 <div class="tab-content">
 
+<!-- first page is always profile (hence active tab) -->
   <div role="tabpanel" class="tab-pane active" id="profile">
     <%= render "profiles/profile_page" %>
   </div>
 
+<!-- created events page -->
   <div role="tabpanel" class="tab-pane" id="events">
     <div class="container">
       <div class="clear-header">
@@ -34,10 +38,12 @@
     </div>
   </div>
 
+<!-- joined games page -->
   <div role="tabpanel" class="tab-pane" id="bookings">
     <%#= render "profiles/my_bookings" %>
   </div>
 
+<!-- requested games page -->
   <div role="tabpanel" class="tab-pane" id="requests">
     <%#= render "profiles/my_requests" %>
   </div>
