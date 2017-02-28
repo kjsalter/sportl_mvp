@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_event, only: [:create, :show]
+  before_action :set_event, only: [:create]
 
   # list all events
   def index
@@ -31,35 +31,22 @@ class BookingsController < ApplicationController
   # display particular booking
   def show
     @booking = Booking.find(params[:id])
+    authorize @booking
   end
 
-  # accept the booking
-  def accept_booking
-    # booking_state = 1 means accepted
-    @booking.booking_state = 1
-
-    if @booking.save
-      redirect_to root_path
-    else
-      render :new
-    end
-  end
-
-  def deny_booking
-    # booking_state = 2 means denied
-    @booking.booking_state = 2
-
-    if @booking.save
-      redirect_to root_path
-    else
-      render :new
-    end
+  def update
+    @booking.update(booking_params)
+    redirect_to booking_path(@booking)
   end
 
   private
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     authorize @event
+  end
+
+  def booking_params
+    params.require(:booking).permit(:booking_state)
   end
 end
