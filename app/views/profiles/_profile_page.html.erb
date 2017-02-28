@@ -44,7 +44,7 @@
             <h1>Hey, I'm <%= @user.first_name %>!</h1>
             <h5><%#= @user.location %> LOCATION TO BE ADDED· <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
             <% if @user == current_user %>
-              <%= link_to profile_edit_path(@user) do %>
+              <%= link_to my_profile_edit_path do %>
                 <p>Edit profile <i class="fa fa-pencil" aria-hidden="true" style="font-size: 20px"></i> </p>
               <% end %>
             <% end %>
