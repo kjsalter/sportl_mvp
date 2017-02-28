@@ -17,17 +17,33 @@
     <div class="col-xs-10 col-xs-offset-1">
       <div id="map" style="width: 100%; height: 375px;"></div>
 
-      <script>
+       <script>
         <% content_for(:after_js) do %>
           <%= javascript_tag do %>
-            $(document).ready(function() {
+            $(document).on('ready', function() {
               var handler = Gmaps.build('Google');
-              handler.buildMap({ internal: { id: 'map' } }, function() {
-                markers = handler.addMarkers(<%= raw @hash.to_json %>);
-                handler.bounds.extendWith(markers);
-                handler.fitMapToBounds();
-                handler.getMap().setZoom(16);
-              });
+              handler.buildMap({ internal: { id: 'map' } }, function(){
+
+               <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
+                 markers = handler.addMarkers([
+                     {
+                       lat: <%= event.latitude %>,
+                       lng: <%= event.longitude %>,
+                       picture: {
+                         url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                         width:  50,
+                         height: 50
+                       }
+                     }
+                   ]);
+                 <% end %>
+
+               markers.forEach(function(marker) {
+                 handler.bounds.extendWith(marker);
+               });
+               handler.fitMapToBounds();
+              handler.getMap().setZoom(16);
+             });
             });
           <% end %>
         <% end %>
