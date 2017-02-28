@@ -1,3 +1,13 @@
+<% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url.gsub("square", "large") || "http://placehold.it/30x30" ) %>
+
+<div class="wrapper">
+  <div class="wrapper-contents">
+    <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
+    <h2 class="text-center"><%= @user.first_name %></h2>
+    <h5 class="text-center"><%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+  </div>
+</div>
+
 <div class="page-container">
 
   <div class="container main-content">
@@ -7,7 +17,6 @@
         <div>
           <!-- profile picture -->
           <div class="square-image">
-            <% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url || "http://placehold.it/30x30" ) %>
             <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
           </div>
 

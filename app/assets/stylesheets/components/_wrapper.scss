@@ -1,0 +1,19 @@
+.wrapper {
+  background-color: RGBA(63, 138, 145, 0.5);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  flex: 0 1 auto;
+  padding: 20px;
+  h2 {
+    font-family: $base-font;
+  }
+}
+
+.wrapper-contents img {
+  border-radius: 50%;
+  border: 5px solid white;
+}
