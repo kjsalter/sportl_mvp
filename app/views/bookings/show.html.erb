@@ -16,16 +16,8 @@
         You are playing <%= @booking.event.sport.name %>
       </div>
       <div class="col-xs-12">
-        Event leader <%= "#{@booking.event.user.first_name} #{@booking.event.user.last_name}" %>
-
-      <% if @booking.booking_state == 0 %>
-        needs to review your request to join
-      <% elsif @booking.booking_state == 1 %>
-        has accepted your request to join
-      <% elsif @booking.booking_state == 2 %>
-        has denied your request to join
-      <% end %>
-
+        <!-- Event leader <%# @booking.event.user.first_name + " " + @booking.event.user.last_name %> -->
+        Status: <%= @booking.booking_state %>
       </div>
     </div>
   </div>
