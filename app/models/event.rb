@@ -1,8 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
   belongs_to :sport
-
-
+  geocoded_by :postcode
+  after_validation :geocode, if: :postcode_changed?
 
   def self.search_event(sport, start_date, end_date, location, radius)
 
@@ -34,7 +34,6 @@ class Event < ApplicationRecord
 
     return search_by_sports_dates_location
   end
-
 
   def dates?(start_date, end_date)
     ((start_date <= self.start) && (self.start <= end_date)) && ((start_date <= self.end) && (self.end <= end_date))

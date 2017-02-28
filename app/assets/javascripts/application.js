@@ -6,5 +6,6 @@
 //= require cloudinary/jquery.cloudinary
 //= require attachinary
 //= require dhtmlxcalendar
+//= require underscore
+//= require gmaps/google
 //= require_tree .
-

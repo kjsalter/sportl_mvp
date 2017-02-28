@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
-before_action :authenticate_user!, only: [:edit, :update]
+skip_after_action :verify_authorized
+
   def my_profile
     @user = current_user
   end

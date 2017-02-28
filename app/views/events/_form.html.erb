@@ -1,12 +1,16 @@
-<div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
-    <%= simple_form_for @event do |f| %>
-      <%= f.association :sport, collection: Sport.order('name ASC')  %>
-      <%= f.input :title %>
-      <%= f.input :description, as: :text %>
-      <%= f.input :start %>
-      <%= f.input :end %>
-      <%= f.button :submit, class: "btn btn-primary" %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="edit-form">
+        <%= simple_form_for @event do |f| %>
+          <%= f.association :sport, collection: Sport.order('name ASC')  %>
+          <%= f.input :title %>
+          <%= f.input :description, as: :text %>
+          <%= f.input :start %>
+          <%= f.input :end %>
+          <%= f.button :submit, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

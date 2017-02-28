@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  get 'profiles/show'
 
   devise_for :users,
   controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
 
   get "/my_profile", to: 'profiles#my_profile', as: "profile"
+  get "/my_bookings", to: 'profiles#my_bookings', as: "bookings"
   get "/profile/edit", to: 'profiles#edit'
+  get "/profile/:id", to: 'profiles#show'
 
   mount Attachinary::Engine => "/attachinary"
 

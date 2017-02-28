@@ -5,7 +5,15 @@ class EventsController < ApplicationController
 
   # list all animals
   def index
+
     @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+
+    @hash = Gmaps4rails.build_markers(@events) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+    end
+
   end
 
   # create a new animal
@@ -31,6 +39,13 @@ class EventsController < ApplicationController
   def show
     @booking = Booking.new
     # authorize @booking
+
+    @events = [@event]
+    @hash = Gmaps4rails.build_markers(@events) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+    end
   end
 
   # edit event details
@@ -59,7 +74,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :sport_id, :start, :end)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start, :end)
   end
 
 end

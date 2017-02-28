@@ -42,13 +42,13 @@
 }
 
 /* Navbar standard link */
-.navbar-wagon-link {
-  color: $brand-success;
+
+.navbar-wagon-link a {
+  color: $turq;
   font-size: 16px;
-}
-.navbar-wagon-link:hover {
-  color: #da552f;
-  text-decoration: none;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 /* Navbar right button */
@@ -139,4 +139,8 @@
 }
 #logo-name:hover{
   text-decoration: none;
+}
+
+#username-link {
+  margin-right: 3px;
 }
