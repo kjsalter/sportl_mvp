@@ -1,0 +1,45 @@
+<div class="profile-dashboard">
+  <ul class="nav nav-tabs tabbles">
+    <li role="presentation" class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+    <li role="presentation"><a href="#events" data-toggle="tab">Created Events</a></li>
+    <li role="presentation"><a href="#bookings" data-toggle="tab">Joined games</a></li>
+    <li role="presentation"><a href="#requests" data-toggle="tab">Requests to join</a></li>
+  </ul>
+</div>
+
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="profile">
+    <%= render "profiles/profile_page" %>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="events">
+    <div class="container">
+      <div class="clear-header">
+        <h1>Created Events</h1>
+      </div>
+      <div class="row">
+        <% @user.events.each do |event| %>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card" style="background-color: $off-white">
+              <div class="card-description">
+                <h2> <%= event.title %></h2>
+                <p> <%= event.description.truncate_words(10) %> </p>
+              </div>
+              <%= link_to "", event_show_path(event), class:"card-link"%>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="bookings">
+    <%#= render "profiles/my_bookings" %>
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="requests">
+    <%#= render "profiles/my_requests" %>
+  </div>
+
+</div>

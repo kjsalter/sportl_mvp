@@ -6,4 +6,44 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-sports = Sport.create([{name: "Basketball"}, {name: "Football"}, {name: "Golf"}])
+Sport.destroy_all
+
+sports_list = [
+  "american-football",
+  "archery",
+  "badminton",
+  "baseball",
+  "basketball",
+  "bowling",
+  "boxing",
+  "chess",
+  "cricket",
+  "curling",
+  "cycling",
+  "darts",
+  "football",
+  "golf",
+  "hockey",
+  "ice-hockey",
+  "ice-skating",
+  "karate",
+  "kayaking",
+  "lacrosse",
+  "netball",
+  "roller-skating",
+  "rounders",
+  "rowing",
+  "rugby",
+  "sailing",
+  "skateboarding",
+  "surfing",
+  "table-tennis",
+  "tennis",
+  "ultimate-frisbee",
+  "volleyball",
+  "waterpolo",
+]
+
+sports_list.each do |s|
+  Sport.create(name: s)
+end

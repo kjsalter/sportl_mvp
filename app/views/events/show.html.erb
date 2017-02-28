@@ -5,6 +5,8 @@
     <p><%= @event.description %></p>
   </div>
 
+  <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to 'Edit', edit_event_path(@event) %></li>
   <div class="col-xs-12">
     <%= render 'bookings/form' %>
   </div>
