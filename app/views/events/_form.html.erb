@@ -7,11 +7,26 @@
           <%= f.input :title %>
           <%= f.input :postcode %>
           <%= f.input :description, as: :text %>
-          <%= f.input :start %>
-          <%= f.input :end %>
+          <div class="form-group date-picker">
+            <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+          </div>
+
+          <div class="form-group date-picker">
+            <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+          </div>
           <%= f.button :submit, class: "btn btn-primary" %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <script>
+    $( function() {
+      var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+      myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+      myCalendar.hideTime();
+    });
+  </script>
+<% end %>
