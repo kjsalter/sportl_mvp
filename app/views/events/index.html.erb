@@ -11,7 +11,7 @@
             <p><%= event.start %></p>
           </div>
           <div class="right-side">
-           <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+            <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
             <%= image_tag avatar_url, class: "avatar" %>
           </div>
           <%= link_to "", event_path(event), class:"card-link" %>
@@ -19,4 +19,21 @@
       </div>
     <% end %>
   </div>
+
+  <div id="map" style="width: 100%; height: 375px;"></div>
+
+   <script>
+     <% content_for(:after_js) do %>
+       <%= javascript_tag do %>
+         $(document).ready(function() {
+           var handler = Gmaps.build('Google');
+           handler.buildMap({ internal: { id: 'map' } }, function() {
+             markers = handler.addMarkers(<%= raw @hash.to_json %>);
+             handler.bounds.extendWith(markers);
+             handler.fitMapToBounds();
+           });
+         });
+       <% end %>
+     <% end %>
+   </script>
 </div>
