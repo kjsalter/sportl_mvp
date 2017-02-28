@@ -16,7 +16,7 @@
         You are playing <%= @booking.event.sport.name %>
       </div>
       <div class="col-xs-12">
-        Event leader <%= @booking.event.user.first_name + " " + @booking.event.user.last_name %>
+        Event leader <%= "#{@booking.event.user.first_name} #{@booking.event.user.last_name}" %>
 
       <% if @booking.booking_state == 0 %>
         needs to review your request to join
