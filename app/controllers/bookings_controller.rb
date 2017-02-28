@@ -34,27 +34,9 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
-  # accept the booking
-  def accept_booking
-    # booking_state = 1 means accepted
-    @booking.booking_state = 1
-
-    if @booking.save
-      redirect_to root_path
-    else
-      render :new
-    end
-  end
-
-  def deny_booking
-    # booking_state = 2 means denied
-    @booking.booking_state = 2
-
-    if @booking.save
-      redirect_to root_path
-    else
-      render :new
-    end
+  def update
+    @booking.update(booking_params)
+    redirect_to booking_path(@booking)
   end
 
   private
@@ -62,5 +44,9 @@ class BookingsController < ApplicationController
   def set_event
     @event = Event.find(params[:event_id])
     authorize @event
+  end
+
+  def booking_params
+    params.require(:booking).permit(:booking_state)
   end
 end
