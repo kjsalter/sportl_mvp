@@ -28,7 +28,7 @@ class EventsController < ApplicationController
 
     @event.user = current_user
     if @event.save
-      redirect_to event_path
+      redirect_to event_path(@event)
     else
       render :new
     end
