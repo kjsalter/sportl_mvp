@@ -12,4 +12,8 @@ class BookingPolicy < ApplicationPolicy
   def show?
     record.user == user || record.event.user # Only booking creator can view it
   end
+
+  def update?
+    true
+  end
 end

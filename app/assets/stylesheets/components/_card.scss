@@ -29,4 +29,16 @@
   opacity: 0.1;
 }
 
-
+.card-link-request {
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  right: 0;
+  width: 100%;
+  z-index:2;
+  background: black;
+  opacity: 0;
+}
+.card-link:hover{
+  opacity: 0.1;
+}
