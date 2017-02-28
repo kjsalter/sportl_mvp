@@ -29,6 +29,11 @@ skip_after_action :verify_authorized
     else
       render :new
     end
-
   end
+
+  private
+
+  # def booking_params
+  #   params.require(:profile).permit(:booking_state)
+  # end
 end

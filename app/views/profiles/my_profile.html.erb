@@ -25,12 +25,16 @@
       <div class="row">
         <% @user.events.each do |event| %>
           <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card" style="background-color: $off-white">
-              <div class="card-description">
-                <h2> <%= event.title %></h2>
-                <p> <%= event.description.truncate_words(10) %> </p>
+            <div class="card">
+              <div class="sport-image">
+                <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 15vmin" %>
               </div>
-              <%= link_to "", event_show_path(event), class:"card-link"%>
+              <div class="card-info">
+                <h3><%= event.title %></h3>
+                <p><%= event.start %></p>
+                <!-- <p> <%# event.description.truncate_words(5) %> </p> -->
+              </div>
+              <%= link_to "", event_path(event), class:"card-link" %>
             </div>
           </div>
         <% end %>

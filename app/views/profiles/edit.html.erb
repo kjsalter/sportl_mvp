@@ -10,7 +10,10 @@
       <h1 class="text-center">Edit your profile</h1>
 
       <div class="edit-form">
-        <%= simple_form_for @user, url: my_profile_edit_path  do |f| %>
+
+
+        <%= simple_form_for @user, url: my_profile_path do |f| %>
+
         <%= f.input :username, placeholder: "How users will see you" %>
         <%= f.input :first_name %>
         <%= f.input :last_name %>
