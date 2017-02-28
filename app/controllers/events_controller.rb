@@ -53,12 +53,13 @@ class EventsController < ApplicationController
   end
 
   def update
-   if @event.update(event_params)
-     redirect_to event_path(@event)
-   else
-     render :new
-   end
- end
+    if @event.update(event_params)
+      redirect_to event_path(@event)
+    else
+      render :new
+    end
+  end
+
 
   def destroy
     @event.destroy

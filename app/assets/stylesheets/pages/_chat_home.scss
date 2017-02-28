@@ -1,0 +1,77 @@
+.clear-header {
+  margin-top: 2vmin;
+  padding: 2.5vmin;
+  border-bottom: 1px solid lightgray;
+  h1, h2 {
+    font-family: "Raleway";
+    font-weight: lighter;
+  }
+  h1 {
+    font-size: 4.5vmin;
+  }
+  h2 {
+    font-size: 3.5vmin;
+  }
+}
+
+.padded-boxling {
+  padding: 2.5vmin;
+  a {
+    font-size: 3vmin;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  h1, h2 {
+    font-family: "Raleway";
+    font-weight: lighter;
+  }
+  h1 {
+    font-size: 4.5vmin;
+  }
+}
+
+.spaced-elements {
+  display: block;
+  padding: 2.5vmin;
+  border-bottom: 1px solid RGBA(211, 211, 211, 0.5);
+  i {
+    padding: 1vmin;
+    font-size: 2.5vmin;
+    color: $brand-success;
+  }
+}
+
+.smaller-items {
+  padding-left: 2.5vmin;
+  padding-top: 1.5vmin;
+  padding-bottom: 2.5vmin;
+  i {
+    padding: 1vmin;
+    font-size: 2.5vmin;
+    color: $brand-success;
+  }
+}
+
+.messages {
+  padding: 2vmin;
+}
+
+.message {
+  display: flex;
+  justify-content: space-between;
+  .user_name {
+    font-weight: bold;
+  }
+}
+
+.clear-form {
+  margin:auto;
+  width: 70vw;
+  margin-bottom: 25px;
+}
+
+.message {
+  border-bottom: 1px solid RGBA(211, 211, 211, 0.1);
+  padding: 3px;
+}
