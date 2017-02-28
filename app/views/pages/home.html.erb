@@ -20,33 +20,33 @@
       <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" />
     </div>
     <%= submit_tag("Search", class: "btn btn-success") %>
-        <div id="slider"></div>
+    <div id="slider"></div>
 
     <% end %>
 
 
 
   </div>
-      <!-- <div id="slider"></div> -->
+  <!-- <div id="slider"></div> -->
 
 </div>
 
 
 
 <% content_for(:after_js) do %>
-  <script>
-    $( function() {
-      var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
-      myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+<script>
+  $( function() {
+    var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
 
-      console.log('hey mate');
-      $( "#slider" ).slider({
-        range: true,
-        min: 0,
-        max: 1439,
-        values: [540, 1020],
-        step:5
-      });
+    console.log('hey mate');
+    $( "#slider" ).slider({
+      range: true,
+      min: 0,
+      max: 1439,
+      values: [540, 1020],
+      step:5
     });
-  </script>
+  });
+</script>
 <% end %>
