@@ -11,14 +11,10 @@
             <p><%= event.start %></p>
           </div>
           <div class="right-side">
-           <%# #avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
-           <p>PIC</p>
-            <%# avatar_url = "http://placehold.it/30x30" %>
-            <%# image_tag avatar_url, class: "avatar" %>
+           <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+            <%= image_tag avatar_url, class: "avatar" %>
           </div>
-          <!-- <div class="card-link"> -->
-            <%# link_to "", event_path(event) %>
-          <!-- </div> -->
+          <%= link_to "", event_path(event), class:"card-link" %>
         </div>
       </div>
     <% end %>
