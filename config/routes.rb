@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
 
-  get "/my_profile", to: 'profiles#my_profile', as: "profile"
-  get "/my_bookings", to: 'profiles#my_bookings', as: "bookings"
-  get "/profile/edit", to: 'profiles#edit'
-  get "/profile/:id", to: 'profiles#show'
+  get "/my_bookings", to: 'profiles#my_bookings'
+  get "/my_requests", to: 'profiles#my_requests'
+
+  get '/my_profile', to: 'profiles#my_profile'
+  get "my_profile/edit", to: "profiles#edit"
+  patch "my_profile/", to: "profiles#update"
+  get "/profile/:id", to: "profiles#show", as: "profile"
 
   mount Attachinary::Engine => "/attachinary"
 
