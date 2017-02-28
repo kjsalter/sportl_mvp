@@ -1,0 +1,32 @@
+.card{
+  // position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $off-white;
+  height: 180px;
+  padding: 20px;
+  margin: 20px;
+  position: relative;
+}
+
+.card-info{
+  flex: 1 0 auto;
+  margin-left: 20px;
+}
+
+.card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index:2;
+  background: black;
+  opacity: 0;
+}
+.card-link:hover{
+  opacity: 0.1;
+}
+
+

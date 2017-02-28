@@ -1,16 +1,17 @@
-<div class="container text-center">
+
+<div class="container">
   <div class="row">
     <div class="col-xs-12">
       <h1><%= @event.title %> | <%= @event.sport.name %></h1>
-      <h3>postcode: <%= @event.postcode %></h3>
+      <h3>location (to be added)</h3>
       <p><%= @event.description %></p>
     </div>
 
-
-  <div class="col-xs-12">
-    <%= render 'bookings/form' %>
     <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
     <%= link_to 'Edit', edit_event_path(@event) %></li>
+    <div class="col-xs-12">
+      <%= render 'bookings/form' %>
+    </div>
   </div>
 
     <div class="col-xs-10 col-xs-offset-1">
