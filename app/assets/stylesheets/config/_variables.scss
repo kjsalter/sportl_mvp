@@ -1,15 +1,19 @@
 /* -------------------------------------
  * Fonts
  * ------------------------------------- */
-// Google fonts
-@import url('https://fonts.googleapis.com/css?family=Cabin:400,700|Raleway:300,400,700');
-$header-font: 'Raleway', sans-serif;
-$base-font: 'Cabin', sans-serif;
+ // Local fonts (uncomment following lines)
+ @font-face {
+   font-family: "Futura";
+   src: font-url('Futura-Medium.ttf') format('truetype');
+ }
 
-// Local fonts (uncomment following lines)
-// @font-face {
-//   font-family: "Font Name";
-//   src: font-url('FontFile.eot');
+// Google fonts
+@import url('https://fonts.googleapis.com/css?family=Cabin:400,700');
+$header-font: 'Cabin', sans-serif;
+$base-font: 'Futura', sans-serif;
+
+
+
 //   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
 //        font-url('FontFile.woff') format('woff'),
 //        font-url('FontFile.ttf') format('truetype')
@@ -25,7 +29,6 @@ $base-height: 1.4;
  * ------------------------------------- */
 // Scheme
 $brand-color: #EE6D66;
-
 $turq: #3F8A91;
 $off-white: #F9F8F8;
 $light-grey: #C2CCCD;

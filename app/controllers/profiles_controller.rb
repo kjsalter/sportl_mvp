@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
 before_action :authenticate_user!, only: [:edit, :update]
   def my_profile
     @user = current_user
+    authorize @user
   end
 
   def show
