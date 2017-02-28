@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   has_many :events
-  has_many :events, through: :bookings
+  has_many :booking_events, through: :bookings, source: :events
   has_many :bookings
+  has_many :event_bookings, through: :events, source: :bookings
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
