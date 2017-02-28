@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_event, only: [:create, :show]
+  before_action :set_event, only: [:create]
 
   # list all events
   def index
@@ -31,6 +31,7 @@ class BookingsController < ApplicationController
   # display particular booking
   def show
     @booking = Booking.find(params[:id])
+    authorize @booking
   end
 
   # accept the booking
@@ -59,7 +60,7 @@ class BookingsController < ApplicationController
   private
 
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     authorize @event
   end
 end

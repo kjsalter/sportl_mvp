@@ -39,8 +39,7 @@ class EventsController < ApplicationController
     @booking = Booking.new
     # authorize @booking
 
-    @events = Event.where.not(latitude: nil, longitude: nil)
-
+    @events = [@event]
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
