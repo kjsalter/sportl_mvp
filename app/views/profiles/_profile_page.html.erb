@@ -1,5 +1,6 @@
 <% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url.gsub("square", "large") || "http://placehold.it/30x30" ) %>
 
+<!-- header wrapper for profile page -->
 <div class="wrapper">
   <div class="wrapper-contents">
     <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
@@ -8,22 +9,24 @@
   </div>
 </div>
 
-<div class="page-container">
+<!-- whole page -->
 
+<!-- container for the main content  -->
   <div class="container main-content">
     <div class="row">
+
       <!-- user profile sidebar -->
-      <div class="col-md-3 hidden-xs hidden-sm flexbox-column">
+      <div class="col-sm-3 hidden-xs hidden-sm flexbox-column">
         <div>
           <!-- profile picture -->
-          <div class="square-image">
-            <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
-          </div>
+          <!-- <div class="square-image"> -->
+            <%#= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
+          <!-- </div> -->
 
           <!-- about me -->
           <div class="panel">
-            <div class="panel-header text-center"><h4>About Me</h4></div>
-              <div class="panel-body">
+            <div class="panel-header about-me-head text-center"><h4>About Me</h4></div>
+              <div class="panel-body about-me-body hide-me">
                 <dl>
                   <dt style="padding: 10px 0px">Favourite Sports</dt>
                     <%# if @user.sports %>
@@ -36,22 +39,38 @@
                 </dl>
               </div>
           </div>
+
+          <% content_for(:after_js) do %>
+            <%= javascript_tag do %>
+              $(document).ready(function() {
+                $('.about-me-head').click(function() {
+                  $('.about-me-body').slideDown( "slow", function() {});
+                });
+              });
+          <% end %>
+        <% end %>
+
         </div>
       </div>
 
       <!-- Main Profile -->
-      <div class="col-sm-9 white-main">
+      <div class="col-sm-5">
 
         <!-- small screen only profile pic -->
-        <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img">
-          <%= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
-        </div>
+        <!-- <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img"> -->
+          <%#= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
+        <!-- </div> -->
 
         <div class="info-bit">
           <!-- profile header -->
           <div>
             <h1>Hey, I'm <%= @user.first_name %>!</h1>
-            <h5><%#= @user.location %> LOCATION TO BE ADDED· <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+              <% if @user.address  %>
+                <% location = @user.address %>
+              <% else %>
+                <% location = "no location to show" %>
+              <% end %>
+            <h5> <%= location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
             <% if @user == current_user %>
               <%= link_to my_profile_edit_path do %>
                 <p>Edit profile <i class="fa fa-pencil" aria-hidden="true" style="font-size: 20px"></i> </p>
@@ -71,6 +90,32 @@
         </div>
 
       </div>
+
+      <!-- profile page map -->
+      <div class="col-sm-4">
+        <div class="map">
+          <div id="map" style="width: 100%; height: 600px;"></div>
+
+          <% content_for(:after_js) do %>
+            <%= javascript_tag do %>
+              $(document).ready(function() {
+                var handler = Gmaps.build('Google');
+                handler.buildMap({ internal: { id: 'map' } }, function() {
+                  markers = handler.addMarkers(<%= raw @hash.to_json %>);
+                  handler.bounds.extendWith(markers);
+                  handler.fitMapToBounds();
+                  if (markers.length == 0) {
+                    handler.getMap().setZoom(2);
+                  } else if (markers.length == 1) {
+                    handler.getMap().setZoom(14);
+                  }
+                });
+              });
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+

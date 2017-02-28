@@ -1,3 +1,7 @@
+.main-content {
+  padding: 30px 0px;
+}
+
 .page-container {
   padding: 60px;
   margin-bottom: 48px;
@@ -26,9 +30,7 @@
       width: 100%;
     }
   }
-
   .info-bit {
-    padding: 20px;
     h1, h2, h4, h5, h6, p {
       padding: 10px;
     }
@@ -60,4 +62,8 @@
   position: absolute;
   top: 10px;
   left: 10px;
+}
+
+.hide-me {
+  display: none;
 }
