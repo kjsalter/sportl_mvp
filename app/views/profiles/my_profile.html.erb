@@ -1,13 +1,14 @@
-<% if !@user.photo %>
-  <% profile_image = "http://placehold.it/30x30" %>
-  <% else %>
-  <% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
+<% if @user.photo %>
+  <% avatar_url = @user.photo.path %>
+<% elsif @user.facebook_picture_url %>
+  <% avatar_url = @user.facebook_picture_url.gsub("square", "large") %>
+<% else %>
+<% avatar_url = "http://placehold.it/30x30" %>
 <% end %>
-
 <!-- header wrapper for profile page -->
 <div class="wrapper">
   <div class="wrapper-contents">
-    <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
+    <%= cl_image_tag avatar_url, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
     <h2 class="text-center"><%= @user.first_name %></h2>
     <h5 class="text-center"><%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
   </div>
