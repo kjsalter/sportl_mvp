@@ -12,18 +12,26 @@ class Event < ApplicationRecord
 
     #search by sports
     if sport == "All sports"
-      search_by_sports = Event.all
+      search_by_sports = []
+      Event.all.each { |event| event.active? ? search_by_sports << event : 5}
     else
       sports = Sport.where(name: sport)
-      search_by_sports = Event.where(sport: sports)
+      search_prelim = Event.where(sport: sports)
+      search_by_sports = []
+      search_prelim.each {|event| event.active? ? search_by_sports << event : 5}
     end
 
     #search by dates
-    unless start_date.nil? || end_date.nil? || start_date.empty? || end_date.empty?
-      search_by_sports_dates = []
-      search_by_sports.each { |event| event.dates?(start_date, end_date) ? search_by_sports_dates << event : 5}
-    else
+
+    if (start_date.nil? || end_date.nil?)
       search_by_sports_dates = search_by_sports
+    else
+      unless (start_date.empty? || end_date.empty?) ||
+        search_by_sports_dates = []
+        search_by_sports.each { |event| event.dates?(start_date, end_date) ? search_by_sports_dates << event : 5}
+      else
+        search_by_sports_dates = search_by_sports
+      end
     end
 
     if party_size == "Party size"
@@ -34,15 +42,19 @@ class Event < ApplicationRecord
       search_by_sports_dates.each { |event| party_size.to_i <= event.missing_player ? search_by_sports_dates_party << event : 5 }
     end
 
-    unless location.empty? || radius.empty?
-      search_by_sports_dates_party_location = []
-
-      Event.near(location, radius).each do |event|
-        search_by_sports_dates_party_location << event if search_by_sports_dates_party.include?(event)
-      end
-    else
+    if (location.nil? || radius.nil?)
       search_by_sports_dates_party_location = search_by_sports_dates_party
+    else
+      unless location.empty? || radius.empty?
+        search_by_sports_dates_party_location = []
+        Event.near(location, radius).each do |event|
+          search_by_sports_dates_party_location << event if search_by_sports_dates_party.include?(event)
+        end
+      else
+        search_by_sports_dates_party_location = search_by_sports_dates_party
+      end
     end
+
 
     return search_by_sports_dates_party_location
   end
@@ -59,6 +71,11 @@ class Event < ApplicationRecord
     self.bookings.each { |booking| self.missing_player -= booking.no_players}
     self.save
   end
+
+  def active?
+    self.active
+  end
+
 
 end
 

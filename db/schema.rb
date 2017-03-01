@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170301175430) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,12 +56,13 @@ ActiveRecord::Schema.define(version: 20170301175430) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "sport_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "postcode"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "missing_player"
+    t.boolean  "active",         default: true
     t.index ["sport_id"], name: "index_events_on_sport_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -74,6 +76,15 @@ ActiveRecord::Schema.define(version: 20170301175430) do
     t.datetime "updated_at",                      null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.integer  "sport_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_preferences_on_sport_id", using: :btree
+    t.index ["user_id"], name: "index_preferences_on_user_id", using: :btree
   end
 
   create_table "sports", force: :cascade do |t|

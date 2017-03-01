@@ -18,19 +18,12 @@ skip_after_action :verify_authorized
 
   def edit
     @user = current_user
+
   end
 
   def update
     @user = current_user
-
-    @user.first_name = params[:user][:first_name]
-    @user.last_name = params[:user][:last_name]
-    @user.username = params[:user][:username]
-    @user.bio = params[:user][:bio]
-    @user.photo = params[:user][:photo]
-    @user.address = params[:user][:address]
-    # @user.sports = params[:user][:likes]
-
+    @user.update(user_params)
 
     if @user.save
       redirect_to my_profile_path
@@ -41,7 +34,7 @@ skip_after_action :verify_authorized
 
   private
 
-  # def booking_params
-  #   params.require(:profile).permit(:booking_state)
-  # end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :username, :bio, :photo, :address, :likes, sport_ids: [])
+  end
 end
