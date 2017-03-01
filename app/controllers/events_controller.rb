@@ -23,9 +23,10 @@ class EventsController < ApplicationController
 
   # perform create action
   def create
+    params[:event][:start] = DateTime.parse(params[:start])
+    params[:event][:end] = DateTime.parse(params[:end])
     @event = Event.new(event_params)
     authorize @event
-
     @event.user = current_user
     if @event.save
       redirect_to event_path(@event)
@@ -61,7 +62,7 @@ class EventsController < ApplicationController
 
 
   def destroy
-    @event.destroy
+    @event.update(active: false)
     redirect_to events_path
   end
 

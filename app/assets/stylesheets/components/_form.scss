@@ -1,3 +1,28 @@
 .edit-form {
   margin: 30px 0px;
 }
+
+
+.datepicker table tr td.active.active,
+.datepicker table tr td.active.highlighted.active {
+   background-color: $turq;
+}
+
+.bootstrap-datetimepicker-widget table td.today:before {
+    border-bottom-color: $turq;
+}
+
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+    background: #31666b;
+    text-shadow: none;
+}
+
+.datepicker .glyphicon-chevron-right {
+  color: $brand-color;
+}
+
+.datepicker .glyphicon-chevron-left {
+  color: $brand-color;
+}
+

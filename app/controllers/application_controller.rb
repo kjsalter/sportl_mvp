@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-
   include Pundit
 
   # Pundit: white-list approach.
@@ -20,4 +19,11 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+  # If your model is called User
+  # def after_sign_in_path_for(resource_or_scope)
+  #   raise
+  #   session["user_return_to"]
+  #   # current_user
+  # end
 end
