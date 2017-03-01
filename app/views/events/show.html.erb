@@ -5,6 +5,7 @@
       <h1><%= @event.title %> | <%= @event.sport.name %></h1>
       <h3>location (to be added)</h3>
       <p><%= @event.description %></p>
+      <p> <%= @event.missing_player %></p>
     </div>
 
     <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |

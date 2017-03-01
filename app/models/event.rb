@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   geocoded_by :postcode
   after_validation :geocode, if: :postcode_changed?
 
-  def self.search_event(sport, start_date, end_date, location, radius)
+  def self.search_event(sport, start_date, end_date, party_size, location, radius)
 
     #search by sports
     if sport == "All sports"
@@ -24,16 +24,23 @@ class Event < ApplicationRecord
     end
     #   # Location
 
-    unless location.empty? || radius.empty?
-      search_by_sports_dates_location = []
-      Event.near(location, radius).each do |event|
-        search_by_sports_dates_location << event if search_by_sports_dates.include?(event)
-      end
+    if party_size == "Party size"
+      search_by_sports_dates_party = search_by_sports_dates
     else
-      search_by_sports_dates_location = search_by_sports_dates
+      search_by_sports_dates_party = []
+      search_by_sports_dates.each { |event| party_size.to_i <= event.missing_player ? search_by_sports_dates_party << event : 5 }
     end
 
-    return search_by_sports_dates_location
+    unless location.empty? || radius.empty?
+      search_by_sports_dates_party_location = []
+      Event.near(location, radius).each do |event|
+        search_by_sports_dates_party_location << event if search_by_sports_dates_party.include?(event)
+      end
+    else
+      search_by_sports_dates_party_location = search_by_sports_dates_party
+    end
+
+    return search_by_sports_dates_party_location
   end
 
   def dates?(start_date, end_date)
