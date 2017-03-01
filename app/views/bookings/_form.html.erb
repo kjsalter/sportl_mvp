@@ -1,3 +1,4 @@
 <%= simple_form_for [@event, @booking] do |f| %>
-  <%= f.submit value: "Request to Join" %>
+  <%= f.input :no_players, label: 'Size of party', collection: 1..(@event.missing_player), default: 1, method: :update%>
+          <%= f.button :submit, class: "btn btn-primary", value: "Request to join!" %>
 <% end %>

@@ -18,12 +18,13 @@ class BookingsController < ApplicationController
 
   # perform create action
   def create
-    @booking = Booking.new
+    @booking = Booking.new(booking_params)
     # authorize @booking
     @booking.event = @event
     @booking.user = current_user
 
     if @booking.save
+      @event.update_players
       redirect_to booking_path(@booking)
     else
       render :new
@@ -56,6 +57,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:booking_state)
+    params.require(:booking).permit(:booking_state, :no_players)
   end
 end
