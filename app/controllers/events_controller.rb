@@ -6,13 +6,23 @@ class EventsController < ApplicationController
   # list all animals
   def index
 
-    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
+    # This is the search
+    @events = Event.all
+    @events = Event.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?
+    @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
+    @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
+    @events = @events.where('missing_player >= ?', params[:missing_player]) unless params[:missing_player] == "Party size"
+
+    # Sorting
+    @events = @events.reorder((params[:sort].to_sym || :start_time) => (params[:order].to_sym || :desc)) if params[:sort].present?
+
+    # Old search keep for reference
+    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
     end
-
   end
 
   # create a new animal
@@ -74,7 +84,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start, :end, :missing_player)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player)
   end
 
 end

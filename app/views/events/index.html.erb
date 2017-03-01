@@ -1,5 +1,12 @@
 <div class="container">
   <div class="row">
+
+    <div class="col-xs-12">
+      Sort By:
+      <%= link_to "Date ASC", events_path(params_for_event_index(sort: :start_time, order: :asc)) %> |
+      <%= link_to "Date DESC", events_path(params_for_event_index(sort: :start_time, order: :desc)) %>
+    </div>
+
     <% @events.each do |event| %>
     <div class="col-xs-12 col-md-6">
       <div class="card">
@@ -8,7 +15,7 @@
         </div>
         <div class="card-info">
           <h3><%= event.title %></h3>
-          <p><%= event.start %></p>
+          <p><%= event.start_time %></p>
           <p> Number of missing players: <%= event.missing_player %></p>
         </div>
         <div class="right-side">
