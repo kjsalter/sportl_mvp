@@ -1,4 +1,8 @@
-<% profile_image = (@user.photo? ? @user.photo.path : @user.facebook_picture_url.gsub("square", "large") || "http://placehold.it/30x30" ) %>
+<% if @user.photo %>
+  <% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
+  <% else %>
+  <% profile_image = "http://placehold.it/30x30" %>
+<% end %>
 
 <!-- header wrapper for profile page -->
 <div class="wrapper">
