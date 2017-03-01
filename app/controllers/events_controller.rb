@@ -5,10 +5,30 @@ class EventsController < ApplicationController
 
   # list all animals
   def index
-    Event.reindex
-    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
 
-    @events = Event.search order: {params[:sort] || :start => params[:order] || :asc}
+    @events = Event.all
+    @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
+
+    # `joins` join all the sports associated to events
+    @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
+
+
+    # @events = @events.where(params[:start] > Time.now)
+
+    @events = @events.order("#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }")
+
+
+
+    # Event.reindex
+    # # @search_events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+
+    # # @ordered_events = Event.search order: {start: params[:order] || :asc}
+
+    # # match_events
+
+    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+    # raise
+    # @events = @events.search order: { start: params[:order] || :asc }
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude

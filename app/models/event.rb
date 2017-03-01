@@ -7,7 +7,6 @@ class Event < ApplicationRecord
   searchkick
 
   def self.search_event(sport, start_date, end_date, location, radius)
-
     #search by sports
     if sport == "All sports"
       search_by_sports = Event.all
@@ -17,15 +16,15 @@ class Event < ApplicationRecord
     end
 
     #search by dates
-    unless start_date.empty? || end_date.empty?
+    unless start_date.nil? || end_date.nil? || start_date.empty? || end_date.empty?
       search_by_sports_dates = []
       search_by_sports.each { |event| event.dates?(start_date, end_date) ? search_by_sports_dates << event : 5}
     else
       search_by_sports_dates = search_by_sports
     end
-    #   # Location
 
-    unless location.empty? || radius.empty?
+    #   # Location
+    unless location.nil? || radius.nil? || location.empty? || radius.empty?
       search_by_sports_dates_location = []
       Event.near(location, radius).each do |event|
         search_by_sports_dates_location << event if search_by_sports_dates.include?(event)
@@ -33,7 +32,6 @@ class Event < ApplicationRecord
     else
       search_by_sports_dates_location = search_by_sports_dates
     end
-
     return search_by_sports_dates_location
   end
 
