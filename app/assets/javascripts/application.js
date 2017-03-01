@@ -6,6 +6,8 @@
 //= require cloudinary/jquery.cloudinary
 //= require attachinary
 //= require dhtmlxcalendar
+//= require moment
+//= require bootstrap-datetimepicker
 //= require underscore
 //= require gmaps/google
 //= require_tree .

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2>
-          You have requested a place on <%= link_to @booking.event.title, event_path(@booking.event) %>
+          You have requested <%= @booking.no_players %> places on <%= link_to @booking.event.title, event_path(@booking.event) %>
         </h2>
       </div>
       <div class="col-xs-4">

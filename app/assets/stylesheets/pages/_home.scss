@@ -22,6 +22,11 @@ form {
     color: $gray;
     height: 40px;
   }
+  #missing_player {
+    background-color: white;
+    color: $gray;
+    height: 35px;
+  }
   input {
     height: 45px;
     color: $gray;

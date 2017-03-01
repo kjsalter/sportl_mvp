@@ -14,6 +14,9 @@
       <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
     </div>
     <div class="form-group">
+      <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
+    </div>
+    <div class="form-group">
       <input type="text" name="location" placeholder="Postcode" class="form-control">
     </div>
     <div class="form-group">

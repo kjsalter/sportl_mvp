@@ -7,13 +7,31 @@
           <%= f.input :title %>
           <%= f.input :postcode %>
           <%= f.input :description, as: :text %>
-          <div class="form-group date-picker">
-            <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="datetimepicker1">Start time</label>
+                <div class='input-group date' id='datetimepicker1' >
+                  <input type='text' class="form-control" name="start" />
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="datetimepicker2">End time</label>
+                <div class='input-group date' id='datetimepicker2'>
+                  <input type='text' class="form-control" name="end" />
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="form-group date-picker">
-            <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
-          </div>
+          <%= f.input :missing_player, label: 'No. players needed', collection: 1..5, default: 1 %>
           <%= f.button :submit, class: "btn btn-primary" %>
         <% end %>
       </div>
@@ -21,12 +39,30 @@
   </div>
 </div>
 
+
 <% content_for(:after_js) do %>
-  <script>
-    $( function() {
-      var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
-      myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
-      myCalendar.hideTime();
-    });
+  <script type="text/javascript">
+      $(function () {
+        $('#datetimepicker1').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+          icons: {
+            previous: 'glyphicon glyphicon-chevron-left',
+            next: 'glyphicon glyphicon-chevron-right'
+          }
+        });
+        $('#datetimepicker2').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+            $('#datetimepicker2').data("DateTimePicker").defaultDate(e.date);
+        });
+      });
   </script>
 <% end %>
