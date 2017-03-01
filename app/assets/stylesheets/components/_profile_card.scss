@@ -1,0 +1,73 @@
+// .profile-card {
+//   // align-items: center;
+//   // justify-content: center;
+//   background-color: #BDBDBD;
+//   position: relative;
+//   width: 100%;
+//   padding: 20px 10px;
+//   // height: 40vmax;
+// }
+
+// .profile-card-header {
+//   background-color: #EEEFED;
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 25%;
+//   .profile-card-avatar {
+//     position: absolute;
+//     top: 0;
+//     width: 100%;
+//     margin-top: 2em;
+//     height: 100px;
+//     img {
+//       width: 100%;
+//       border: 3px solid white;
+//     }
+//   }
+// }
+
+.profile-card {
+  // display:flex;
+  flex-direction: column;
+  background-color: #0A122A;
+  width: 100%;
+  margin: 10px;
+  padding-bottom: 15px;
+}
+
+.profile-card-header {
+  background-color: #EEEFED;
+  width: 100%;
+  height: 10vmax;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.profile-card-avatar {
+  margin-bottom: -3em;
+  img {
+    width: 10vmax;
+    // border: 5px solid #BDBDBD;
+    border: 5px solid #0A122A;
+  }
+}
+
+.profile-card-body {
+  margin-top: 1.1em;
+  height: 30vh;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  p {
+    font-family: "Cabin", sans-serif;
+    color: #EEEFED;
+  }
+  .match-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
