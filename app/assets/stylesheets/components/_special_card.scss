@@ -11,13 +11,12 @@
 
 .grid {
   position: relative;
-  // margin: 0 auto;
-  // padding: 1em 0 4em;
-  margin: 15px;
-  padding: 10px;
-  width: 100%;
-  height: 30vmin;
-  // list-style: none;
+  margin: 0 auto;
+  padding: 1em 0 4em;
+  // margin: 15px;
+  // padding: 10px;
+  max-width: 1000px;
+  list-style: none;
   text-align: center;
 }
 
@@ -27,7 +26,10 @@
   float: left;
   overflow: hidden;
   margin: 10px 1%;
-  width: 100%;
+  min-width: 320px;
+  max-width: 480px;
+  max-height: 360px;
+  width: 48%;
   background: #3F8A91;
   text-align: center;
   cursor: pointer;
@@ -37,7 +39,7 @@
   position: relative;
   display: block;
   height: 100%;
-  width: 100%;
+  // max-width: 100%;
   opacity: 0.8;
 }
 
@@ -47,6 +49,7 @@
   text-transform: uppercase;
   font-size: 1.25em;
   -webkit-backface-visibility: hidden;
+  height: 100%;
   backface-visibility: hidden;
 }
 
@@ -61,7 +64,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
 }
 
 /* Anchor will cover the whole item by default */

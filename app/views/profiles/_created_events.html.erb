@@ -15,7 +15,7 @@
                 <h2> <%= event.title %> </h2>
                 <p><%= event.description %></p>
                 <p><%= event.start %></p>
-                <%= link_to "", event_path(event), class:"card-link" %>
+                <%= link_to "", event_path(event)%>
               </figcaption>
             </figure>
           </div>
@@ -23,26 +23,6 @@
       <% end %>
     <% else %>
     <p>No events to show</p>
-    <% end %>
-  </div>
-
-  <div class="row">
-    <% if @user.events %>
-    <% @user.events.each do |event| %>
-    <div class="col-xs-12 col-sm-6 col-md-4">
-      <% background_image = ("sports-photos/" + event.sport.name + ".jpg") %>
-      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= image_path(background_image) %>'); background-size: cover; background-position: center;">
-        <div class="card-info">
-          <h3><%= event.title %></h3>
-          <p><%= event.start %></p>
-          <!-- <p> <%# event.description.truncate_words(5) %> </p> -->
-        </div>
-        <%= link_to "", event_path(event), class:"card-link" %>
-      </div>
-    </div>
-    <% end %>
-    <% else %>
-    <p>No events to show yet</p>
     <% end %>
   </div>
 
