@@ -1,6 +1,49 @@
 <div class="container">
   <h2>My requests</h2>
   <div class="row">
+  <!-- loop through booking requests -->
+    <% current_user.event_bookings.each do |booking| %>
+    <!-- set image of person requesting a place -->
+      <% if booking.user.photo %>
+        <% avatar_url = booking.user.photo.path %>
+      <% elsif booking.user.facebook_picture_url %>
+        <% avatar_url = booking.user.facebook_picture_url.gsub("square", "large") %>
+      <% else %>
+        <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+      <% end %>
+
+      <div class="col-xs-12 col-sm-4 col-md-3">
+      <!-- start of profile card -->
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div class="profile-card-avatar">
+              <%= image_tag avatar_url, class: "avatar-large text-center" %>
+            </div>
+          </div>
+          <div class="profile-card-body">
+            <h3><%= booking.user.first_name %></h3>
+            <p>wants to join:</p>
+            <div class="match-details">
+              <div class="sport-image">
+                <%= image_tag ("sports/" + booking.event.sport.name + ".png"), style: "width: 7vmin" %>
+                <h6><%= booking.event.title %></h6>
+              </div>
+              <p>on</p>
+              <div class="sport-time">
+                <h6><%= booking.event.start.strftime("%e %B %Y") %></h6>
+                <h6><%= booking.event.start.strftime("%y:%S") %></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <h2>My requests</h2>
+  <div class="row">
     <% current_user.event_bookings.each do |booking| %>
     <div class="col-xs-12 col-md-6">
       <div class="card">
@@ -14,7 +57,7 @@
           <h3><%= booking.booking_state %></h3>
         </div>
         <div class="right-side">
-          <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "http://placehold.it/30x30" %>
+          <% avatar_url = booking.user.photo? ? cl_image_path(booking.user.photo.path) : booking.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
           <%= image_tag avatar_url, class: "avatar-large" %>
         </div>
         <% if booking.pending? %>

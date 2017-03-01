@@ -3,21 +3,19 @@
   <div class="row">
     <% current_user.bookings.each do |booking| %>
       <div class="col-xs-12 col-md-6">
-        <div class="card">
-          <div class="sport-image">
-            <%= image_tag ("sports/" + booking.event.sport.name + ".png"), style: "width: 15vmin" %>
-          </div>
-          <div class="card-info">
-            <h3><%= booking.event.title %></h3>
-            <p><%= booking.event.start %></p>
-            <br>
-            <h3><%= booking.booking_state %></h3>
-          </div>
-          <div class="right-side">
-            <% avatar_url = booking.event.user.photo? ? cl_image_path(booking.event.user.photo.path) : booking.event.user.facebook_picture_url || "http://placehold.it/30x30" %>
-            <%= image_tag avatar_url, class: "avatar" %>
-          </div>
-          <%= link_to "", booking_path(booking), class:"card-link" %>
+        <div class="grid" style="height: 30vmax">
+          <figure class="effect-bibi">
+            <% background_image = ("sports-photos/" + booking.event.sport.name + ".jpg") %>
+            <%= image_tag (background_image) %>
+            <figcaption style="padding: 15px">
+              <h3> <%= booking.event.title %> </h3>
+              <p><%= booking.event.description %></p>
+              <p><%= booking.event.start %></p>
+              <% avatar_url = booking.event.user.photo? ? cl_image_path(booking.event.user.photo.path) : booking.event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+            <%= image_tag avatar_url, id: "card-avatar" %>
+            <%= link_to "", booking_path(booking) %>
+            </figcaption>
+          </figure>
         </div>
       </div>
     <% end %>

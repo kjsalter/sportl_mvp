@@ -1,7 +1,11 @@
 <% @user = current_user %>
 
 <div class="container">
-  <h2>Created Active events</h2>
+
+  <h2 class="clear-header">Your created events</h2>
+
+  <h3>Active events</h3>
+
 
   <div class="row">
     <% if @user.events %>
@@ -26,7 +30,7 @@
     <% end %>
   </div>
 
-    <h2>Created unactive events</h2>
+    <h3>Unactive events</h3>
 
   <div class="row">
     <% if @user.events %>

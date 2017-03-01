@@ -64,9 +64,8 @@
 
 
           <%= link_to current_user.username, "#", class: "dropdown-toggle", id: "username-link", "data-toggle" => "dropdown" %>
-          <% avatar_url = current_user.facebook_picture_url || "http://placehold.it/30x30" %>
+          <% avatar_url = current_user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
           <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-
 
 
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
