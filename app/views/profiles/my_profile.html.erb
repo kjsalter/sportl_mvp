@@ -18,28 +18,7 @@
 
 <!-- created events page -->
   <div role="tabpanel" class="tab-pane" id="events">
-    <div class="container">
-      <div class="clear-header">
-        <h1>Created Events</h1>
-      </div>
-      <div class="row">
-        <% @user.events.each do |event| %>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="card">
-              <div class="sport-image">
-                <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 15vmin" %>
-              </div>
-              <div class="card-info">
-                <h3><%= event.title %></h3>
-                <p><%= event.start %></p>
-                <!-- <p> <%# event.description.truncate_words(5) %> </p> -->
-              </div>
-              <%= link_to "", event_path(event), class:"card-link" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
+      <%= render "profiles/created_events" %>
   </div>
 
 <!-- joined games page -->

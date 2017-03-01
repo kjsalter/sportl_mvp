@@ -35,7 +35,14 @@
 
       <!-- my events link -->
       <div class="navbar-wagon-item navbar-wagon-link">
-        <%= link_to "my events", my_bookings_path %>
+        <div class="dropdown">
+          <%= link_to "my events", '#', class: "dropdown-toggle", id: "dropdownMenu2", "data-toggle" => "dropdown" %>
+
+          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+            <li><%= link_to "Joined events", my_bookings_path %></li>
+            <li><%= link_to "Created events",  created_events_path %></li>
+          </ul>
+        </div>
       </div>
 
       <!-- Notification -->
