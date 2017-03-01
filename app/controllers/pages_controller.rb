@@ -8,6 +8,7 @@ class PagesController < ApplicationController
     @events = Event.all
     @sports_list = @events.map { |event| event.sport.name }.uniq
     @sports_list.unshift("All sports")
+    @party_size = ['Party size', 1, 2, 3, 4, 5]
 
   end
 end
