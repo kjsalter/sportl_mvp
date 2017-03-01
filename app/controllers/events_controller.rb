@@ -5,8 +5,14 @@ class EventsController < ApplicationController
 
   # list all animals
   def index
+    Event.reindex
+    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+    @events = []
 
-    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+    events = Event.search order: {start: :asc}
+    events.each do |event|
+      @events << event
+    end
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude

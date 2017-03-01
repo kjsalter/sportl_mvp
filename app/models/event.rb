@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   has_many :bookings
   geocoded_by :postcode
   after_validation :geocode, if: :postcode_changed?
+  searchkick
 
   def self.search_event(sport, start_date, end_date, location, radius)
 
