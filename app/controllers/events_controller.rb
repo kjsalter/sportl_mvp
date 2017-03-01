@@ -62,7 +62,7 @@ class EventsController < ApplicationController
 
 
   def destroy
-    @event.destroy
+    @event.update(active: false)
     redirect_to events_path
   end
 
