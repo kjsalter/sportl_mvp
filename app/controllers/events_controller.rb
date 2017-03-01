@@ -7,15 +7,17 @@ class EventsController < ApplicationController
   def index
 
     @events = Event.all
+    if params[:start].present? && params[:end].present?
+      @events = Event.where(['start > ? and created_at < ?', DateTime.now - 10, DateTime.now + 2])
+    end
+
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
 
     # `joins` join all the sports associated to events
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
-
-
     # @events = @events.where(params[:start] > Time.now)
 
-    @events = @events.order("#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }")
+    #@events = @events.order('#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }")
 
 
 
@@ -30,7 +32,8 @@ class EventsController < ApplicationController
     # raise
     # @events = @events.search order: { start: params[:order] || :asc }
 
-    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
+
+    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
