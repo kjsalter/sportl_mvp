@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   # list all animals
   def index
 
-    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
+    @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
@@ -74,7 +74,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start, :end)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start, :end, :missing_player)
   end
 
 end

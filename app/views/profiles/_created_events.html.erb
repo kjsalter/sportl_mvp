@@ -1,0 +1,31 @@
+<% @user = current_user %>
+
+<div class="container">
+  <h2>Created events</h2>
+
+  <div class="row">
+    <% if @user.events %>
+      <% @user.events.each do |event| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="grid">
+            <figure class="effect-bibi">
+              <% background_image = ("sports-photos/" + event.sport.name + ".jpg") %>
+              <%= image_tag (background_image) %>
+              <figcaption>
+                <h2> <%= event.title %> </h2>
+                <p><%= event.description %></p>
+                <p><%= event.start %></p>
+                <%= link_to "", event_path(event)%>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+    <p>No events to show</p>
+    <% end %>
+  </div>
+
+</div>
+
+
