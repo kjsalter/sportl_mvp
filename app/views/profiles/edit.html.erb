@@ -19,6 +19,17 @@
         <%= f.input :last_name %>
         <%= f.input :address %>
         <%= f.input :bio %>
+
+        <div class="myFlex">
+          <% Sport.all.each do |sport| %>
+          <div class="myFlex2">
+            <%= check_box_tag "user[sport_ids][]", sport.id, f.object.sports.include?(sport) %>
+            <span><%= sport.name %></span>
+          </div>
+          <% end %>
+        </div>
+
+
         <%#= f.input :sports %>
         <%= f.input :photo, as: :attachinary %>
 

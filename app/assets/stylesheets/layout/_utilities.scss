@@ -23,3 +23,21 @@
 .bg-dark-blue {
   background: #3b5998;
 }
+
+
+.myFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+};
+
+.myFlex2 {
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  span {
+    margin-left: 5px;
+  }
+}
