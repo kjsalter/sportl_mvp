@@ -1,5 +1,12 @@
 <div class="container">
   <div class="row">
+
+    <div class="col-xs-12">
+      Sort By:
+      <%= link_to "Date ASC", events_path %> |
+      <%= link_to "Date DESC", events_path(order: :desc) %> |
+    </div>
+
     <% @events.each do |event| %>
     <div class="col-xs-12 col-md-6">
       <div class="card">
