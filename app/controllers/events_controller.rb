@@ -19,7 +19,7 @@ class EventsController < ApplicationController
 
     # Sorting
     # @events = @events.order('#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }"')
-    @events = @events.reorder((params[:sort] || :start_time) => (params[:order] || :desc))
+    @events = @events.reorder((params[:sort].to_sym || :start_time) => (params[:order].to_sym || :desc)) if params[:sort].present?
 
     # Old search keep for reference
     # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
