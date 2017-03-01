@@ -7,34 +7,22 @@ class EventsController < ApplicationController
   def index
 
     @events = Event.all
-    if params[:start].present? && params[:end].present?
-      @events = Event.where(['start > ? and created_at < ?', DateTime.now - 10, DateTime.now + 2])
-    end
+
+    @events = Event.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?
 
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
 
     # `joins` join all the sports associated to events
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
-    # @events = @events.where(params[:start] > Time.now)
 
-    #@events = @events.order('#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }")
+    @events = @events.where('missing_player >= ?', params[:missing_player]) unless params[:missing_player] == "Party size"
 
+    # Sorting
+    # @events = @events.order('#{params[:sort] || 'start' }" => "#{params[:order] || 'date' }"')
+    @events = @events.order((params[:sort] || :start_time) => (params[:order] || :desc))
 
-
-    # Event.reindex
-    # # @search_events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
-
-    # # @ordered_events = Event.search order: {start: params[:order] || :asc}
-
-    # # match_events
-
-    # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:location], params[:radius])
-    # raise
-    # @events = @events.search order: { start: params[:order] || :asc }
-
-
+    # Old search keep for reference
     # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
-
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
@@ -100,7 +88,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start, :end, :missing_player)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player)
   end
 
 end
