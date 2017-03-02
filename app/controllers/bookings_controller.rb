@@ -44,7 +44,6 @@ class BookingsController < ApplicationController
     if params[:booking][:booking_state] == 2
       #booking is now denied
       @booking.booking_denied
-      @booking.save
     end
     redirect_to booking_path(@booking)
   end
