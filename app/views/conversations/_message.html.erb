@@ -1,9 +1,7 @@
-<% if user.first_name? %>
-  <div><strong><%= user.first_name %></strong></div>
-  <div><%= message.body %></div>
-  <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
-<% else %>
-  <div><strong><%= user.email %></strong></div>
-  <div ><%= message.body %></div>
-  <div><%= message.message_time.strftime("%l:%M%p on the %e %b") %></div>
-<% end %>
+  <% if user.id == current_user.id %>
+    <div><%= message.body %></div>
+    <span class="my-messages-time"> <%= message.message_time.strftime("%l:%M%p") %></span>
+  <% else %>
+    <span class="my-messages-time"> <%= message.message_time.strftime("%l:%M%p") %></span>
+    <div><%= message.body %></div>
+  <% end %>

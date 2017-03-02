@@ -36,13 +36,19 @@
 
 
   <%= render 'messages', conversation: @conversations[0] %>
+   </div>
 
 
+      <div class="padded-boxling text-center">
+    <h1>Write a message</h1>
+      </div>
 
 
-    </div>
+  <%= render 'form', conversation: @conversations[0], message: @conversations[0].messages.new %>
+
   </div>
 </div>
+
 
 
 

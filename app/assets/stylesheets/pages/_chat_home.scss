@@ -14,12 +14,17 @@
 }
 
 .my-messages {
-  background-color: white;
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .other-messages {
-  background-color: white;
-  text-align: right;
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .bordered-chat {
