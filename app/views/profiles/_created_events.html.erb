@@ -30,7 +30,7 @@
     <% end %>
   </div>
 
-    <h3>Unactive events</h3>
+    <h3>Inactive events</h3>
 
   <div class="row">
     <% if @user.events %>
@@ -43,7 +43,7 @@
               <figcaption>
                 <h2> <%= event.title %> </h2>
                 <p><%= event.description %></p>
-                <p><%= event.start %></p>
+                <p><%= event.start_time %></p>
                 <%= link_to "", event_path(event), class: "card-link"%>
               </figcaption>
             </figure>
