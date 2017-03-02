@@ -17,7 +17,7 @@
               <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-facebook" %><br />
             <% end -%>
 
-            <div class="align-checkbox-forgotpass">
+            <div class="two-end-items">
               <div class="checkbox-remember">
                 <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
               </div>
