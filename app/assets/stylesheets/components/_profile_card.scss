@@ -22,8 +22,10 @@
   margin-bottom: -3em;
   img {
     width: 10vmax;
+    height: 10vmax;
     // border: 5px solid #BDBDBD;
     border: 5px solid #9EB4BC;
+    object-fit: cover;
   }
 }
 
