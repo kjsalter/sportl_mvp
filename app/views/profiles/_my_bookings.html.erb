@@ -10,7 +10,7 @@
             <figcaption style="padding: 15px">
               <h3> <%= booking.event.title %> </h3>
               <p><%= booking.event.description %></p>
-              <p><%= booking.event.start %></p>
+              <p><%= booking.event.start_time %></p>
               <% avatar_url = booking.event.user.photo? ? cl_image_path(booking.event.user.photo.path) : booking.event.user.facebook_picture_url || "http://placehold.it/30x30" %>
             <%= image_tag avatar_url, id: "card-avatar" %>
             <%= link_to "", booking_path(booking) %>
