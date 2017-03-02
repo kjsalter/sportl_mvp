@@ -33,8 +33,8 @@ class EventsController < ApplicationController
 
   # perform create action
   def create
-    params[:event][:start] = DateTime.parse(params[:start])
-    params[:event][:end] = DateTime.parse(params[:end])
+    params[:event][:start_time] = DateTime.parse(params[:start_time])
+    params[:event][:end_time] = DateTime.parse(params[:end_time])
     @event = Event.new(event_params)
     authorize @event
     @event.user = current_user
