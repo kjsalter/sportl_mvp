@@ -11,4 +11,5 @@
 //= require underscore
 //= require gmaps/google
 //= require jquery.flip
+//= require sport.choice
 //= require_tree .

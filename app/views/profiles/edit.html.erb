@@ -1,33 +1,66 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
+	<div class="row">
+		<div class="col-xs-12 col-md-6 col-md-offset-3">
 
-      <%= link_to my_profile_path do %>
-     <h1> <i class="fa fa-undo" aria-hidden="true"></i> </h1>
-      <% end %>
-
-
-      <h1 class="text-center">Edit your profile</h1>
-
-      <div class="edit-form">
+			<%= link_to my_profile_path do %>
+			<h1> <i class="fa fa-undo" aria-hidden="true"></i> </h1>
+			<% end %>
 
 
-        <%= simple_form_for @user, url: my_profile_path do |f| %>
+			<h1 class="text-center">Edit your profile</h1>
 
-        <%= f.input :username, placeholder: "How users will see you" %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :address %>
-        <%= f.input :bio %>
+			<div class="edit-form">
 
-        <div class="myFlex">
-          <% Sport.all.each do |sport| %>
+
+				<%= simple_form_for @user, url: my_profile_path do |f| %>
+
+				<%= f.input :username, placeholder: "How users will see you" %>
+				<%= f.input :first_name %>
+				<%= f.input :last_name %>
+				<%= f.input :address %>
+				<%= f.input :bio %>
+
+
+				<div class="form-group">
+
+					<label class="control-label check_boxes optional">
+						Sports Preferences
+					</label>
+
+					<input type="hidden" name="user[sport_ids][]" value="">
+
+					<div class="sport-choices">
+						<% Sport.all.each do |sport| %>
+
+
+
+						<% if @user.sports.include?(sport) %>
+							<input class="hidden" type="checkbox" value="<%= sport.id %>" name="user[sport_ids][]" id="user_sport_ids_<%= sport.id %>" checked>
+							<label class="sport-choice active" for="user_sport_ids_<%= sport.id %>">
+						<% else %>
+							<input class="hidden" type="checkbox" value="<%= sport.id %>" name="user[sport_ids][]" id="user_sport_ids_<%= sport.id %>">
+							<label class="sport-choice" for="user_sport_ids_<%= sport.id %>">
+						<% end %>
+								<%= sport.name %> <br>
+								<%= image_tag ("sports/thumbnails/#{sport.name}.png"), style: "width: 7vmin" %>
+							</label>
+
+						<% end %>
+					</div>
+
+				</div>
+
+
+        <!-- <div class="myFlex">
+          <%# Sport.all.each do |sport| %>
           <div class="myFlex2">
-            <%= check_box_tag "user[sport_ids][]", sport.id, f.object.sports.include?(sport) %>
-            <span><%= sport.name %></span>
+            <%# check_box_tag "user[sport_ids][]", sport.id, f.object.sports.include?(sport) %>
+            <span><%# sport.name %></span>
           </div>
-          <% end %>
-        </div>
+          <%# end %>
+        </div> -->
+
+        <%# f.association :sports, as: :check_boxes %>
 
 
         <%#= f.input :sports %>
