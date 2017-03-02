@@ -1,15 +1,36 @@
-<h2>Log in</h2>
+<div class="form-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-sm-offset-4">
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        <div class="form-box">
+          <h2>Log in</h2>
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-inputs">
+              <%= f.input :email, placeholder: "your-name@mail.com", required: false, autofocus: true %>
+              <%= f.input :password, placeholder: "••••••••", required: false %>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, "Log in", class: "btn btn-primary" %>
+            </div>
+            <%- resource_class.omniauth_providers.each do |provider| %>
+              <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-facebook" %><br />
+            <% end -%>
+
+            <div class="align-checkbox-forgotpass">
+              <div class="checkbox-remember">
+                <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+              </div>
+              <p><%= link_to "Forgot password?", new_password_path(resource_name) %></p>
+            </div>
+
+            <div class="text-center">
+            Not a member? <%= link_to "Sign up!", new_registration_path(resource_name) %><br />
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
