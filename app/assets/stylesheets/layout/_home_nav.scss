@@ -1,0 +1,27 @@
+/* General styling */
+.sportl-navbar {
+  height: 10vh;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Navbar right section  */
+.navbar-sportl-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Navbar logo */
+.navbar-sportl-brand img {
+  height: 3vmax;
+  padding-left: 10px;
+}
+
+
+.navbar-sportl-item {
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
