@@ -1,37 +1,9 @@
-// .profile-card {
-//   // align-items: center;
-//   // justify-content: center;
-//   background-color: #BDBDBD;
-//   position: relative;
-//   width: 100%;
-//   padding: 20px 10px;
-//   // height: 40vmax;
-// }
-
-// .profile-card-header {
-//   background-color: #EEEFED;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 25%;
-//   .profile-card-avatar {
-//     position: absolute;
-//     top: 0;
-//     width: 100%;
-//     margin-top: 2em;
-//     height: 100px;
-//     img {
-//       width: 100%;
-//       border: 3px solid white;
-//     }
-//   }
-// }
+////////// profile cards //////////////////
 
 .profile-card {
   // display:flex;
   flex-direction: column;
-  background-color: #0A122A;
+  // background-color: #9EB4BC;
   width: 100%;
   margin: 10px;
   padding-bottom: 15px;
@@ -51,7 +23,7 @@
   img {
     width: 10vmax;
     // border: 5px solid #BDBDBD;
-    border: 5px solid #0A122A;
+    border: 5px solid #9EB4BC;
   }
 }
 
@@ -63,7 +35,7 @@
   color: white;
   p {
     font-family: "Cabin", sans-serif;
-    color: #EEEFED;
+    color: #525F64;
   }
   .match-details {
     display: flex;
@@ -71,3 +43,29 @@
     align-items: center;
   }
 }
+
+.front, .back {
+  background-color: #9EB4BC;
+  box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.12);
+}
+
+////////// buttons ///////////
+
+.accept-btn, .deny-btn {
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-family: "Cabin", sans-serif;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.accept-btn {
+  background-color: #3FA291;
+}
+
+.deny-btn {
+  background-color: #EE6D66;
+}
+

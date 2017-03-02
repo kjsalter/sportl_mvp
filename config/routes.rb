@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   mount Attachinary::Engine => "/attachinary"
 
   resources :events do
+    member do
+      get :protected
+    end
+
     resources :bookings, only: [:new, :create]
   end
 

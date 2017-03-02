@@ -6,7 +6,7 @@
       <p> <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
       <h3>location (to be added)</h3>
       <p><%= @event.description %></p>
-      <p><%= @event.start.strftime("%Y") %></p>
+      <p><%= @event.start_time.strftime("%Y") %></p>
       <p> Number of missing players: <%= @event.missing_player %></p>
     </div>
 
