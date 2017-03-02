@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_event, only: [:edit, :update, :destroy, :show]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :protected]
+  before_action :set_event, only: [:edit, :update, :destroy, :show, :protected]
   skip_after_action :verify_policy_scoped, only: :index
 
   # list all animals
@@ -56,6 +56,10 @@ class EventsController < ApplicationController
       marker.lng event.longitude
       # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
+  end
+
+  def protected
+    redirect_to @event
   end
 
   # edit event details

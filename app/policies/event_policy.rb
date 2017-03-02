@@ -20,4 +20,8 @@ class EventPolicy < ApplicationPolicy
   def destroy?
     record.user == user  # Only event creator can update it
   end
+
+  def protected?
+    show?
+  end
 end

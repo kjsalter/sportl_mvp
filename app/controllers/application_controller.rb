@@ -20,10 +20,13 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
-  # If your model is called User
-  # def after_sign_in_path_for(resource_or_scope)
-  #   raise
-  #   session["user_return_to"]
-  #   # current_user
+  # def after_sign_in_path_for(resource)
+  #   byebug
+  # #   # session["user_return_to"]
+  # #   # session.fetch 'user_return_to', user_path
+  # #   # current_user_path
+  # #   # current_user
+  # #   # return redirect_to :back
+  # #   request.env['omniauth.origin'] || stored_location_for(resource)
   # end
 end
