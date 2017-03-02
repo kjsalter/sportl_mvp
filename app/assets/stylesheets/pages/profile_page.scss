@@ -37,13 +37,28 @@
   }
 }
 
+.info-bit .fa {
+  font-size: 20px;
+  color: $brand-primary;
+}
+
 .panel-header {
   padding: 10px;
   background-color: RGBA(238, 109, 102, 0.1);
+  border-radius: $radius;
+  .fa{
+    color: $gray;
+    float: right;
+  }
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .panel {
-  border: 1px solid RGBA(238, 109, 102, 1.00);
+  // border: 1px solid RGBA(238, 109, 102, 1.00);
+  border: 2px solid $brand-primary;
+  border-radius: $radius;
 }
 
 // .profile-dashboard {
