@@ -12,7 +12,7 @@
       <%= link_to "all messages", conversation_messages_path(@conversation, {read_option: 'all'}) %>
     <% end %>
 
-    <% @messages.each do |message| %>
+    <% @conversation.messages.each do |message| %>
       <% if message.body %>
         <% user = User.find(message.user_id) %>
         <div class="row message">

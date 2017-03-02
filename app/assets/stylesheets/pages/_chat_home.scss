@@ -1,7 +1,6 @@
 .clear-header {
-  margin-top: 2vmin;
-  padding: 2.5vmin;
-  border-bottom: 1px solid lightgray;
+  margin-top: 1vmin;
+  padding: 1vmin;
   h1, h2 {
     font-family: "Raleway";
     font-weight: lighter;
@@ -12,6 +11,19 @@
   h2 {
     font-size: 3.5vmin;
   }
+}
+
+.my-messages {
+  background-color: white;
+}
+
+.other-messages {
+  background-color: white;
+  text-align: right;
+}
+
+.bordered-chat {
+  border: 2px solid RGBA(211, 211, 211, 0.1);
 }
 
 .padded-boxling {
@@ -34,7 +46,6 @@
 .spaced-elements {
   display: block;
   padding: 2.5vmin;
-  border-bottom: 1px solid RGBA(211, 211, 211, 0.5);
   i {
     padding: 1vmin;
     font-size: 2.5vmin;
@@ -75,3 +86,8 @@
   border-bottom: 1px solid RGBA(211, 211, 211, 0.1);
   padding: 3px;
 }
+
+.chat-background {
+  background-color: $light-grey;
+}
+

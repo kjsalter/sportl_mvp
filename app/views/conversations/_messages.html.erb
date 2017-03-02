@@ -1,0 +1,16 @@
+
+    <% conversation.messages.each do |message| %>
+      <% if message.body %>
+        <% user = User.find(message.user_id) %>
+          <% if user.id == current_user.id %>
+              <div class="col-xs-6 my-messages">
+              <%= render 'message', user: user, message: message %>
+              </div>
+          <% else %>
+              <div class="col-xs-offset-6 col-xs-6 other-messages">
+              <%= render 'message', user: user, message: message %>
+              </div>
+          <% end %>
+      <% end %>
+    <% end %>
+
