@@ -9,7 +9,7 @@
     <h3><%= booking.booking_state %></h3>
   </div>
   <div class="right-side">
-    <% avatar_url = booking.event.user.photo? ? cl_image_path(booking.event.user.photo.path) : booking.event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+    <% avatar_url = booking.event.user.photo? ? cl_image_path(booking.event.user.photo.path) : booking.event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
     <%= image_tag avatar_url, class: "avatar" %>
   </div>
   <%= link_to "", booking_path(booking), class:"card-link" %>
