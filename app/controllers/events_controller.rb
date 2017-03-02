@@ -12,6 +12,7 @@ class EventsController < ApplicationController
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
     @events = @events.where('missing_player >= ?', params[:missing_player]) unless params[:missing_player] == "Party size"
+    @events = @events.where("active = true")
 
     # Sorting
     @events = @events.reorder((params[:sort].to_sym || :start_time) => (params[:order].to_sym || :desc)) if params[:sort].present?

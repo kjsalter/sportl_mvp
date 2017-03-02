@@ -35,7 +35,7 @@ sports_list = [
   "rowing",
   "rugby",
   "sailing",
-  "skateboarding",
+  "skate-boarding",
   "surfing",
   "table-tennis",
   "tennis",

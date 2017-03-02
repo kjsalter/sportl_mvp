@@ -67,6 +67,17 @@
                         <%= f.button :submit, "Deny", class: "btn deny-btn" %>
                       <% end %>
                     </div>
+                    <% elsif booking.accepted? %>
+                      <div class="accepted-sign">
+                        <p class="text-center">Accepted</p>
+                      </div>
+                    <% elsif booking.denied? %>
+                      <div class="denied-sign">
+                        <p class="text-center">Denied</p>
+                      </div>
+
+                    <p> <%= link_to "Chat to requestee", conversations_path(sender_id: current_user.id, recipient_id: booking.user.id), method: "post", class: "btn btn-primary"%></p>
+
                   <% end %>
                 </div>
               </div>
