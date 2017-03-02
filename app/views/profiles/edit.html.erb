@@ -19,6 +19,7 @@
 				<%= f.input :last_name %>
 				<%= f.input :address %>
 				<%= f.input :bio %>
+				<%= f.input :photo, as: :attachinary %>
 
 
 				<div class="form-group">
@@ -41,8 +42,8 @@
 							<input class="hidden" type="checkbox" value="<%= sport.id %>" name="user[sport_ids][]" id="user_sport_ids_<%= sport.id %>">
 							<label class="sport-choice" for="user_sport_ids_<%= sport.id %>">
 						<% end %>
-								<%= sport.name %> <br>
-								<%= image_tag ("sports/thumbnails/#{sport.name}.png"), style: "width: 7vmin" %>
+								<%= image_tag ("sports/thumbnails/#{sport.name}.png"), style: "width: 7vmin" %> <br>
+								<%= sport.name %>
 							</label>
 
 						<% end %>
@@ -64,7 +65,6 @@
 
 
         <%#= f.input :sports %>
-        <%= f.input :photo, as: :attachinary %>
 
 
         <%= f.submit 'Update your profile' %>
