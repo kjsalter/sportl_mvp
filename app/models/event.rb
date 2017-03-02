@@ -5,7 +5,6 @@ class Event < ApplicationRecord
   geocoded_by :postcode
   validates :missing_player, presence: true
   after_validation :geocode, if: :postcode_changed?
-  searchkick
 
 
   def self.search_event(sport, start_date, end_date, party_size, location, radius)
