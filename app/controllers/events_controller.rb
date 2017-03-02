@@ -20,6 +20,8 @@ class EventsController < ApplicationController
     # Old search keep for reference
     # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
 
+    @searcher_coordinates = Geocoder.coordinates(params[:location])
+
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
@@ -34,8 +36,6 @@ class EventsController < ApplicationController
 
   # perform create action
   def create
-    params[:event][:start_time] = DateTime.parse(params[:start_time])
-    params[:event][:end_time] = DateTime.parse(params[:end_time])
     @event = Event.new(event_params)
     authorize @event
     @event.user = current_user
