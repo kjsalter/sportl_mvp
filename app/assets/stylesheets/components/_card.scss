@@ -10,12 +10,34 @@
   position: relative;
   color: $dark-grey;
   width: 100%;
+  .fa{
+    color: $turq;
+  }
 }
 
 .card-info{
   flex: 1 0 auto;
   margin-left: 20px;
-  color: $turq
+}
+
+.card-top-line{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-time{
+  color: $blue-grey;
+  // display: flex;
+  // align-items: column;
+}
+
+.card-details{
+  color: $blue-grey;
+}
+
+.card-title{
+  color: $turq;
 }
 
 .card-link {

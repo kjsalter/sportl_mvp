@@ -11,23 +11,50 @@
   <div class="row">
     <div class="col-xs-12 col-md-7">
       <% @events.each do |event| %>
-      <div class="col-xs-12">
-        <div class="list-card">
-          <div class="sport-image">
-            <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 15vmin" %>
+        <div class="col-xs-12">
+          <div class="list-card">
+            <div class="sport-image">
+              <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 15vmin" %>
+            </div>
+            <div class="card-info">
+              <div class="card-top-line">
+                <div class="card-title">
+                  <h3><%= event.title %></h3>
+                </div>
+                <div class="card-time">
+                  <p><% event.start_time %></p>
+                  <% if event.start_time.today? %>
+                    Today, <%= event.start_time.strftime("%H:%M") %>
+                  <% elsif event.start_time.to_date == Date.tomorrow %>
+                    Tomorrow, <%= event.start_time.strftime("%H:%M") %>
+                  <% else %>
+                    <%= event.start_time.strftime("%a %d %b, %H:%M") %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="card-details">
+                <p> level -
+                    <%# 2.times do %>
+                      <!-- I -->
+                    <%# end %>
+                  <%= event.missing_player %> spot(s)
+                  <% event.missing_player.times do %>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  <% end %>
+                </p>
+                <p> <%= event.g_city %>, <%= event.g_postcode.split[0] %>
+                  (<%= Geocoder::Calculations.distance_between([event.latitude, event.longitude], @searcher_coordinates).round(0) %> miles away)
+
+                </p>
+              </div>
+            </div>
+            <div class="right-side">
+              <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+              <%= image_tag avatar_url, class: "avatar" %>
+            </div>
+            <%= link_to "", event_path(event), class:"card-link" %>
           </div>
-          <div class="card-info">
-            <h3><%= event.title %></h3>
-            <p><%= event.start_time %></p>
-            <p> Number of missing players: <%= event.missing_player %></p>
-          </div>
-          <div class="right-side">
-            <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
-            <%= image_tag avatar_url, class: "avatar" %>
-          </div>
-          <%= link_to "", event_path(event), class:"card-link" %>
         </div>
-      </div>
       <% end %>
     </div>
 
