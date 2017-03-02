@@ -41,6 +41,11 @@ class BookingsController < ApplicationController
   def update
     params[:booking][:booking_state] = params[:booking][:booking_state].to_i
     @booking.update(booking_params)
+    if params[:booking][:booking_state] == 2
+      #booking is now denied
+      @booking.booking_denied
+      @booking.save
+    end
     redirect_to booking_path(@booking)
   end
 
@@ -59,4 +64,6 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:booking_state, :no_players)
   end
+
+
 end
