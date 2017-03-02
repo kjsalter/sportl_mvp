@@ -67,6 +67,14 @@
                         <%= f.button :submit, "Deny", class: "btn deny-btn" %>
                       <% end %>
                     </div>
+                    <% elsif booking.accepted? %>
+                      <div class="accepted-sign">
+                        <p class="text-center">Accepted</p>
+                      </div>
+                    <% elsif booking.denied? %>
+                      <div class="denied-sign">
+                        <p class="text-center">Denied</p>
+                      </div>
                   <% end %>
                 </div>
               </div>

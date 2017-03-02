@@ -19,7 +19,7 @@
           <p> Number of missing players: <%= event.missing_player %></p>
         </div>
         <div class="right-side">
-          <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "http://placehold.it/30x30" %>
+          <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
           <%= image_tag avatar_url, class: "avatar" %>
         </div>
         <%= link_to "", event_path(event), class:"card-link" %>
