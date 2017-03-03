@@ -1,5 +1,4 @@
 class ChatRoomsController < ApplicationController
-  skip_after_action :verify_authorized
   def index
 #    @chat_rooms = ChatRoom.all
     @users = User.all
@@ -8,13 +7,10 @@ class ChatRoomsController < ApplicationController
 
   def show
     @chat_room = ChatRoom.includes(:posts).find_by(id: params[:id])
+    authorize @chat_room
     @post = Post.new
   end
 
-
-  def new
-    @chat_room = ChatRoom.new
-  end
 
   def create
     if ChatRoom.where(sender_id: params[:sender_id]).where(recipient_id: params[:recipient_id]).any?
