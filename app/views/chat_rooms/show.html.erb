@@ -1,0 +1,30 @@
+<div class="text-center">
+<% if @chat_room.sender_id == current_user.id %>
+  <h1> chat with <%= @chat_room.recipient.email  %> </h1>
+<% else %>
+  <h1> chat with <%= @chat_room.sender.email  %> </h1>
+<% end %>
+</div>
+
+
+<div id="posts" data-chat-room-id="<%= @chat_room.id %>">
+  <%= render @chat_room.posts %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+
+
+<%= form_for @post, url: '#' do |f| %>
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control' %>
+    <small class="text-muted">From 2 to 1000 characters</small>
+  </div>
+
+  <%= f.submit "Post", class: 'btn btn-primary btn-lg' %>
+<% end %>
+
+    </div>
+  </div>
+</div>
