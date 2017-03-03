@@ -1,5 +1,7 @@
 <% if chat_room.sender_id == current_user.id %>
-  <li><%= link_to "Enter chat with #{chat_room.recipient.email}", chat_room_path(chat_room) %></li>
+<%= link_to "Chat with #{chat_room.recipient.email}", chat_room_path(chat_room) %>
+<br>
 <% else %>
-  <li><%= link_to "Enter chat with #{chat_room.sender.email}", chat_room_path(chat_room) %></li>
+<%= link_to "Chat with #{chat_room.sender.email}", chat_room_path(chat_room) %>
+<br>
 <% end %>
