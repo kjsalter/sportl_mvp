@@ -1,13 +1,10 @@
-<div style="background-image: url(<%= image_path "sports-photos/#{@booking.event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 30vh; background-position: top;">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-xs-12">
-        <h1 style="margin-top: 10vh; font-size: 50px;">
-          <%= @booking.event.title %>
-        </h1>
-      </div>
-    </div>
-  </div>
+<div class="show-banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= image_path "sports-photos/#{@booking.event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 40vh; background-position: center;">
+ <div class="container text-center">
+   <h1 style="padding-top: 10vh; font-size: 50px">
+     <span class="banner-event-title"> <%= @booking.event.title %> | </span>
+     <span class="banner-sport-name"> <%= @booking.event.sport.name %> </span>
+   </h1>
+ </div>
 </div>
 
 <div class="booking-wrapper">
@@ -35,7 +32,7 @@
           <%= link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary" %>
         </div>
       <div class="col-xs-12 col-md-6">
-        <h3>See you at <%= @booking.event.postcode %></h3>
+        <h3>See you at: <%= @booking.event.g_address %></h3>
         <div id="map" style="width: 525px; height: 40vh; border-radius: 5px;"></div>
       </div>
     </div>
