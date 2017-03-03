@@ -30,7 +30,8 @@
         </p>
 
         <div style="float:right;">
-          <%= link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary"  %>
+          <%= link_to "Chat to #{@booking.event.user.username}", "#", class: "btn btn-primary btn-lg"  %>
+          <%# link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary btn-lg"  %>
         </div>
       </div>
       <div class="col-xs-12 col-md-5">
