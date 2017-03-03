@@ -1,8 +1,10 @@
 <!-- whole page -->
 <% if !@user.photo %>
-<% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
-<% else %>
-<% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
+
+  <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+  <% else %>
+  <% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
+
 <% end %>
 
 <% if @user != current_user %>
