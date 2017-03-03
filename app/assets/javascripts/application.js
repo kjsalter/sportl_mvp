@@ -12,4 +12,5 @@
 //= require gmaps/google
 //= require jquery.flip
 //= require typed
+//= require sport.choice
 //= require_tree .

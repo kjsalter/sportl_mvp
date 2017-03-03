@@ -1,20 +1,43 @@
-.card{
+.list-card{
   // position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $off-white;
-  height: 30vmin;
+  // background-color: $off-white;
+  height: 20vmin;
   padding: 20px;
-  margin: 20px;
   position: relative;
-  color: white;
+  color: $dark-grey;
   width: 100%;
+  border-bottom: 1px solid $light-grey;
+  .fa{
+    color: $turq;
+  }
 }
 
 .card-info{
   flex: 1 0 auto;
   margin-left: 20px;
+}
+
+.card-top-line{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-time{
+  color: $blue-grey;
+  // display: flex;
+  // align-items: column;
+}
+
+.card-details{
+  color: $blue-grey;
+}
+
+.card-title{
+  color: $brand-color;
 }
 
 .card-link {
@@ -43,4 +66,9 @@
 }
 .card-link:hover{
   opacity: 0.1;
+}
+.sport-image{
+  background-color: $turq;
+  padding: 20px;
+  border-radius: 50%;
 }

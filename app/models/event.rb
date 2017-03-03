@@ -2,9 +2,16 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :sport
   has_many :bookings
-  geocoded_by :postcode
   validates :missing_player, presence: true
-  after_validation :geocode, if: :postcode_changed?
+  geocoded_by :postcode
+  reverse_geocoded_by :latitude, :longitude do |obj, results|
+    if geo = results.first
+      obj.g_city = geo.city
+      obj.g_postcode = geo.postal_code
+      obj.g_country = geo.country_code
+    end
+  end
+  after_validation :geocode, :reverse_geocode, if: :postcode_changed?
 
 
   def self.search_event(sport, start_date, end_date, party_size, location, radius)

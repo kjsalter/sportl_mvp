@@ -71,3 +71,30 @@
   background-color: #EE6D66;
 }
 
+//////// accept/deny //////////
+
+.accepted-sign, .denied-sign {
+  border-radius: 5px;
+  border: none;
+  font-family: "Cabin", sans-serif;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  p {
+    padding-top: 10px;
+    color: white;
+    font-size: 20px;
+  }
+}
+
+.accepted-sign {
+  background-color: #3FA291;
+  color: white;
+}
+
+.denied-sign {
+  background-color: #EE6D66;
+  color: white;
+}
