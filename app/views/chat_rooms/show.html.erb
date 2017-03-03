@@ -1,6 +1,6 @@
 <h1><%= @chat_room.title %></h1>
 
-<div id="posts">
+<div id="posts" data-chat-room-id="<%= @chat_room.id %>">
   <%= render @chat_room.posts %>
 </div>
 

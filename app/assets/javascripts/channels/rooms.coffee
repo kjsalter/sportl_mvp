@@ -1,4 +1,4 @@
-jQuery(document).on 'turbolinks:load', ->
+jQuery(document).on 'ready', ->
   posts = $('#posts')
   if $('#posts').length > 0
     posts_to_bottom = -> posts.scrollTop(posts.prop("scrollHeight"))

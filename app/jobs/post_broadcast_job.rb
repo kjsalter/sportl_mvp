@@ -1,9 +1,10 @@
-class POSTBroadcastJob < ApplicationJob
+class PostBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(POST)
-    ActionCable.server.broadcast "chat_rooms_#{POST.chat_room.id}_channel",
-                                 POST: render_post(post)
+  def perform(post)
+    puts "HELLO"
+    ActionCable.server.broadcast "chat_rooms_#{post.chat_room.id}_channel",
+                                 post: render_post(post)
   end
 
   private

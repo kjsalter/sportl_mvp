@@ -58,9 +58,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap (4.0.0.alpha6)
-      autoprefixer-rails (>= 6.0.3)
-      sass (>= 3.4.19)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -255,7 +252,6 @@ DEPENDENCIES
   autoprefixer-rails
   better_errors
   binding_of_caller
-  bootstrap (~> 4.0.0.alpha3)
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.17.43)
   cloudinary (= 1.1.7)

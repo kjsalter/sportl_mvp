@@ -4,13 +4,9 @@ module ApplicationHelper
     hash_new.merge(args)
   end
 
-  module ApplicationHelper
   def gravatar_for(user, opts = {})
-    opts[:alt] = user.name
+    opts[:alt] = user.first_name
     image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{opts.delete(:size) { 40 }}",
               opts
   end
-end
-
-
 end
