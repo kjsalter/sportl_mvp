@@ -1,0 +1,50 @@
+<div class="show-banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= image_path "sports-photos/#{@booking.event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 40vh; background-position: center;">
+ <div class="container text-center">
+   <h1 style="padding-top: 10vh; font-size: 50px">
+     <span class="banner-event-title"> <%= @booking.event.title %> | </span>
+     <span class="banner-sport-name"> <%= @booking.event.sport.name %> </span>
+   </h1>
+ </div>
+</div>
+
+<div class="booking-pending-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-7">
+        <p style="font-size: 23px;">
+          <%= link_to profile_path(@booking.event.user) do %>
+          <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : "https://api.adorable.io/avatars/285/sportl.png" || @booking.event.user.photo.path %>
+          <%= cl_image_tag avatar_url, class: "avatar-large" %>
+          <% end %>
+          Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
+        </p>
+
+        <p style="font-size: 23px;">
+          <% if @booking.event.start_time.today? %>
+          Today, <%= @booking.event.start_time.strftime("%H:%M") %>
+          <% elsif @booking.event.start_time.to_date == Date.tomorrow %>
+          Tomorrow, <%= @booking.event.start_time.strftime("%H:%M") %>
+          <% else %>
+          <%= @booking.event.start_time.strftime("%a %d %b, %H:%M") %>
+          <% end %>
+        </p>
+
+        <div style="float:right;">
+          <%= link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary"  %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-5">
+        <h3 style="margin-top: 0px;" >
+          status:
+          <% if @booking.booking_state == "pending" %>
+          <span style="color: orange;">pending</span>
+          <% elsif @booking.booking_state == "denied" %>
+          <span style="color: red;">denide</span>
+          <% else %>
+          <span style="color: green;">accepted</span>
+          <% end %>
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,18 @@ class BookingsController < ApplicationController
     # authorize @booking
   end
 
+  def pending_denied_show
+    @booking = Booking.find(params[:id])
+    authorize @booking
+
+    @events = [@booking.event]
+    @hash = Gmaps4rails.build_markers(@events) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+    end
+  end
+
   # perform create action
   def create
     @booking = Booking.new(booking_params)
@@ -25,7 +37,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       @event.update_players
-      redirect_to booking_path(@booking)
+      redirect_to pending_path(@booking)
     else
       render :new
     end
