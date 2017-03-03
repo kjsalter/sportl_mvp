@@ -1,9 +1,6 @@
 <div class="container">
   <div class="clear-header">
    <h1> Message Log with <%= @conversation.sender_id == current_user ? @conversation.recipient.first_name : @conversation.sender.first_name  %> </h1>
-    <%= link_to conversations_path do %>
-      <p><i class="fa fa-undo" aria-hidden="true" style="font-size: 20px"></i> Go back to inbox</p>
-    <% end %>
   </div>
 
   <div class="messages">

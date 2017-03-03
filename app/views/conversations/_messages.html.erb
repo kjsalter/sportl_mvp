@@ -1,20 +1,21 @@
+   <div class="messages">
     <% conversation.messages.each do |message| %>
       <% if message.body %>
         <% user = User.find(message.user_id) %>
           <% if user.id == current_user.id %>
-              <div class="col-xs-6">
-              <div class="col-xs-12 my-messages">
+          <div class="row">
+              <div class="col-xs-6 my-messages">
               <%= render 'message', user: user, message: message %>
               </div>
-              </div>
+            </div>
           <% else %>
-              <div class="col-xs-6 col-xs-offset-6">
-              <div class="col-xs-12 other-messages">
+          <div class="row">
+              <div class="col-xs-6 col-xs-offset-6 other-messages">
               <%= render 'message', user: user, message: message %>
               </div>
-              </div>
+          </div>
           <% end %>
       <% end %>
     <% end %>
-
+</div>
 

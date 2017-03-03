@@ -16,9 +16,7 @@
         You are playing <%= @booking.event.sport.name %>
       </div>
       <div class="col-xs-3">
-      <% if @booking.event.user.id != current_user.id %>
-     <p> <%= link_to 'Chat to Event owner', conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary"%></p>
-     <% end %>
+
       </div>
       <div class="col-xs-12">
         <!-- Event leader <%# @booking.event.user.first_name + " " + @booking.event.user.last_name %> -->

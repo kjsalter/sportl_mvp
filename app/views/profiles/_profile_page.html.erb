@@ -13,7 +13,6 @@
     <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
     <h2 class="text-center"><%= @user.first_name %></h2>
     <h5 class="text-center"><%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
- <%= link_to "Chat to #{@user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: "post", class: "btn btn-primary"%>
   </div>
 </div>
 

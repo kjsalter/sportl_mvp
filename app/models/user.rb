@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :event_bookings, through: :events, source: :bookings
   has_many :preferences
   has_many :sports, through: :preferences
+  has_many :chat_rooms, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

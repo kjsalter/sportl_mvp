@@ -96,3 +96,11 @@
   background-color: $light-grey;
 }
 
+
+#posts {
+  max-height: 450px;
+  overflow-y: auto;
+  .avatar {
+    margin: 0.5rem;
+  }
+}
