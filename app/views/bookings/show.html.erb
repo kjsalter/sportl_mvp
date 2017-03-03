@@ -1,1 +1,68 @@
-<%= render "banner" %>
+<div style="background-image: url(<%= image_path "sports-photos/#{@booking.event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 30vh; background-position: top;">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 style="margin-top: 10vh; font-size: 50px;">
+          <%= @booking.event.title %>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="booking-wrapper">
+  <div class="container">
+    <div class="row booking-event-wrapper">
+        <div class="col-xs-12 col-md-6">
+          <p style="font-size: 25px;">
+            <%= link_to profile_path(@booking.event.user) do %>
+            <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : @booking.event.user.photo.path || "https://api.adorable.io/avatars/285/sportl.png" %>
+            <%= cl_image_tag avatar_url, class: "avatar-large" %>
+            <% end %>
+            Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
+          </p>
+
+          <p>
+            <% if @booking.event.start_time.today? %>
+              Today, <%= @booking.event.start_time.strftime("%H:%M") %>
+            <% elsif @booking.event.start_time.to_date == Date.tomorrow %>
+              Tomorrow, <%= @booking.event.start_time.strftime("%H:%M") %>
+            <% else %>
+              <%= @booking.event.start_time.strftime("%a %d %b, %H:%M") %>
+            <% end %>
+          </p>
+
+          <%= link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary" %>
+        </div>
+      <div class="col-xs-12 col-md-6">
+        <h3>See you at <%= @booking.event.postcode %></h3>
+        <div id="map" style="width: 525px; height: 40vh; border-radius: 5px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
+<script>
+  $(document).on('ready', function() {
+    var handler = Gmaps.build('Google');
+    handler.buildMap({ internal: { id: 'map' } }, function(){
+
+      <% @hash = Gmaps4rails.build_markers(@booking.event) do |event, marker| %>
+      markers = handler.addMarkers([
+      {
+       lat: <%= event.latitude %>,
+       lng: <%= event.longitude %>
+     }
+     ]);
+      <% end %>
+
+      markers.forEach(function(marker) {
+       handler.bounds.extendWith(marker);
+     });
+      handler.fitMapToBounds();
+      handler.getMap().setZoom(14);
+    });
+  });
+</script>
+<% end %>
