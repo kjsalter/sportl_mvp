@@ -1,7 +1,6 @@
 .clear-header {
-  margin-top: 2vmin;
-  padding: 2.5vmin;
-  border-bottom: 1px solid lightgray;
+  margin-top: 1vmin;
+  padding: 1vmin;
   h1, h2 {
     font-family: "Raleway";
     font-weight: lighter;
@@ -12,6 +11,24 @@
   h2 {
     font-size: 3.5vmin;
   }
+}
+
+.my-messages {
+  background-color: $off-white;
+  color: $turq;
+  display: flex;
+  justify-content: space-between;
+}
+
+.other-messages {
+  background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bordered-chat {
+  border: 2px solid RGBA(211, 211, 211, 0.1);
 }
 
 .padded-boxling {
@@ -34,7 +51,6 @@
 .spaced-elements {
   display: block;
   padding: 2.5vmin;
-  border-bottom: 1px solid RGBA(211, 211, 211, 0.5);
   i {
     padding: 1vmin;
     font-size: 2.5vmin;
@@ -74,4 +90,17 @@
 .message {
   border-bottom: 1px solid RGBA(211, 211, 211, 0.1);
   padding: 3px;
+}
+
+.chat-background {
+  background-color: $light-grey;
+}
+
+
+#posts {
+  max-height: 450px;
+  overflow-y: auto;
+  .avatar {
+    margin: 0.5rem;
+  }
 }

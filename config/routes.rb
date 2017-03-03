@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
+  resources :chat_rooms, only: [:new, :create, :show, :index]
+  mount ActionCable.server => '/cable'
+
   resources :conversations do
     resources :messages
   end

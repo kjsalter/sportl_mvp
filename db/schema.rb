@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170303152025) do
 
   # These are extensions that must be enabled in order to support this database
@@ -39,6 +40,16 @@ ActiveRecord::Schema.define(version: 20170303152025) do
     t.integer  "no_players"
     t.index ["event_id"], name: "index_bookings_on_event_id", using: :btree
     t.index ["user_id"], name: "index_bookings_on_user_id", using: :btree
+  end
+
+  create_table "chat_rooms", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.index ["user_id"], name: "index_chat_rooms_on_user_id", using: :btree
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -81,6 +92,16 @@ ActiveRecord::Schema.define(version: 20170303152025) do
     t.datetime "updated_at",                      null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "chat_room_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["chat_room_id"], name: "index_posts_on_chat_room_id", using: :btree
+    t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
   create_table "preferences", force: :cascade do |t|
@@ -129,6 +150,9 @@ ActiveRecord::Schema.define(version: 20170303152025) do
 
   add_foreign_key "bookings", "events"
   add_foreign_key "bookings", "users"
+  add_foreign_key "chat_rooms", "users"
   add_foreign_key "events", "sports"
   add_foreign_key "events", "users"
+  add_foreign_key "posts", "chat_rooms"
+  add_foreign_key "posts", "users"
 end
