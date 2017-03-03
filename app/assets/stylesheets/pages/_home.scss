@@ -1,3 +1,69 @@
+.home-banner {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .home-banner-caption {
+    color: white;
+    font-family: futura;
+    .home-banner-typed, h1 {
+      margin: 0;
+    }
+    .home-banner-typed {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: $base-font;
+      box-shadow: inset 0px -14px $brand-success;
+      letter-spacing: 0.1em;
+      font-size: 6vmin;
+    }
+  }
+}
+
+.home-wrapper {
+  background-color: RGBA(71, 75, 73, 1.00);
+  padding: 30px;
+  h2 {
+    padding: 15px;
+    color: #1A1C1B;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 2.7em;
+  }
+}
+
+#sport-form {
+  .form-control {
+    background-color: #686B6A;
+    border: none;
+    height: 40px;
+    border-radius: 5px;
+  }
+}
+
+#sports, #missing_player {
+  height: 40px;
+  background-color: #686B6A;
+  border: none;
+  color: #999999;
+}
+
+.sport-form-submit {
+  display: block;
+  margin: auto;
+  margin-top: 25px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  border: none;
+  background-color: #212221;
+}
+
 .home-container{
   width: 100vw;
   padding: 0;
@@ -6,24 +72,30 @@
 
 .bigscreen-image-banner{
   height: 100vh;
-  width: 50vw;
   padding: 0;
   margin: 0;
   color: white;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .image-banner-contents {
-    width: 60%;
+    height: 100%;
     padding: 3vmin;
-    position: absolute;
-    top: 10vmin;
-    left: 5vmin;
     background-color: rgba(255, 255, 255, 0.2);
     h1 {
+      font-family: $base-font;
       border: 2px solid white;
-      font-size: 7vmin;
+      font-size: 6vmin;
       padding: 3vmin;
       margin: 0;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      margin-top: 20%;
     }
+    .find-player-btn {
+      margin-top: 30px;
+      font-size: 2em;
+      border-radius: 10px;
     }
+  }
 }

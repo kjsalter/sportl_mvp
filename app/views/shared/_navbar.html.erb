@@ -1,119 +1,145 @@
-<div class="navbar-wagon">
+<div class="sportl-navbar" id="hover-nav">
+
   <!-- Logo -->
-  <% if user_signed_in? %>
-    <div class="navbar-wagon-right">
-      <div>
-        <%= link_to root_path, class: "navbar-wagon-brand" do %>
-          <%= image_tag "logo_writing.png" %>
+  <div class="navbar-sportl-sides">
+    <div>
+      <%= link_to root_path, class: "navbar-sportl-brand hidden-xs" do %>
+        <%= image_tag "logo_writing.png" %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to root_path, class: "small-sportl-brand visible-xs" do %>
+      <%= image_tag "logo_writing.png" %>
+    </div>
+  </div>
+  <% end %>
+  <!-- end logo -->
+
+  <!-- left side of navbar -->
+  <div class="left-side-navbar">
+    <div class="navbar-sportl-sides hidden-xs hidden-sm">
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "requests", '#', class: "hvr-grow toggle-requests" %>
+          </div>
         <% end %>
       </div>
-      <div class="navbar-wagon-item" style="margin-left: 20px">
-        <%= link_to "find a player", new_event_path %>
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "events", "#", class: "hvr-grow toggle-events" %>
+          </div>
+        <% end %>
       </div>
     </div>
-  <% else %>
-    <div>
-      <%= link_to root_path, class: "navbar-wagon-brand" do %>
-        <%= image_tag "logo.png" %>
-      <% end %>
-      <%= link_to "Sportl.", root_path, id: "logo-name"%>
+  </div>
+  <!-- end of left side -->
+
+  <!-- right side of navbar -->
+  <div class="right-side-navbar">
+    <div class="navbar-sportl-sides hidden-xs hidden-sm">
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item">
+            <%= link_to "profile", "#", class: "hvr-grow toggle-profile" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "chats", "#", class: "hvr-grow toggle-chats" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-  <!-- Right Navigation -->
-  <div class="navbar-wagon-right hidden-xs hidden-sm">
+  </div>
 
-    <!-- Search form -->
-    <!-- <form action="" class="navbar-wagon-search">
-      <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
-      <button type="submit" class="navbar-wagon-search-btn">
-        <i class="fa fa-search"></i>
-      </button>
-    </form> -->
-
-    <!-- Different navigation if login or not -->
-    <% if user_signed_in? %>
-
-      <!-- my events link -->
-      <div class="navbar-wagon-item navbar-wagon-link">
-        <div class="dropdown">
-          <%= link_to "my events", '#', class: "dropdown-toggle", id: "dropdownMenu2", "data-toggle" => "dropdown" %>
-
-          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-            <li><%= link_to "Joined events", my_bookings_path %></li>
-            <li><%= link_to "Created events",  created_events_path %></li>
-            <li><%= link_to "Requests", my_requests_path %></li>
-          </ul>
-        </div>
+  <div>
+    <% if !user_signed_in? %>
+      <div class="sign-in-btn hidden-xs">
+        <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-sportl-item-item navbar-sportl-item-link hvr-grow" %>
       </div>
-
-      <!-- Notification -->
-      <div class="navbar-wagon-item navbar-wagon-link">
-        <%= link_to "my messages", conversations_path %>
-      </div>
-
-
-      <%# link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
-        <!-- <div class="badge-container"> -->
-<!--           <i class="fa fa-envelope-o"></i>
-          <div class="badge badge-blue">3</div> -->
-        <!-- </div> -->
-      <%# end %>
-
-      <!-- Profile picture and dropdown -->
-      <div class="navbar-wagon-item navbar-wagon-link">
-        <div class="dropdown">
-
-
-          <%= link_to current_user.username, "#", class: "dropdown-toggle", id: "username-link", "data-toggle" => "dropdown" %>
-          <% if !current_user.photo %>
-            <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
-          <% else %>
-            <% avatar_url = current_user.photo.path || current_user.facebook_picture_url %>
-          <% end %>
-          <%= cl_image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
-
-
-          <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-            <li>
-              <%= link_to my_profile_path do %>
-                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to root_path do %>
-                <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_user_session_path, method: :delete do %>
-                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-    <% else %>
-
-    <!-- Button (call-to-action) -->
-    <%# link_to t(".top_call_to_action", default: "Post stuff"), "#", class: "navbar-wagon-item navbar-wagon-button btn" %>
-      <!-- Login text link -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
     <% end %>
-
   </div>
 
 
   <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-wagon-item hidden-md hidden-lg">
+  <div class="navbar-sportl-item hidden-md hidden-lg" style="position: absolute; right: 10px;">
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+      <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu">
         <li><a href="#">Some mobile link</a></li>
         <li><a href="#">Other one</a></li>
         <li><a href="#">Other one</a></li>
       </ul>
     </div>
   </div>
+
 </div>
 
+<!-- REQUESTS DROPDOWN -->
+<div class="sub-nav-holder nav-requests">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-link">
+      <%= link_to "sent requests", "#" %>
+    </div>
+    <div class="sub-nav-link">
+      <%= link_to "received requests", my_requests_path %>
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS DROPDOWN -->
+<div class="sub-nav-holder nav-events">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-link">
+      <%= link_to "joined events", my_bookings_path %>
+    </div>
+    <div class="sub-nav-link">
+      <%= link_to "created events",  created_events_path %>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE DROPDOWN -->
+<div class="sub-nav-holder nav-profile">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-link">
+      <%= link_to my_profile_path do %>
+        <i class="fa fa-user"></i> <%= t(".profile", default: "my page") %>
+      <% end %>
+    </div>
+    <div class="sub-nav-link">
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "log out") %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      $('.toggle-requests').click(function() {
+        $('.nav-events').slideUp("medium");
+        $('.nav-profile').slideUp("medium");
+        $('.nav-requests').slideToggle("slow");
+        $('.nav-requests').css({display: 'flex'});
+      });
+      $('.toggle-events').click(function() {
+        $('.nav-requests').slideUp("medium");
+        $('.nav-profile').slideUp("medium");
+        $('.nav-events').slideToggle("slow");
+        $('.nav-events').css({display: 'flex'});
+      });
+      $('.toggle-profile').click(function() {
+        $('.nav-requests').slideUp("medium");
+        $('.nav-events').slideUp("medium");
+        $('.nav-profile').slideToggle("slow");
+        $('.nav-profile').css({display: 'flex'});
+      });
+    });
+  <% end %>
+<% end %>
