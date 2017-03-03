@@ -1,0 +1,67 @@
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= image_path 'background.jpg' %>'); background-attachment: fixed">
+  <div class="banner-content">
+    <h1>Join a team near you for a one off game now... (Updated)</h1>
+
+    <%= form_tag("events", method: "get", class: "form-inline") do %>
+    <div class="form-group">
+      <%= select_tag "sports", options_for_select(@sports_list) %>
+    </div>
+
+    <div class="form-group date-picker">
+      <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group date-picker">
+      <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+    </div>
+    <div class="form-group">
+      <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
+    </div>
+    <div class="form-group">
+      <input type="text" name="location" placeholder="Postcode" class="form-control">
+    </div>
+    <div class="form-group">
+      <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" />
+    </div>
+    <%= submit_tag("Search", class: "btn btn-success") %>
+    <div id="slider"></div>
+
+    <% end %>
+
+
+
+  </div>
+  <!-- <div id="slider"></div> -->
+
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="text-center">Games happening today</h3>
+      <h2>picture</h2>
+      <h2>picture</h2>
+    </div>
+  </div>
+</div>
+
+
+
+<% content_for(:after_js) do %>
+<script>
+  $( function() {
+    var myCalendar = new dhtmlXCalendarObject(["calendar","calendar2"]);
+    myCalendar.setInsensitiveRange(null, "<%= Time.now.strftime("%Y-%m-%d") %>");
+
+    console.log('hey mate');
+    $( "#slider" ).slider({
+      range: true,
+      min: 0,
+      max: 1439,
+      values: [540, 1020],
+      step:5
+    });
+  });
+</script>
+<% end %>
+

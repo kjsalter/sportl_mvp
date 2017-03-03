@@ -55,7 +55,33 @@
     margin-bottom: -4px;
   }
 }
- #user_remember_me {
-  margin-top: -12px;
- }
 
+#user_remember_me {
+  margin-top: -12px;
+}
+
+.sport-choices{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.sport-choice{
+  flex: 0 0 32.5%;
+  background: $light-grey;
+  padding: 20px;
+  border-radius: 5px;
+  opacity: 0.4;
+  text-align: center;
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+    background: $brand-primary;
+    color: white;
+  }
+  &.active {
+    background: $brand-primary;
+    color: white;
+    opacity: 1;
+  }
+}

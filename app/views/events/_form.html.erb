@@ -6,13 +6,12 @@
           <%= f.association :sport, collection: Sport.order('name ASC')  %>
           <%= f.input :title %>
           <%= f.input :postcode %>
-          <%= f.input :description, as: :text %>
           <div class="row">
             <div class="col-xs-6">
               <div class="form-group">
                 <label for="datetimepicker1">Start time</label>
                 <div class='input-group date' id='datetimepicker1' >
-                  <input type='text' class="form-control" name="start_time" />
+                  <input type='text' class="form-control" name="event[start_time]" />
                   <span class="input-group-addon">
                     <span class="fa fa-calendar"></span>
                   </span>
@@ -23,7 +22,7 @@
               <div class="form-group">
                 <label for="datetimepicker2">End time</label>
                 <div class='input-group date' id='datetimepicker2'>
-                  <input type='text' class="form-control" name="end_time" />
+                  <input type='text' class="form-control" name="event[end_time]" />
                   <span class="input-group-addon">
                     <span class="fa fa-calendar"></span>
                   </span>
@@ -31,6 +30,9 @@
               </div>
             </div>
           </div>
+          <%= f.input :description, as: :text, placeholder: "e.g. group of school friends playing a B-grade league match. Shooters preferable" %>
+          <%= f.input :requirements, as: :text, placeholder: "if neccessary...e.g. players need football boots/ hockey stick", label: "Kit requirements" %>
+          <%= f.input :level, collection: levels_list %>
           <%= f.input :missing_player, label: 'No. players needed', collection: 1..5, default: 1 %>
           <%= f.button :submit, class: "btn btn-primary" %>
         <% end %>
@@ -46,6 +48,7 @@
         $('#datetimepicker1').datetimepicker({
           format: "DD/MM/YYYY HH:mm",
           sideBySide: true,
+          defaultDate: "<%= @event.start_time %>",
           minDate: moment(),
           stepping: 5,
           icons: {
@@ -53,11 +56,13 @@
             next: 'glyphicon glyphicon-chevron-right'
           }
         });
+
         $('#datetimepicker2').datetimepicker({
           format: "DD/MM/YYYY HH:mm",
           sideBySide: true,
           minDate: moment(),
           stepping: 5,
+          defaultDate: "<%= @event.end_time %>",
         });
         $("#datetimepicker1").on("dp.change", function (e) {
             $('#datetimepicker2').data("DateTimePicker").minDate(e.date);

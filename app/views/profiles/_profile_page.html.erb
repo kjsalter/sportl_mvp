@@ -1,8 +1,10 @@
 <!-- whole page -->
 <% if !@user.photo %>
+
   <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
   <% else %>
   <% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
+
 <% end %>
 
 <% if @user != current_user %>
@@ -13,115 +15,129 @@
     <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
     <h2 class="text-center"><%= @user.first_name %></h2>
     <h5 class="text-center"><%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+    <%= link_to "Chat to #{@user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: "post", class: "btn btn-primary"%>
   </div>
 </div>
 
 <% end %>
 <!-- container for the main content  -->
-  <div class="container main-content">
-    <div class="row">
+<div class="container main-content">
+  <div class="row">
 
-      <!-- user profile sidebar -->
-      <div class="col-sm-3 hidden-xs hidden-sm flexbox-column">
-        <div>
-          <!-- profile picture -->
-          <!-- <div class="square-image"> -->
-            <%#= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
-          <!-- </div> -->
-
-          <!-- about me -->
-          <div class="panel">
-            <div class="panel-header about-me-head text-center"><h4>About Me</h4></div>
-              <div class="panel-body about-me-body hide-me">
-                <dl>
-                  <dt style="padding: 10px 0px">Favourite Sports</dt>
-                    <%# if @user.sports %>
-                      <%# @user.sports.each do |sport| %>
-                      <!-- <dd> <%#= sport %></dd> -->
-                      <%# end %>
-                    <%# else %>
-                      <dd>No sports to show </dd>
-                    <%# end %>
-                </dl>
-              </div>
-          </div>
-
-          <% content_for(:after_js) do %>
-            <%= javascript_tag do %>
-              $(document).ready(function() {
-                $('.about-me-head').click(function() {
-                  $('.about-me-body').slideDown( "slow", function() {});
-                });
-              });
-          <% end %>
-        <% end %>
-
-        </div>
-      </div>
-
-      <!-- Main Profile -->
-      <div class="col-sm-5">
-
-        <!-- small screen only profile pic -->
-        <!-- <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img"> -->
-          <%#= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
+    <!-- user profile sidebar -->
+    <div class="col-sm-3 hidden-xs hidden-sm flexbox-column">
+      <div>
+        <!-- profile picture -->
+        <!-- <div class="square-image"> -->
+        <%#= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank" %>
         <!-- </div> -->
 
-        <div class="info-bit">
-          <!-- profile header -->
-          <div>
-            <h1>Hey, I'm <%= @user.first_name %>!</h1>
-              <% if @user.address  %>
-                <% location = @user.address %>
+        <!-- about me -->
+        <div class="panel">
+          <div class="panel-header about-me-head text-center">
+            <h4>
+              About Me
+              <span class="black-icon-right"><i class="fa fa-chevron-down"></i></span>
+            </h4>
+          </div>
+          <div class="panel-body about-me-body hide-me">
+            <dl>
+              <dt style="padding: 4px 0px;"><h5 style="font-weight: bold;" >Favourite Sports</h5></dt>
+              <% if @user.sports %>
+              <% @user.sports.each do |sport| %>
+              <dd><h5><%= image_tag "sports/thumbnails/#{sport.name}.png", width: "30px" %> <%= sport.name %></h5></dd>
+              <% end %>
               <% else %>
-                <% location = "no location to show" %>
+              <dd>No sports to show </dd>
               <% end %>
-            <h5> <%= location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
-            <% if @user == current_user %>
-              <%= link_to my_profile_edit_path do %>
-                <p>Edit profile <i class="fa fa-pencil" aria-hidden="true" style="font-size: 20px"></i> </p>
-              <% end %>
-            <% end %>
-
+            </dl>
           </div>
-
-          <!-- profile main -->
-          <div>
-            <p> <%= @user.bio %></p>
-            <h2>Reviews</h2>
-            <h4>Reviews from other players</h4>
-            <%#= render "reviews" %>
-          </div>
-
         </div>
+
+        <% content_for(:after_js) do %>
+        <script>
+          $(document).ready(function() {
+            $('.about-me-head').click(function() {
+
+              if($('.about-me-head').hasClass('open')){
+                $('.about-me-body').slideUp( "slow", function() {});
+              }else{
+                $('.about-me-body').slideDown( "slow", function() {});
+              }
+
+              $('.about-me-head').toggleClass("open");
+              $('.black-icon-right > .fa').toggleClass('fa-chevron-up');
+              $('.black-icon-right > .fa').toggleClass('fa-chevron-down');
+            });
+          });
+        </script>
+        <% end %>
 
       </div>
+    </div>
 
-      <!-- profile page map -->
-      <div class="col-sm-4">
-        <div class="map">
-          <div id="map" style="width: 100%; height: 600px;"></div>
+    <!-- Main Profile -->
+    <div class="col-sm-5">
 
-          <% content_for(:after_js) do %>
-            <%= javascript_tag do %>
-              $(document).ready(function() {
-                var handler = Gmaps.build('Google');
-                handler.buildMap({ internal: { id: 'map' } }, function() {
-                  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-                  handler.bounds.extendWith(markers);
-                  handler.fitMapToBounds();
-                  if (markers.length == 0) {
-                    handler.getMap().setZoom(2);
-                  } else if (markers.length == 1) {
-                    handler.getMap().setZoom(14);
-                  }
-                });
-              });
-            <% end %>
+      <!-- small screen only profile pic -->
+      <!-- <div class="col-sm-3 hidden-md hidden-lg hidden-xl small-img"> -->
+      <%#= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank" %>
+      <!-- </div> -->
+
+      <div class="info-bit">
+        <!-- profile header -->
+        <div>
+          <h1>Hey, I'm <%= @user.first_name %>!</h1>
+          <% if @user.address  %>
+          <% location = @user.address %>
+          <% else %>
+          <% location = "no location to show" %>
           <% end %>
+          <h5> <%= location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
+          <% if @user == current_user %>
+          <%= link_to my_profile_edit_path do %>
+          Edit profile <i class="fa fa-pencil" aria-hidden="true"></i>
+          <% end %>
+          <% end %>
+
         </div>
+
+        <!-- profile main -->
+        <div>
+          <p> <%= @user.bio %></p>
+          <h2>Reviews</h2>
+          <h4>Reviews from other players</h4>
+          <%#= render "reviews" %>
+        </div>
+
       </div>
 
     </div>
+
+    <!-- profile page map -->
+    <div class="col-sm-4">
+      <div class="map">
+        <div id="map" style="width: 100%; height: 600px;"></div>
+        <% content_for(:after_js) do %>
+        <script>
+          $(document).ready(function() {
+            var handler = Gmaps.build('Google');
+            handler.buildMap({ internal: { id: 'map' } }, function() {
+              markers = handler.addMarkers(<%= raw @hash.to_json %>);
+              handler.bounds.extendWith(markers);
+              handler.fitMapToBounds();
+              if (markers.length == 0) {
+                handler.getMap().setZoom(2);
+              } else if (markers.length == 1) {
+                handler.getMap().setZoom(14);
+              }
+            });
+          });
+        </script>
+        <% end %>
+      </div>
+    </div>
+
   </div>
+</div>
 
