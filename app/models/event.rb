@@ -9,6 +9,7 @@ class Event < ApplicationRecord
       obj.g_city = geo.city
       obj.g_postcode = geo.postal_code
       obj.g_country = geo.country_code
+      obj.g_address = geo.address
     end
   end
   after_validation :geocode, :reverse_geocode, if: :postcode_changed?
@@ -82,7 +83,13 @@ class Event < ApplicationRecord
     self.active
   end
 
+  def distance_from(searcher_coords)
+    Geocoder::Calculations.distance_between([self.latitude, self.longitude], searcher_coords)
+  end
 
+  def self.distance_from_sorted(searcher_coords)
+    all.sort_by { |e| e.distance_from(searcher_coords) }
+  end
 end
 
 

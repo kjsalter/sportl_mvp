@@ -4,7 +4,10 @@
     <div class="col-xs-12 col-md-7">
       Sort By:
       <%= link_to "Date ASC", events_path(params_for_event_index(sort: :start_time, order: :asc)) %> |
-      <%= link_to "Date DESC", events_path(params_for_event_index(sort: :start_time, order: :desc)) %>
+      <%= link_to "Date DESC", events_path(params_for_event_index(sort: :start_time, order: :desc)) %> |
+      <%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %> |
+      <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %> |
+      <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %>
     </div>
   </div>
 
@@ -13,13 +16,19 @@
       <% @events.each do |event| %>
         <div class="col-xs-12">
           <div class="list-card">
-            <div class="sport-image">
-              <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 10vmin" %>
+            <div>
+              <div class="sport-circle">
+                <div class="sport-image">
+                  <%= image_tag ("sports/" + event.sport.name + ".png"), style: "width: 10vmin" %>
+                </div>
+              </div>
             </div>
             <div class="card-info">
               <div class="card-top-line">
                 <div class="card-title">
-                  <h4><%= event.title %></h4>
+                  <h4><%= event.title %>
+                  <span class="card-details"> | </span>
+                  <span class="sport_name"> <%= event.sport.name %> </span> </h4>
                 </div>
                 <div class="card-time">
                   <p><% event.start_time %></p>
@@ -44,7 +53,8 @@
                 </p>
                 <p> <%= event.g_city %>, <%= event.g_postcode.split[0] %>
                 <% if params[:location].present? %>
-                  (<%= Geocoder::Calculations.distance_between([event.latitude, event.longitude], @searcher_coordinates).round(0) %> miles away)
+                  (<%= event.distance_from(@searcher_coordinates).round(0) %> miles away)
+                  <!-- (<%# Geocoder::Calculations.distance_between([event.latitude, event.longitude], @searcher_coordinates).round(0) %> miles away) -->
                 <% end %>
                 </p>
               </div>
@@ -59,7 +69,7 @@
       <% end %>
     </div>
 
-    <div class="col-xs-5">
+    <div class="col-xs-12 col-md-5">
       <div class="map-index">
         <div id="map" style="width: 100%; height: 375px;"></div>
       </div>
