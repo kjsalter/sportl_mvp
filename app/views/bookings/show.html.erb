@@ -1,1 +1,54 @@
 <%= render "banner" %>
+<div class="booking-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8">
+        <p>
+          <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : @booking.event.user.photo.path || "https://api.adorable.io/avatars/285/sportl.png" %>
+          <%= cl_image_tag avatar_url, class: "avatar-large" %>
+          Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
+        </p>
+
+        <p>
+          on <%= @booking.event.start_time.strftime("%A, %b %d at %l:%M") %>
+        </p>
+
+        <%= link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary", style: "color: white;" %>
+      </div>
+      <div class="col-xs-4">
+        <h3>See you there</h3>
+        <div id="map" style="width: 400px; height: 400px; border-radius: 5px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <% content_for(:after_js) do %>
+<script>
+    $(document).on('ready', function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function(){
+
+        <% @hash = Gmaps4rails.build_markers(@booking.event) do |event, marker| %>
+       markers = handler.addMarkers([
+       {
+         lat: <%= event.latitude %>,
+         lng: <%= event.longitude %>,
+         picture: {
+           url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+           width:  50,
+           height: 50
+         }
+       }
+       ]);
+       <% end %>
+
+       markers.forEach(function(marker) {
+         handler.bounds.extendWith(marker);
+       });
+       handler.fitMapToBounds();
+       handler.getMap().setZoom(14);
+     });
+    });
+</script>
+  <% end %>
