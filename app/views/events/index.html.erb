@@ -42,10 +42,13 @@
                 </div>
               </div>
               <div class="card-details">
-                <p> level -
-                    <%# 2.times do %>
-                      <!-- I -->
-                    <%# end %>
+                <p> level
+                    <% event.level.times do %>
+                      <i class="fa fa-square colour-icon" aria-hidden="true"></i>
+                    <% end %>
+                    <% (5 - event.level).times do %>
+                      <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
+                    <% end %> -
                   <%= event.missing_player %> spot(s)
                   <% event.missing_player.times do %>
                     <i class="fa fa-user" aria-hidden="true"></i>

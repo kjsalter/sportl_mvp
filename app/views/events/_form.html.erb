@@ -6,7 +6,6 @@
           <%= f.association :sport, collection: Sport.order('name ASC')  %>
           <%= f.input :title %>
           <%= f.input :postcode %>
-          <%= f.input :description, as: :text %>
           <div class="row">
             <div class="col-xs-6">
               <div class="form-group">
@@ -31,6 +30,9 @@
               </div>
             </div>
           </div>
+          <%= f.input :description, as: :text, placeholder: "e.g. group of school friends playing a B-grade league match. Shooters preferable" %>
+          <%= f.input :requirements, as: :text, placeholder: "if neccessary...e.g. players need football boots/ hockey stick", label: "Kit requirements" %>
+          <%= f.input :level, collection: levels_list %>
           <%= f.input :missing_player, label: 'No. players needed', collection: 1..5, default: 1 %>
           <%= f.button :submit, class: "btn btn-primary" %>
         <% end %>

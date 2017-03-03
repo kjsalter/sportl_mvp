@@ -22,7 +22,15 @@
     <div class="col-xs-12 col-md-8">
       <h3>Number of players needed:
         <% @event.missing_player.times do %>
-          <i class="fa fa-user missing_player" aria-hidden="true"></i>
+          <i class="fa fa-user colour-icon" aria-hidden="true"></i>
+        <% end %>
+      </h3>
+      <h3>Level:
+        <% @event.level.times do %>
+          <i class="fa fa-square colour-icon" aria-hidden="true"></i>
+        <% end %>
+        <% (5 - @event.level).times do %>
+          <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
         <% end %>
       </h3>
       <h3>Date:</h3>
@@ -41,6 +49,12 @@
         <% end %>
       <h3>Description:</h3>
       <p><%= @event.description %></p>
+      <h3>Kit requirements:</h3>
+      <% if @event.requirements == "" %>
+        None
+      <% else %>
+        <p><%= @event.requirements %></p>
+      <% end %>
 <!-- buttons -->
       <div class="row buttons-show">
         <div class="col-xs-8">
