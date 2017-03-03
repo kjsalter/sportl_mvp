@@ -20,6 +20,6 @@ Geocoder.configure(
   :use_https => true,
 
   # Calculation options
-  units: :km,                 # :km for kilometers or :mi for miles
+  units: :mi,                 # :km for kilometers or :mi for miles
   # distances: :linear          # :spherical or :linear
 )

@@ -67,8 +67,12 @@
 .card-link:hover{
   opacity: 0.1;
 }
-.sport-image{
+.sport-circle{
   background-color: $turq;
   padding: 20px;
   border-radius: 50%;
+}
+
+.sport_name{
+  color: $turq;
 }

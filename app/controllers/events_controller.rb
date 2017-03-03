@@ -15,13 +15,17 @@ class EventsController < ApplicationController
     @events = @events.where('missing_player > 0')
     @events = @events.where("active = true")
 
-    # Sorting
-    @events = @events.reorder((params[:sort].to_sym || :start_time) => (params[:order].to_sym || :desc)) if params[:sort].present?
+    @searcher_coordinates = Geocoder.coordinates(params[:location])
 
+    # Sorting
+    case params[:sort]
+    when 'distance'
+      @events = @events.distance_from_sorted @searcher_coordinates
+    else
+      @events = @events.reorder((params[:sort].to_sym || :start_time) => (params[:order].to_sym || :desc)) if params[:sort].present?
+    end
     # Old search keep for reference
     # @events = Event.search_event(params[:sports], params[:start], params[:end], params[:missing_player], params[:location], params[:radius])
-
-    @searcher_coordinates = Geocoder.coordinates(params[:location])
 
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
@@ -90,7 +94,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level)
   end
 
 end
