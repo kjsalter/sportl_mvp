@@ -6,6 +6,10 @@ class Post < ApplicationRecord
 
 
   def timestamp
-  created_at.strftime('%H:%M:%S')
+  created_at.strftime('%H:%M')
+  end
+
+  def chat_timestamp
+  created_at.strftime('%B %e')
   end
 end

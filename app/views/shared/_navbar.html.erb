@@ -49,7 +49,7 @@
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "chats", "#", class: "hvr-grow toggle-chats" %>
+            <%= link_to "chats", chat_rooms_path, class: "hvr-grow toggle-chats" %>
           </div>
         <% end %>
       </div>

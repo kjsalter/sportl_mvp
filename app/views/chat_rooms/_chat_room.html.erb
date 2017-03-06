@@ -1,7 +1,59 @@
+
 <% if chat_room.sender_id == current_user.id %>
-<%= link_to "Chat with #{chat_room.recipient.email}", chat_room_path(chat_room) %>
-<br>
-<% else %>
-<%= link_to "Chat with #{chat_room.sender.email}", chat_room_path(chat_room) %>
-<br>
+<div class="list-card">
+  <div class="row chat-border">
+    <%= link_to "#{chat_room.recipient.email}", chat_room_path(chat_room) %>
+      <% if !chat_room.recipient.photo %>
+        <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+      <% else %>
+       <% profile_image = chat_room.recipient.photo.path || chat_room.recipient.facebook_picture_url.gsub("square", "large") %>
+    <% end %>
+    <div class="col-xs-1 text-center">
+        <%= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+    </div>
+    <div class="col-xs-2 text-center">
+      <p style="margin-bottom: 0px;">
+      <%= chat_room.recipient.email %> </p>
+      <p> last message: <%= chat_room.posts.last.chat_timestamp %> </p>
+    </div>
+
+    <div class="col-xs-6 text-center">
+      <%= chat_room.posts.last.body.truncate_words(12) %>
+    </div>
+
+    <div class="col-xs-3">
+      <p style="margin-bottom: 0px;"> <%= chat_room.find_conversation.title %> </p>
+      <p> <%= chat_room.find_conversation.start_time.strftime("%A %e %B %m %M %p ") %>  </p>
+    </div>
+    </div>
+  </div>
+
+  <% else %>
+
+  <div class="row chat-border">
+    <% if !chat_room.sender.photo %>
+      <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+      <% else %>
+      <% profile_image = chat_room.sender.photo.path || chat_room.sender.facebook_picture_url.gsub("square", "large") %>
+    <% end %>
+    <div class="col-xs-1 text-center">
+        <%= cl_image_tag profile_image, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+    </div>
+    <div class="col-xs-2 text-center">
+      <p style="margin-bottom: 0px;"> <%= chat_room.sender.email %> </p>
+      <p> last message: <%= chat_room.posts.last.chat_timestamp %> </p>
+    </div>
+
+    <div class="col-xs-6 text-center">
+      <%= chat_room.posts.last.body.truncate_words(14) %>
+    </div>
+
+    <div class="col-xs-3">
+      <p style="margin-bottom: 0px;"> <%= chat_room.find_conversation.title %> </p>
+      <p> <%= chat_room.find_conversation.start_time.strftime("%A %e %B %m %M %p ") %>  </p>
+    </div>
+    <%= link_to "", chat_room_path(chat_room), class:"card-link" %>
+  </div>
+
 <% end %>
+
