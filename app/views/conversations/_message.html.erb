@@ -1,7 +1,0 @@
-  <% if user.id == current_user.id %>
-    <div><%= message.body %></div>
-    <span class="my-messages-time"> <%= message.message_time.strftime("%l:%M%p") %></span>
-  <% else %>
-    <span class="my-messages-time"> <%= message.message_time.strftime("%l:%M%p") %></span>
-    <div><%= message.body %></div>
-  <% end %>
