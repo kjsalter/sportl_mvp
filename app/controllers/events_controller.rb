@@ -30,6 +30,7 @@ class EventsController < ApplicationController
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
       marker.lat event.latitude
       marker.lng event.longitude
+      marker.infowindow render_to_string(partial: "users/map_box", locals: { event: event })
     end
   end
 
