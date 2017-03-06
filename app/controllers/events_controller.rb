@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :protected]
   before_action :set_event, only: [:edit, :update, :destroy, :show, :protected, :create_players]
-  before_action :create_players, only: [:update, :create]
+  before_action :create_players, only: [:update]
   skip_after_action :verify_policy_scoped, only: :index
 
   # list all animals
