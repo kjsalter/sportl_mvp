@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   patch "my_profile/", to: "profiles#update"
   get "/profile/:id", to: "profiles#show", as: "profile"
 
+  resources :notifications, only: [:index, :destroy]
+
   get "/bookings/pending_denied_show/:id", to: "bookings#pending_denied_show", as: "pending"
 
   mount Attachinary::Engine => "/attachinary"

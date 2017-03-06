@@ -1,6 +1,5 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-
   before_action :set_event, only: [:create]
   before_action :set_booking, only: [:update]
 
@@ -37,6 +36,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       @event.update_players
+      Notification.create(content: "#{@booking.user.username} has requested to join '#{@booking.event.title}'", user: @booking.event.user, notificationable: @booking)
       redirect_to pending_path(@booking)
     else
       render :new
@@ -63,6 +63,11 @@ class BookingsController < ApplicationController
     if params[:booking][:booking_state] == 2
       #booking is now denied
       @booking.booking_denied
+      Notification.create(content: "#{@booking.event.user.username} has denied your request to join '#{@booking.event.title}'", user: @booking.user, notificationable: @booking)
+    end
+    if params[:booking][:booking_state] == 1
+      #create a notif for user and booking
+      Notification.create(content: "#{@booking.event.user.username} has accepted your request to join '#{@booking.event.title}'", user: @booking.user, notificationable: @booking)
     end
     redirect_to booking_path(@booking)
   end
