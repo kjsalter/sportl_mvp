@@ -64,7 +64,7 @@
         </div>
         <div class="col-xs-4">
           <div class="chat-button-show text-center">
-          <%= link_to "Chat to Event owner", "#", class: "btn btn-success btn-lg" %>
+          <%= link_to "Chat to Event owner", chat_rooms_path(sender_id: current_user.id, recipient_id: @event.user.id), method: :post, class: "btn btn-success btn-lg" %>
 <!--             <%# if @event.user.id != current_user.id %>
               <%# link_to 'Chat to Event owner', conversations_path(sender_id: current_user.id, recipient_id: @event.user.id), method: "post", class: "btn btn-success btn-lg"%>
             <%# end %> -->
