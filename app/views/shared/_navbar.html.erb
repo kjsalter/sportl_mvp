@@ -120,7 +120,7 @@
           <%= select_tag "sports", options_for_select(sports_list) %>
         </div>
         <div class="form-group date-picker">
-          <div class='input-group date' id='datetimepicker1' >
+          <div class='input-group date' id='datetimepicker5' >
             <input type='text' class="form-control" name="start" placeholder="from" style="width: 120px" />
             <span class="input-group-addon">
             <span class="fa fa-calendar"></span>
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="form-group date-picker">
-          <div class='input-group date' id='datetimepicker2' >
+          <div class='input-group date' id='datetimepicker6' >
             <input type='text' class="form-control" name="end" placeholder="until" style="width: 120px" />
             <span class="input-group-addon">
             <span class="fa fa-calendar"></span>
@@ -138,6 +138,9 @@
         <div class="form-group">
           <%= select_tag "missing_player", options_for_select(party_size), placeholder: "Party size" %>
         </div>
+        <div class="form-group">
+         <%= select_tag "gender", options_for_select(['Any', 'Male', 'Female']), placeholder: "Any" %>
+       </div>
         <div class="form-group">
           <input type="text" name="location" placeholder="Postcode" class="form-control">
         </div>
@@ -274,7 +277,7 @@
         $('.nav-messages').slideToggle("slow");
         $('.nav-messages').css({display: 'flex'});
       });
-      $('#datetimepicker1').datetimepicker({
+      $('#datetimepicker5').datetimepicker({
           format: "DD/MM/YYYY HH:mm",
           sideBySide: true,
           minDate: moment(),
@@ -285,15 +288,15 @@
           }
         });
 
-        $('#datetimepicker2').datetimepicker({
+        $('#datetimepicker6').datetimepicker({
           format: "DD/MM/YYYY HH:mm",
           sideBySide: true,
           minDate: moment(),
           stepping: 5,
         });
-        $("#datetimepicker1").on("dp.change", function (e) {
-            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-            $('#datetimepicker2').data("DateTimePicker").defaultDate(e.date);
+        $("#datetimepicker5").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").minDate(e.date);
+            $('#datetimepicker6').data("DateTimePicker").defaultDate(e.date);
         });
     });
   <% end %>

@@ -1,40 +1,56 @@
-.home-wrapper {
-  background-color: RGBA(71, 75, 73, 1.00);
-  padding: 30px;
+#home-wrapper {
+  background-color: RGBA(63, 138, 145, 0.5);
+  width: 100vw;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   h2 {
     padding: 15px;
-    color: #1A1C1B;
     font-weight: 700;
     margin-bottom: 25px;
     font-size: 2.7em;
   }
 }
 
+// ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+//     color:    red !important;
+// }
+// :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+//    color:    red !important;
+// }
+// ::-moz-placeholder { /* Mozilla Firefox 19+ */
+//    color:    red !important;
+//    opacity:  1;
+// }
+// :-ms-input-placeholder { /* Internet Explorer 10-11 */
+//    color:    red !important;
+// }
+
 #sport-form {
-  .form-control {
-    background-color: #686B6A;
-    border: none;
-    height: 40px;
-    border-radius: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+.form-control {
+  // background-color: #f5a7a3;
+  border: none;
+  border-radius: 2px;
+  // color: white;
   }
-  padding-left: 50px;
-}
 
-#sports, #missing_player {
-  height: 40px;
-  background-color: #686B6A;
-  border: none;
-  color: #999999;
-}
+  #sports, #missing_player {
+    height: 40px;
+    // background-color: #f5a7a3;
+    border: none;
+    // color: white;
+  }
 
-.sport-form-submit {
-  display: block;
-  margin: auto;
-  margin-top: 25px;
-  border-radius: 5px;
-  margin-bottom: 30px;
-  border: none;
-  background-color: #212221;
+  .sport-form-submit {
+    display: block;
+    margin: auto;
+    margin-top: 25px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    border: none;
+  }
 }
 
 .home-container{
@@ -43,7 +59,7 @@
   margin: 0;
 }
 
-.bigscreen-image-banner{
+.bigscreen-image-banner {
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -56,9 +72,12 @@
     height: 100%;
     padding: 3vmin;
     background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     h1 {
       font-family: $base-font;
-      border: 2px solid white;
+      // border: 2px solid white;
       font-size: 6vmin;
       padding: 3vmin;
       margin: 0;
