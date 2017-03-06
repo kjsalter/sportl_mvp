@@ -4,16 +4,20 @@ class Event < ApplicationRecord
   has_many :bookings
   validates :missing_player, :sport, :title, :postcode, :start_time, :end_time, :level, presence: true
   validates :level, inclusion: { in: [0,1,2,3,4,5], allow_nil: false }
-  geocoded_by :postcode
-  reverse_geocoded_by :latitude, :longitude do |obj, results|
-    if geo = results.first
-      obj.g_city = geo.city
-      obj.g_postcode = geo.postal_code
-      obj.g_country = geo.country_code
-      obj.g_address = geo.address
-    end
+  geocoded_by :full_address
+  # reverse_geocoded_by :latitude, :longitude do |obj, results|
+  #   if geo = results.first
+  #     obj.g_city = geo.city
+  #     obj.g_postcode = geo.postal_code
+  #     obj.g_country = geo.country_code
+  #     obj.g_address = geo.address
+  #   end
+  # end
+  after_validation :geocode, if: :postcode_changed?
+
+  def full_address
+    [address, city, postcode, country].compact.join(', ')
   end
-  after_validation :geocode, :reverse_geocode, if: :postcode_changed?
 
   def self.search_event(sport, start_date, end_date, party_size, location, radius)
 

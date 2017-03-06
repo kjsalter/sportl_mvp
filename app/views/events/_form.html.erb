@@ -5,7 +5,11 @@
         <%= simple_form_for @event do |f| %>
           <%= f.association :sport, collection: Sport.order('name ASC')  %>
           <%= f.input :title %>
+          <%= f.input :venue_name %>
+          <%= f.input :address %>
+          <%= f.input :city %>
           <%= f.input :postcode %>
+          <%= f.input :country, priority: [ 'FR' ] %>
           <div class="row">
             <div class="col-xs-6">
               <div class="form-group">
