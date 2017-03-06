@@ -54,7 +54,7 @@
                     <i class="fa fa-user" aria-hidden="true"></i>
                   <% end %>
                 </p>
-                <p> <%= event.g_city %>, <%= event.g_postcode.split[0] %>
+                <p> <%= event.city %>, <%= event.postcode.split[0] %>
                 <% if params[:location].present? %>
                   (<%= event.distance_from(@searcher_coordinates).round(0) %> miles away)
                   <!-- (<%# Geocoder::Calculations.distance_between([event.latitude, event.longitude], @searcher_coordinates).round(0) %> miles away) -->
