@@ -1,6 +1,19 @@
 <div class="container-index">
   <br>
-  <div class="row">
+    <div class="dropdown">
+      <p class="dropdown-toggle" data-toggle="dropdown"> Sort by:
+      <%= params[:sort] %> <%= params[:order] %></p>
+      <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu">
+        <li><%= link_to "Date ASC", events_path(params_for_event_index(sort: :start_time, order: :asc)) %></li>
+        <li><%= link_to "Date DESC", events_path(params_for_event_index(sort: :start_time, order: :desc)) %></li>
+        <li><%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %></li>
+        <li><%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %></li>
+        <li><%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %></li>
+      </ul>
+    </div>
+
+
+  <div class="row sort-box">
     <div class="col-xs-12 col-md-7">
       Sort By:
       <%= link_to "Date ASC", events_path(params_for_event_index(sort: :start_time, order: :asc)) %> |
@@ -31,7 +44,6 @@
                   <span class="sport_name"> <%= event.sport.name %> </span> </h4>
                 </div>
                 <div class="card-time">
-                  <p><% event.start_time %></p>
                   <% if event.start_time.today? %>
                     Today, <%= event.start_time.strftime("%H:%M") %>
                   <% elsif event.start_time.to_date == Date.tomorrow %>
@@ -39,6 +51,16 @@
                   <% else %>
                     <%= event.start_time.strftime("%a %d %b, %H:%M") %>
                   <% end %>
+                  <br>
+                  <div style="text-align: right">
+                    <% if (event.end_time - event.start_time)/(60) < 120 %>
+                      (<%= ((event.end_time - event.start_time)/(60)).round(0) %> mins)
+                    <% elsif (event.end_time - event.start_time)/(60*60) > 24 %>
+                      (<%= ((event.end_time - event.start_time)/(60*60*24)).round(1) %> days)
+                    <% else %>
+                      (<%= ((event.end_time - event.start_time)/(60*60)).round(1) %> hours)
+                    <% end %>
+                  </div>
                 </div>
               </div>
               <div class="card-details">
