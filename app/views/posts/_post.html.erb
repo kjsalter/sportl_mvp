@@ -1,7 +1,26 @@
+<% if post.user.photo %>
+  <% avatar_url = post.user.photo.path %>
+<% elsif post.user.facebook_picture_url %>
+  <% avatar_url = post.user.facebook_picture_url.gsub("square", "large") %>
+<% else %>
+<% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+<% end %>
+
+
 <div class="container">
   <div class="row">
-      <div class=" col-xs-offset-3 col-xs-6 my-messages">
-          <span><%= post.body %> </span> <span> <%= post.user.first_name %> -- <%= post.timestamp %></span>
+      <div class=" col-xs-offset-2 col-xs-8 chat-border ">
+      <div class="col-xs-2">
+             <p style="margin-bottom: 0px;"> <%= cl_image_tag avatar_url, crop: :fill, responsive_placeholder: "blank", class: "avatar"%> </p>
+            </div>
+            <div class="col-xs-9">
+              <p> <%= post.body %> </p>
+            </div>
+            <div class="col-xs-1">
+              <p> <%= post.timestamp %> </p>
+            </div>
       </div>
     </div>
 </div>
+
+
