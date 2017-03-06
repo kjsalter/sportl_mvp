@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   validates :level, inclusion: { in: [0,1,2,3,4,5], allow_nil: false }
   geocoded_by :postcode
   reverse_geocoded_by :latitude, :longitude do |obj, results|
-    if geo = results.first
+    if geo == results.first
       obj.g_city = geo.city
       obj.g_postcode = geo.postal_code
       obj.g_country = geo.country_code

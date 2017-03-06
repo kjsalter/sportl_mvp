@@ -1,7 +1,26 @@
+<div class="row">
 <% if chat_room.sender_id == current_user.id %>
-<%= link_to "Chat with #{chat_room.recipient.email}", chat_room_path(chat_room) %>
-<br>
+<%= link_to "#{chat_room.recipient.email}", chat_room_path(chat_room) %>
 <% else %>
-<%= link_to "Chat with #{chat_room.sender.email}", chat_room_path(chat_room) %>
-<br>
+
+
+<div class="col-xs-2">
+  <h2> Picture</h2>
+</div>
+<div class="col-xs-2">
+
+
+<%= link_to "#{chat_room.sender.email}", chat_room_path(chat_room) %> <br>
+<%= chat_room.posts.last.chat_timestamp %>
+</div>
+
+<div class="col-xs-5">
+<%= chat_room.posts.last.body %>
+</div>
+
+<div class="col-xs-3">
+
+<p> You share x bookings!</p>
+</div>
 <% end %>
+</div>
