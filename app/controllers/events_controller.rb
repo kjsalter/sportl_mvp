@@ -42,7 +42,7 @@ class EventsController < ApplicationController
 
   # perform create action
   def create
-    @event = Event.new(event_params)
+    @event = Event.create(event_params)
     authorize @event
 
     # Create players using @event and selected user(s)
