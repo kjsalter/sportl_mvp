@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   has_many :bookings
   validates :missing_player, :sport, :title, :postcode, :start_time, :end_time, :level, presence: true
   validates :level, inclusion: { in: [0,1,2,3,4,5], allow_nil: false }
+  validates :gender, presence: true
 
   geocoded_by :full_address
   # reverse_geocoded_by :latitude, :longitude do |obj, results|
