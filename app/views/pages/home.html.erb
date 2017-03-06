@@ -3,6 +3,9 @@
   <div class="home-banner-caption">
     <span class="home-banner-typed"></span>
     <h1>Play a game with a team near you</h1>
+    <div class="text-center">
+      <%= image_tag('down-chevron', class: "hvr-hang") %>
+    </div>
   </div>
 </div>
 
@@ -15,12 +18,21 @@
         <div class="form-group">
           <%= select_tag "sports", options_for_select(@sports_list) %>
         </div>
-
         <div class="form-group date-picker">
-          <input type="text" id="calendar" name="start" placeholder="&#xf073; from" style="font-family:Arial, FontAwesome" class="form-control">
+          <div class='input-group date' id='datetimepicker1' >
+            <input type='text' class="form-control" name="start" placeholder="from" style="width: 120px" />
+            <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+            </span>
+          </div>
         </div>
-        <div class="form-group date-picker">
-          <input type="text" id="calendar2" name="end" placeholder="&#xf073; until" style="font-family:Arial, FontAwesome" class="form-control">
+         <div class="form-group date-picker">
+          <div class='input-group date' id='datetimepicker2' >
+            <input type='text' class="form-control" name="end" placeholder="until" style="width: 120px" />
+            <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+            </span>
+          </div>
         </div>
         <div class="form-group">
           <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
@@ -33,13 +45,13 @@
         </div>
         <%= submit_tag("Search", class: "btn btn-success btn-lg sport-form-submit") %>
         <div id="slider"></div>
-    <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="bigscreen-image-banner" style="background-image: url('<%= image_path 'library/basketball.jpg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
+<div class="bigscreen-image-banner" style="background-image: url('<%= image_path 'library/basketball.jpeg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
   <div class="image-banner-contents">
     <h1>Looking for team mates?</h1>
     <div class="text-center">
@@ -58,5 +70,28 @@
           typeSpeed: 10
       });
     });
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+          icons: {
+            previous: 'glyphicon glyphicon-chevron-left',
+            next: 'glyphicon glyphicon-chevron-right'
+          }
+        });
+
+        $('#datetimepicker2').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+            $('#datetimepicker2').data("DateTimePicker").defaultDate(e.date);
+        });
+      });
   <% end %>
 <% end %>
