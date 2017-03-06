@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="notification-index-list">
+      <% @notifications.each do |notification| %>
+        <li><%= link_to notification.content, notification.notificationable %>
+        <%= time_from_today(notification) %>
+        <%= link_to notification_path(notification), method: :delete do %>
+          <i class="fa fa-times" aria-hidden="true"></i>
+        <% end %>
+        </li>
+
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

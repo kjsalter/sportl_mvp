@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170306183451) do
 
   # These are extensions that must be enabled in order to support this database
@@ -98,6 +99,16 @@ ActiveRecord::Schema.define(version: 20170306183451) do
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "notificationable_id"
+    t.string   "notificationable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text     "body"
     t.integer  "user_id"
@@ -158,6 +169,7 @@ ActiveRecord::Schema.define(version: 20170306183451) do
   add_foreign_key "chat_rooms", "users"
   add_foreign_key "events", "sports"
   add_foreign_key "events", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "posts", "chat_rooms"
   add_foreign_key "posts", "users"
 end
