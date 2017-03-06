@@ -115,6 +115,7 @@
                   {
                     lat: <%= event.latitude %>,
                     lng: <%= event.longitude %>,
+                    infowindow: '<h3><%= event.title %></h3> <p> <%= event.description %> </p> <p> <%= event.start_time.strftime("%H %M") %> </p> ',
                     picture: {
                       url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
                       width:  50,
