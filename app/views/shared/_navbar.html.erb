@@ -21,14 +21,21 @@
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "requests", '#', class: "hvr-grow toggle-requests" %>
+            <%= link_to "find event", '#', class: "hvr-grow toggle-find" %>
           </div>
         <% end %>
       </div>
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "events", "#", class: "hvr-grow toggle-events" %>
+            <%= link_to "add event", '#', class: "hvr-grow toggle-requests" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "captain", "#", class: "hvr-grow toggle-events" %>
           </div>
         <% end %>
       </div>
@@ -42,14 +49,21 @@
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item">
-            <%= link_to "profile", "#", class: "hvr-grow toggle-profile" %>
+            <%= link_to "player", "#", class: "hvr-grow toggle-profile" %>
           </div>
         <% end %>
       </div>
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "chats", "#", class: "hvr-grow toggle-chats" %>
+            <%= link_to "profile", "#", class: "hvr-grow toggle-chats" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "messages", "#", class: "hvr-grow toggle-chats" %>
           </div>
         <% end %>
       </div>
@@ -78,6 +92,47 @@
   </div>
 
 </div>
+
+<!-- FIND EVENT DROPDOWN -->
+<div class="sub-nav-holder nav-find">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-link">
+      <%= form_tag("events", method: "get", class: "form-inline", id: "nav-sport-form") do %>
+        <div class="form-group">
+          <%= select_tag "sports", options_for_select(@sports_list) %>
+        </div>
+        <div class="form-group date-picker">
+          <div class='input-group date' id='datetimepicker1' >
+            <input type='text' class="form-control" name="start" placeholder="from" style="width: 120px" />
+            <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group date-picker">
+          <div class='input-group date' id='datetimepicker2' >
+            <input type='text' class="form-control" name="end" placeholder="until" style="width: 120px" />
+            <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
+        </div>
+        <div class="form-group">
+          <input type="text" name="location" placeholder="Postcode" class="form-control">
+        </div>
+        <div class="form-group">
+          <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" id="radius" />
+        </div>
+        <%= submit_tag("Search", class: "btn btn-primary sport-form-submit") %>
+        <div id="slider"></div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
 
 <!-- REQUESTS DROPDOWN -->
 <div class="sub-nav-holder nav-requests">
@@ -122,6 +177,13 @@
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).ready(function() {
+      $('.toggle-find').click(function() {
+        $('.nav-events').slideUp("medium");
+        $('.nav-profile').slideUp("medium");
+        $('.nav-requests').slideUp("medium");
+        $('.nav-find').slideToggle("slow");
+        $('.nav-find').css({display: 'flex'});
+      })
       $('.toggle-requests').click(function() {
         $('.nav-events').slideUp("medium");
         $('.nav-profile').slideUp("medium");
@@ -140,6 +202,28 @@
         $('.nav-profile').slideToggle("slow");
         $('.nav-profile').css({display: 'flex'});
       });
+      $('#datetimepicker1').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+          icons: {
+            previous: 'glyphicon glyphicon-chevron-left',
+            next: 'glyphicon glyphicon-chevron-right'
+          }
+        });
+
+        $('#datetimepicker2').datetimepicker({
+          format: "DD/MM/YYYY HH:mm",
+          sideBySide: true,
+          minDate: moment(),
+          stepping: 5,
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+            $('#datetimepicker2').data("DateTimePicker").defaultDate(e.date);
+        });
     });
   <% end %>
+
 <% end %>
