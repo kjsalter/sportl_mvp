@@ -76,10 +76,9 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.players.destroy_all
     # params[:event][:player_ids] = @players
 
-    if @event.update(event_params)
+    if @event.save
       redirect_to event_path(@event)
     else
       render :new
@@ -96,13 +95,14 @@ class EventsController < ApplicationController
 
   def create_players
     # User.where("username = ?", event_params[:player_ids][1])
-    @players = []
-    event_params[:player_ids].each do |username|
+    @event.players.destroy_all
+    params[:event][:player_ids].each do |username|
       if username.present?
-        working_user = User.where("username = ?", username)
-        @players << Player.create(event: @event, user: working_user[0])
+        working_user = User.where("username = ?", username).first
+        @event.players << Player.create!(event: @event, user: working_user)
       end
     end
+    # params[:event][:player_ids] = @players
   end
 
   def set_event
