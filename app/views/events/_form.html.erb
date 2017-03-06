@@ -47,7 +47,7 @@
 
 
 <% content_for(:after_js) do %>
-  <script type="text/javascript">
+  <%= javascript_tag do %>
       $(function () {
         $('#datetimepicker1').datetimepicker({
           format: "DD/MM/YYYY HH:mm",
@@ -73,5 +73,5 @@
             $('#datetimepicker2').data("DateTimePicker").defaultDate(e.date);
         });
       });
-  </script>
+  <% end %>
 <% end %>

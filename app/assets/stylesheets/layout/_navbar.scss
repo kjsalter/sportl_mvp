@@ -187,12 +187,9 @@
     background-color: white;
     border: none;
     height: 30px;
-    border-radius: 3px;
+    border-radius: 2px;
     font-size: 15px;
     width: 120px;
-    #datetimepicker1, #datetimepicker2 {
-      width: 155px;
-    }
   }
   .input-group.date .input-group-addon {
     background-color: white;
@@ -201,11 +198,12 @@
       color: grey;
     }
   }
-  #sports, #missing_player {
+  #sports, #missing_player, #gender {
   height: 30px;
   background-color: white;
   border: none;
   color: #999999;
+  border-radius: 2px;
   }
 
   #radius {

@@ -25,4 +25,5 @@ module ApplicationHelper
   def sports_list
     Sport.joins(:events).pluck(:name)
   end
+
 end
