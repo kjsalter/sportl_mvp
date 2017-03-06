@@ -21,24 +21,33 @@
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "find event", '#', class: "hvr-grow toggle-find" %>
+          <!-- SEARCH -->
+            <%= link_to '#', class: "hvr-grow toggle-find" do %>
+            search
+              <!-- <i class="fa fa-search" style="font-size: 40px"></i> -->
+            <% end %>
           </div>
         <% end %>
       </div>
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "add event", '#', class: "hvr-grow toggle-requests" %>
+          <!-- NEW EVENT -->
+            <%= link_to new_event_path do %>
+              create event
+              <!-- <i class="fa fa-plus" style="font-size: 40px"></i> -->
+            <% end %>
           </div>
         <% end %>
       </div>
-      <div class="navbar-sportl-item navbar-sportl-link">
-        <% if user_signed_in? %>
-          <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "captain", "#", class: "hvr-grow toggle-events" %>
-          </div>
-        <% end %>
-      </div>
+      <!-- <div class="navbar-sportl-item navbar-sportl-link"> -->
+        <%# if user_signed_in? %>
+        <!-- CAPTAIN MENU -->
+          <!-- <div class="navbar-sportl-item" style="margin-left: 20px"> -->
+            <%#= link_to "captain", "#", class: "hvr-grow toggle-captain" %>
+          <!-- </div> -->
+        <%# end %>
+      <!-- </div> -->
     </div>
   </div>
   <!-- end of left side -->
@@ -46,24 +55,32 @@
   <!-- right side of navbar -->
   <div class="right-side-navbar">
     <div class="navbar-sportl-sides hidden-xs hidden-sm">
-      <div class="navbar-sportl-item navbar-sportl-link">
-        <% if user_signed_in? %>
+      <!-- <div class="navbar-sportl-item navbar-sportl-link">
+        <%# if user_signed_in? %>
           <div class="navbar-sportl-item">
-            <%= link_to "player", "#", class: "hvr-grow toggle-profile" %>
+          PLAYER MENU
+            <%#= link_to "player", "#", class: "hvr-grow toggle-player" %>
+          </div>
+        <%# end %>
+      </div> -->
+      <!-- PROFILE -->
+      <div class="navbar-sportl-item navbar-sportl-link">
+        <% if user_signed_in? %>
+          <div class="navbar-sportl-item" style="margin-left: 20px">
+            <%= link_to "#", class: "hvr-grow toggle-profile" do%>
+                my profile
+            <% end %>
           </div>
         <% end %>
       </div>
       <div class="navbar-sportl-item navbar-sportl-link">
         <% if user_signed_in? %>
+        <!-- MESSAGES -->
           <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "profile", "#", class: "hvr-grow toggle-chats" %>
-          </div>
-        <% end %>
-      </div>
-      <div class="navbar-sportl-item navbar-sportl-link">
-        <% if user_signed_in? %>
-          <div class="navbar-sportl-item" style="margin-left: 20px">
-            <%= link_to "messages", "#", class: "hvr-grow toggle-chats" %>
+            <%= link_to "#", class: "hvr-grow toggle-messages" do %>
+              <!-- <i class="fa fa-envelope-o" style="font-size: 40px"></i> -->
+              messages
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -99,7 +116,7 @@
     <div class="sub-nav-link">
       <%= form_tag("events", method: "get", class: "form-inline", id: "nav-sport-form") do %>
         <div class="form-group">
-          <%= select_tag "sports", options_for_select(@sports_list) %>
+          <%= select_tag "sports", options_for_select(sports_list) %>
         </div>
         <div class="form-group date-picker">
           <div class='input-group date' id='datetimepicker1' >
@@ -118,7 +135,7 @@
           </div>
         </div>
         <div class="form-group">
-          <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
+          <%= select_tag "missing_player", options_for_select(party_size), placeholder: "Party size" %>
         </div>
         <div class="form-group">
           <input type="text" name="location" placeholder="Postcode" class="form-control">
@@ -134,73 +151,127 @@
 </div>
 
 
-<!-- REQUESTS DROPDOWN -->
-<div class="sub-nav-holder nav-requests">
+<!-- CAPTAIN DROPDOWN -->
+<!-- <div class="sub-nav-holder nav-captain">
   <div class="sub-nav-inner">
     <div class="sub-nav-link">
-      <%= link_to "sent requests", "#" %>
+      <%#= link_to "created events", created_events_path %>
     </div>
     <div class="sub-nav-link">
-      <%= link_to "received requests", my_requests_path %>
+      <%#= link_to "player requests", my_requests_path %>
     </div>
   </div>
-</div>
+</div> -->
 
-<!-- EVENTS DROPDOWN -->
-<div class="sub-nav-holder nav-events">
+<!-- PLAYER DROPDOWN -->
+<!-- <div class="sub-nav-holder nav-player">
   <div class="sub-nav-inner">
     <div class="sub-nav-link">
-      <%= link_to "joined events", my_bookings_path %>
-    </div>
-    <div class="sub-nav-link">
-      <%= link_to "created events",  created_events_path %>
+      <%#= link_to "joined events", my_bookings_path %>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- PROFILE DROPDOWN -->
 <div class="sub-nav-holder nav-profile">
-  <div class="sub-nav-inner">
-    <div class="sub-nav-link">
-      <%= link_to my_profile_path do %>
-        <i class="fa fa-user"></i> <%= t(".profile", default: "my page") %>
-      <% end %>
+  <div class="sub-nav-inner-profile">
+    <!-- CAPTAIN -->
+    <div class="captain-stuff flex-container-column">
+      <div class="text-center inner-profile-title"> Captain menu </div>
+      <div class="myFlex">
+        <div class="sub-nav-link nav-inner-link">
+          <%= link_to "player requests", my_requests_path %>
+        </div>
+        <div class="sub-nav-link nav-inner-link">
+          <%= link_to "created events", created_events_path %>
+        </div>
+      </div>
     </div>
-    <div class="sub-nav-link">
-      <%= link_to destroy_user_session_path, method: :delete do %>
-        <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "log out") %>
-      <% end %>
+    <!-- PLAYER -->
+    <div class="player-stuff flex-container-column">
+      <div class="text-center inner-profile-title"> Player menu </div>
+      <div class="myFlex">
+        <div class="sub-nav-link nav-inner-link">
+          <%= link_to "joined events", my_bookings_path %>
+        </div>
+      </div>
+    </div>
+    <!-- PROFILE -->
+    <div class="profile-stuff flex-container-column">
+      <div class="text-center inner-profile-title"> Profile </div>
+        <div class="myFlex">
+          <div class="sub-nav-link nav-inner-link">
+            <%= link_to my_profile_path do %>
+              my page
+            <% end %>
+          </div>
+          <div class="sub-nav-link nav-inner-link">
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "log out") %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- MESSAGES DROPDOWN -->
+<div class="sub-nav-holder nav-messages">
+  <div class="sub-nav-inner">
+    <div class="sub-nav-link">
+      <%= link_to "chats", "#" %>
+    </div>
+    <div class="sub-nav-link">
+      <%= link_to "notifications", "#" %>
+    </div>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).ready(function() {
       $('.toggle-find').click(function() {
-        $('.nav-events').slideUp("medium");
+        $('.nav-player').slideUp("medium");
         $('.nav-profile').slideUp("medium");
-        $('.nav-requests').slideUp("medium");
+        $('.nav-player').slideUp("medium");
+        $('.nav-messages').slideUp("medium");
         $('.nav-find').slideToggle("slow");
         $('.nav-find').css({display: 'flex'});
       })
-      $('.toggle-requests').click(function() {
-        $('.nav-events').slideUp("medium");
+      $('.toggle-captain').click(function() {
+        $('.nav-find').slideUp("medium");
+        $('.nav-player').slideUp("medium");
         $('.nav-profile').slideUp("medium");
-        $('.nav-requests').slideToggle("slow");
-        $('.nav-requests').css({display: 'flex'});
+        $('.nav-messages').slideUp("medium");
+        $('.nav-captain').slideToggle("slow");
+        $('.nav-captain').css({display: 'flex'});
       });
-      $('.toggle-events').click(function() {
-        $('.nav-requests').slideUp("medium");
+      $('.toggle-player').click(function() {
+        $('.nav-find').slideUp("medium");
+        $('.nav-captain').slideUp("medium");
         $('.nav-profile').slideUp("medium");
-        $('.nav-events').slideToggle("slow");
-        $('.nav-events').css({display: 'flex'});
+        $('.nav-messages').slideUp("medium");
+        $('.nav-player').slideToggle("slow");
+        $('.nav-player').css({display: 'flex'});
       });
       $('.toggle-profile').click(function() {
-        $('.nav-requests').slideUp("medium");
-        $('.nav-events').slideUp("medium");
+        $('.nav-find').slideUp("medium");
+        $('.nav-captain').slideUp("medium");
+        $('.nav-player').slideUp("medium");
+        $('.nav-messages').slideUp("medium");
         $('.nav-profile').slideToggle("slow");
         $('.nav-profile').css({display: 'flex'});
+      });
+      $('.toggle-messages').click(function() {
+        $('.nav-find').slideUp("medium");
+        $('.nav-captain').slideUp("medium");
+        $('.nav-player').slideUp("medium");
+        $('.nav-profile').slideUp("medium");
+        $('.nav-messages').slideToggle("slow");
+        $('.nav-messages').css({display: 'flex'});
       });
       $('#datetimepicker1').datetimepicker({
           format: "DD/MM/YYYY HH:mm",

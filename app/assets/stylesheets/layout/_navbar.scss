@@ -90,7 +90,7 @@
   right: 10px;
 }
 
-///////// HOVER DROP DOWN MENU ////////////////
+///////// DROP DOWN MENU ////////////////
 .sub-nav-holder {
   width: 100vw;
   display: none;
@@ -117,10 +117,38 @@
   }
 }
 
-.sub-nav-link {
-  padding: 0px 15px;
+.profile-stuff, .captain-stuff, .player-stuff {
+  display: flex;
+  align-items: center;
 }
 
+.profile-stuff {
+  img {
+    margin-left: 15px;
+  }
+}
+
+.sub-nav-link {
+  padding: 10px;
+}
+
+.sub-nav-inner-profile {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0px 40px;
+  a {
+    color: $brand-color;
+    &:hover {
+      color: RGBA(238, 109, 102, 0.5);
+      text-decoration: none;
+    }
+  }
+  .nav-inner-link {
+    display: flex;
+    justify-content: space-around;
+  }
+}
 
 /* Navbar CLICK DROPDOWN dropdown menu */
 .navbar-sportl-dropdown-menu {

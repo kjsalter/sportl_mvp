@@ -17,4 +17,12 @@ module ApplicationHelper
       [lvl, index]
     end
   end
+
+  def party_size
+    ['Party size', 1, 2, 3, 4, 5]
+  end
+
+  def sports_list
+    Sport.joins(:events).pluck(:name)
+  end
 end

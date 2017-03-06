@@ -3,6 +3,9 @@
   <div class="home-banner-caption">
     <span class="home-banner-typed"></span>
     <h1>Play a game with a team near you</h1>
+    <div class="text-center">
+      <%= image_tag('down-chevron', class: "hvr-hang") %>
+    </div>
   </div>
 </div>
 
@@ -42,13 +45,13 @@
         </div>
         <%= submit_tag("Search", class: "btn btn-success btn-lg sport-form-submit") %>
         <div id="slider"></div>
-    <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="bigscreen-image-banner" style="background-image: url('<%= image_path 'library/basketball.jpg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
+<div class="bigscreen-image-banner" style="background-image: url('<%= image_path 'library/basketball.jpeg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
   <div class="image-banner-contents">
     <h1>Looking for team mates?</h1>
     <div class="text-center">

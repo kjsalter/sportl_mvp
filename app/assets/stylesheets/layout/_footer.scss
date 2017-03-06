@@ -8,6 +8,9 @@
   display: flex;
   justify-content: space-between;
   color: white;
+.fa {
+  color: white;
+}
 }
 
 .footer-items{
@@ -24,10 +27,6 @@
 .footer-icon{
   margin: 20px;
   font-size: 30px;
-}
-
-.fa {
-  color: white;
 }
 
 .fa:hover {
