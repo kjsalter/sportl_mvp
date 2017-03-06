@@ -15,3 +15,5 @@
 //= require typed
 //= require sport.choice
 //= require_tree .
+//= require chosen-jquery
+//= require scaffold

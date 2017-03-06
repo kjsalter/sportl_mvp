@@ -8,7 +8,7 @@ module ApplicationHelper
   def gravatar_for(user, opts = {})
     opts[:alt] = user.first_name
     image_tag "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{opts.delete(:size) { 40 }}",
-              opts
+    opts
   end
 
   def levels_list
@@ -16,5 +16,15 @@ module ApplicationHelper
     levels.map.with_index do |lvl, index|
       [lvl, index]
     end
+  end
+
+  def users_list
+    usernames = []
+
+    User.all.each do |user|
+      usernames << user.username if user != current_user
+    end
+
+    return usernames
   end
 end

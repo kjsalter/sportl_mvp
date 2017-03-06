@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :protected]
   before_action :set_event, only: [:edit, :update, :destroy, :show, :protected]
+  before_action :create_players, only: [:create, :update]
   skip_after_action :verify_policy_scoped, only: :index
 
   # list all animals
@@ -43,6 +44,10 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     authorize @event
+
+    # Create players using @event and selected user(s)
+    raise
+
     @event.user = current_user
     if @event.save
       redirect_to event_path(@event)
@@ -73,6 +78,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    raise
     if @event.update(event_params)
       redirect_to event_path(@event)
     else
@@ -88,13 +94,25 @@ class EventsController < ApplicationController
 
   private
 
+  def create_players
+    # User.where("username = ?", event_params[:player_ids][1])
+    @players = []
+    event_params[:player_ids].each do |username|
+      if username.present?
+        working_user = User.where("username = ?", username)
+        @players << Player.create(event: @event, user: working_user[0])
+      end
+    end
+  end
+
   def set_event
     @event = Event.find(params[:id])
+    @users = User.all
     authorize @event
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level, player_ids: []) # May need to add players / player_id / player_ids. I don't know :)
   end
 
 end
