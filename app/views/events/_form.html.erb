@@ -34,7 +34,12 @@
           <%= f.input :requirements, as: :text, placeholder: "if neccessary...e.g. players need football boots/ hockey stick", label: "Kit requirements" %>
           <%= f.input :level, collection: levels_list %>
 
-          <%= f.association :players, collection: users_list, include_blank: false, input_html: { class: 'chosen-select' } %>
+          <% current_players = [] %>
+          <% @event.players.each do |player| %>
+            <% current_players << player.user.username %>
+          <% end %>
+
+          <%= f.association :players, collection: users_list, include_blank: false, input_html: { class: 'chosen-select' }, selected: current_players %>
 
           <%= f.input :missing_player, label: 'No. players needed', collection: 1..5, default: 1 %>
           <%= f.button :submit, class: "btn btn-primary" %>

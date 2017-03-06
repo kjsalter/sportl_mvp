@@ -76,7 +76,8 @@ class EventsController < ApplicationController
   end
 
   def update
-    params[:event][:player_ids] = @players
+    @event.players.destroy_all
+    # params[:event][:player_ids] = @players
 
     if @event.update(event_params)
       redirect_to event_path(@event)
@@ -111,12 +112,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-  #   arr = []
-  #   params[:event][:player_ids].each do |username|
-  #     arr << username if username.present?
-  #   end
-  # params[:event][:player_ids] = arr
-
     params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level, player_ids: []) # May need to add players / player_id / player_ids. I don't know :)
   end
 
