@@ -28,7 +28,6 @@ gem 'attachinary', github: 'assembler/attachinary'
 gem 'jquery-fileupload-rails'
 gem 'coffee-rails'
 
-gem 'fb_graph'
 gem 'chosen-rails'
 
 group :development, :test do
