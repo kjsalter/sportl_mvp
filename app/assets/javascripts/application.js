@@ -14,4 +14,6 @@
 //= require jquery.flip
 //= require typed
 //= require sport.choice
+//= require chosen-jquery
+//= require scaffold
 //= require_tree .
