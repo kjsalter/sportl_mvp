@@ -9,6 +9,8 @@ class ChatRoomsController < ApplicationController
     @chat_room = ChatRoom.includes(:posts).find_by(id: params[:id])
     authorize @chat_room
     @post = Post.new
+
+    @chat_room.posts.where(each { |post| post.update(read: true) }
   end
 
 
