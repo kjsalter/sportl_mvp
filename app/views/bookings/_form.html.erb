@@ -1,9 +1,15 @@
 <%= simple_form_for [@event, @booking], html: {class: 'form-inline'} do |f| %>
-  <%= f.input :no_players, label: 'Number of players', collection: 1..(@event.missing_player), default: 1, method: :update%>
-
+    <%= f.input :no_players, label: 'Number of players', collection: 1..(@event.missing_player), default: 1, method: :update%>
     <% if user_signed_in? %>
       <%= f.button :submit, class: "btn btn-primary btn-lg", value: "Request to join!" %>
     <% else %>
       <%= link_to "Request to join!", protected_event_path(@event), class: 'btn btn-primary btn-lg' %>
     <% end %>
+
 <% end %>
+
+<style>
+  #booking_no_players {
+    margin: 0px 10px;
+  }
+</style>

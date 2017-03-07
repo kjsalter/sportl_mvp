@@ -1,6 +1,9 @@
 <div class="container">
+
   <h2>My requests</h2>
+
   <div class="row">
+
   <!-- loop through booking requests -->
     <% current_user.event_bookings.each do |booking| %>
     <!-- set image of person requesting a place -->
@@ -46,13 +49,17 @@
               <div class="profile-card-header">
                 <div class="profile-card-avatar">
                   <%= link_to profile_path(booking.user) do %>
-                    <%= image_tag avatar_url, class: "avatar-large text-center"%>
+                    <%= cl_image_tag avatar_url, class: "avatar-large text-center"%>
                   <% end %>
                 </div>
               </div>
               <div class="profile-card-body">
-                <h3><%= booking.user.first_name %></h3>
-                <p><%= booking.user.bio %></p>
+                <h3><%= booking.user.first_name? ? (booking.user.first_name) : hi %></h3>
+                 <% if booking.user.bio? %>
+                  <p><%= booking.user.bio.truncate_words(10) %></p>
+                <% else %>
+                  <p>no bio</p>
+                <% end %>
                 <div class="match-details">
                   <% if booking.pending? %>
                     <div class="accept-btn">
@@ -99,4 +106,3 @@
    });
    </script>
 <% end %>
-
