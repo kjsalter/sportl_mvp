@@ -78,8 +78,7 @@ class EventsController < ApplicationController
 
   def update
     # params[:event][:player_ids] = @players
-
-    if @event.save
+    if @event.update(event_params.except(:player_ids))
       redirect_to event_path(@event)
     else
       render :new
