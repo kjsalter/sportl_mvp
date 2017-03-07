@@ -1,15 +1,15 @@
 <% if @chat_room.sender.photo %>
-  <% avatar_url_1 = @chat_room.sender.photo.path %>
+<% avatar_url_1 = @chat_room.sender.photo.path %>
 <% elsif @chat_room.sender.facebook_picture_url %>
-  <% avatar_url_1 = @chat_room.sender.facebook_picture_url.gsub("square", "large") %>
+<% avatar_url_1 = @chat_room.sender.facebook_picture_url.gsub("square", "large") %>
 <% else %>
 <% avatar_url_1 = "https://api.adorable.io/avatars/285/sportl.png" %>
 <% end %>
 
 <% if @chat_room.recipient.photo %>
-  <% avatar_url_2 = @chat_room.recipient.photo.path %>
+<% avatar_url_2 = @chat_room.recipient.photo.path %>
 <% elsif @chat_room.recipient.facebook_picture_url %>
-  <% avatar_url_2 = @chat_room.recipient.facebook_picture_url.gsub("square", "large") %>
+<% avatar_url_2 = @chat_room.recipient.facebook_picture_url.gsub("square", "large") %>
 <% else %>
 <% avatar_url_2 = "https://api.adorable.io/avatars/285/sportl.png" %>
 <% end %>
@@ -21,46 +21,50 @@
 
 
     <div class="col-xs-offset-2 col-xs-8 flex-between">
-    <span>
-      <%= link_to "Back to messages", chat_rooms_path %>
-    </span>
-    <span>
-    <% if @chat_room.sender_id == current_user.id %>
-      <span> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
-    <% else %>
-      <span> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
-    <% end %>
-    </span>
-  </div>
-  <br>
-  <div class="row">
+      <span>
+        <%= link_to "Back to messages", chat_rooms_path %>
+      </span>
+      <span>
+        <% if @chat_room.sender_id == current_user.id %>
+        <span> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
+        <% else %>
+        <span> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
+        <% end %>
+      </span>
+    </div>
+    <br>
+    <div class="row">
 
     <div class="col-xs-offset-2 col-xs-8 text-center">
+        <% if !@chat_room.find_conversation.nil? %>
         <p> <%= @chat_room.find_conversation.title %> -- <%= @chat_room.find_conversation.sport.name %> -- <%= @chat_room.find_conversation.start_time.strftime("%H:%M") %>  </p>
+        <% else  %>
+          <p> Message log </p>
+        <% end %>
         <br>
-    </div>
+      </div>
 
 
     </div>
   </div>
 
-<div id="posts" data-chat-room-id="<%= @chat_room.id %>">
-  <%= render @chat_room.posts %>
-</div>
+  <div id="posts" data-chat-room-id="<%= @chat_room.id %>">
+    <%= render @chat_room.posts %>
+  </div>
 
 
   <div class="row">
     <div class="col-xs-offset-2 col-xs-8">
 
 
-<%= form_for @post, url: '#' do |f| %>
-  <div class="form-group">
-    <%= f.text_area :body, class: 'form-control' %>
-    <small class="text-muted">From 2 to 1000 characters</small>
-  </div>
+      <%= form_for @post, url: '#' do |f| %>
+      <div class="form-group">
+        <%= f.text_area :body, class: 'form-control' %>
+        <small class="text-muted">From 2 to 1000 characters</small>
+      </div>
 
-  <%= f.submit "Post", class: 'btn btn-primary btn-lg' %>
-<% end %>
+      <%= f.submit "Post", class: 'btn btn-primary btn-lg' %>
+      <% end %>
 
     </div>
   </div>

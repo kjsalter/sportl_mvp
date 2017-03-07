@@ -8,18 +8,17 @@
   </div>
   <div class="edit-delete">
     <%= link_to edit_event_path(@event) do %>
-      <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
     <% end %>
     <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
-      <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
     <% end %>
   </div>
 </div>
 
 <% if @event.user == current_user %>
- <%= render 'event_owner' %>
+  <%= render 'event_owner' %>
 <% else %>
- <%= render 'event_viewer'%>
+  <%= render 'event_viewer'%>
 <% end %>
-
 
