@@ -47,6 +47,8 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find(params[:id])
     authorize @booking
+    redirect_to event_path(@booking.event) if current_user == @booking.event.user
+
 
     @events = [@booking.event]
     @hash = Gmaps4rails.build_markers(@events) do |event, marker|
