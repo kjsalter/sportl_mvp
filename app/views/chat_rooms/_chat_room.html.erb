@@ -13,11 +13,11 @@
     </div>
     <div class="col-xs-2 text-center">
       <p style="margin-bottom: 0px;"> <%= chat_room.recipient.email %> </p>
-      <p> last message: <%= chat_room.posts.last.chat_timestamp %> </p>
+      <p> last message: <%= chat_room.posts.first.chat_timestamp %> </p>
     </div>
 
     <div class="col-xs-6 text-center">
-      <%= chat_room.posts.last.body.truncate_words(14) %>
+      <%= chat_room.posts.first.body.truncate_words(14) %>
     </div>
 
 <% if !chat_room.find_conversation.nil? %>
@@ -46,11 +46,11 @@
     </div>
     <div class="col-xs-2 text-center">
       <p style="margin-bottom: 0px;"> <%= chat_room.sender.email %> </p>
-      <p> last message: <%= chat_room.posts.last.chat_timestamp %> </p>
+      <p> last message: <%= chat_room.posts.first.chat_timestamp %> </p>
     </div>
 
     <div class="col-xs-6 text-center">
-      <%= chat_room.posts.last.body.truncate_words(14) %>
+      <%= chat_room.posts.first.body.truncate_words(14) %>
     </div>
 
 
