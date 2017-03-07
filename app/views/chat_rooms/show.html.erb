@@ -36,7 +36,12 @@
   <div class="row">
 
     <div class="col-xs-offset-2 col-xs-8 text-center">
+        <% if !@chat_room.find_conversation.nil? %>
         <p> <%= @chat_room.find_conversation.title %> -- <%= @chat_room.find_conversation.sport.name %> -- <%= @chat_room.find_conversation.start_time.strftime("%H:%M") %>  </p>
+        <% else  %>
+          <p> Message log </p>
+        <% end %>
+
         <br>
     </div>
 
