@@ -69,18 +69,28 @@
       <div id="map" style="width: 100%; height: 375px;"></div>
 
       <% if @event.players.length > 0 %>
-        <ul class="list-inline">
-          <h3>People going:</h3>
-          <% @event.players.each do |player| %>
-            <li style="margin-bottom: 15px;">
+        <ul class="list-inline text-center" style="margin-top: 15px;">
+          <!-- <h5>People going:</h5> -->
+          <% @event.players.each_with_index do |player, index| %>
+            <li style="margin-bottom: 15px; width: 75px;">
+
               <% if !player.user.photo %>
                 <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
               <% else %>
                 <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
               <% end %>
               <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
-                <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
-                <%= player.user.username %>
+
+                <div class="badge-container">
+                  <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
+                  <% if current_user.friend_uids.include? player.user.uid %>
+                    <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
+                  <% end %>
+                  <h6>
+                    <%= player.user.username %>
+                  </h6>
+                </div>
+
               <% end %>
             </li>
           <% end %>
