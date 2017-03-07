@@ -30,6 +30,7 @@ class User < ApplicationRecord
     user_params[:facebook_picture_url] = auth.info.image
     user_params[:token] = auth.credentials.token
     user_params[:token_expiry] = Time.at(auth.credentials.expires_at)
+    user_params[:friend_uids] = auth.extra.raw_info.friends.data.map(&:id)
     user_params = user_params.to_h
 
     user = User.where(provider: auth.provider, uid: auth.uid).first
