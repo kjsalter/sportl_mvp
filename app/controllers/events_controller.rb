@@ -4,19 +4,32 @@ class EventsController < ApplicationController
   before_action :create_players, only: [:update]
   skip_after_action :verify_policy_scoped, only: :index
 
-  # list all animals
   def index
 
-    # This is the search
+# This is the search
+# Overall list
     @events = Event.all
-    @events = Event.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?
-    @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
-    @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
-    @events = @events.where('missing_player >= ?', params[:missing_player]) unless params[:missing_player] == "Party size"
-    @events = @events.where('missing_player > 0')
-    @events = @events.where('gender = ?', params[:gender]) if (params[:gender].downcase == "male") || (params[:gender].downcase == "female")
     @events = @events.where("active = true")
+# by location
+    @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
+    @radius = 15
+    @events = @events.near(params[:location], @radius) if params[:location].present?
+# by time
+    @events = @events.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?    # by sports
+# by sports
+    @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if params[:sports].present? && Sport.all.map(&:name).include?(params[:sports][0])
+# by spaces
+    @events = @events.where('missing_player >= ?', params[:missing_player]) if params[:missing_player].present?
+    # @events = @events.where('missing_player > 0')
+# by vibe
+    @events = @events.where(level: params[:event_vibe]) if params[:event_vibe].present?
+    # @events = @events.where('gender = ?', params[:gender]) if (params[:gender].downcase == "male") || (params[:gender].downcase == "female")
+# by type
+    @events = @events.where(gender: params[:event_type]) if params[:event_type].present?
+# by friends
+    # @events = @events.where('friends = ?', params[:friends_radio]) if params[:friends_radio].present?
 
+    @sports_list = Event.all.map { |event| event.sport.name }.uniq
     @searcher_coordinates = Geocoder.coordinates(params[:location])
 
     # Sorting
@@ -35,7 +48,7 @@ class EventsController < ApplicationController
     end
   end
 
-  # create a new animal
+  # create a new event
   def new
     @event = Event.new
     authorize @event

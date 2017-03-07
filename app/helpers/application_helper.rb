@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def levels_list
-    levels = %w(Any 1-beginner 2 3 4 5-advanced)
+    levels = %w(casual competitive serious)
     levels.map.with_index do |lvl, index|
       [lvl, index]
     end
@@ -20,16 +20,19 @@ module ApplicationHelper
 
   def users_list
     usernames = []
-
     User.all.each do |user|
       usernames << user.username if user != current_user
     end
 
     return usernames
   end
-  
+
   def party_size
-    ['Party size', 1, 2, 3, 4, 5]
+    [1, 2, 3, 4, 5]
+  end
+
+  def event_type
+    ['mens', 'ladies', 'mixed']
   end
 
   def sports_list
