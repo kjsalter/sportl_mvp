@@ -8,10 +8,10 @@
   </div>
   <div class="edit-delete">
     <%= link_to edit_event_path(@event) do %>
-      <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
     <% end %>
     <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
-      <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
     <% end %>
   </div>
 </div>
@@ -41,17 +41,17 @@
         <div class="col-xs-6">
           <h3>Level:
             <% @event.level.times do %>
-              <i class="fa fa-square colour-icon" aria-hidden="true"></i>
+            <i class="fa fa-square colour-icon" aria-hidden="true"></i>
             <% end %>
             <% (5 - @event.level).times do %>
-              <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
+            <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
             <% end %>
           </h3>
         </div>
         <div class="col-xs-6">
           <h3>Players needed:
             <% @event.missing_player.times do %>
-              <i class="fa fa-user colour-icon" aria-hidden="true"></i>
+            <i class="fa fa-user colour-icon" aria-hidden="true"></i>
             <% end %>
           </h3>
         </div>
@@ -59,27 +59,27 @@
       <h3>Date:</h3>
       <p>
         <% if @event.start_time.to_date == @event.end_time.to_date %>
-          <%= @event.start_time.strftime("%A %d %B") %>
+        <%= @event.start_time.strftime("%A %d %B") %>
         <% else %>
-          <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
+        <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
         <% end %>
       </p>
       <h3>Time:</h3>
-        <% if @event.start_time.to_date == @event.end_time.to_date %>
-          <%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %>
-        <% else %>
-          <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> - <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
-        <% end %>
+      <% if @event.start_time.to_date == @event.end_time.to_date %>
+      <%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %>
+      <% else %>
+      <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> - <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
+      <% end %>
       <h3>Description:</h3>
       <p><%= @event.description %></p>
       <h3>Kit requirements:</h3>
       <% if @event.requirements == "" %>
-        None
+      None
       <% else %>
-        <p><%= @event.requirements %></p>
+      <p><%= @event.requirements %></p>
       <% end %>
     </div>
-<!-- map -->
+    <!-- map -->
     <div class="col-xs-12 col-md-4">
       <h3>Location:</h3>
       <p><%= @event.venue_name %></p>
@@ -87,24 +87,48 @@
       <div id="map" style="width: 100%; height: 375px;"></div>
 
       <% if @event.players.length > 0 %>
-        <ul class="list-inline">
-          <h3>People going:</h3>
-          <% @event.players.each do |player| %>
-            <li style="margin-bottom: 15px;">
-              <% if !player.user.photo %>
-                <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
-              <% else %>
-                <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
-              <% end %>
+      <ul class="list-inline">
+        <h3>People going:</h3>
+        <% @event.players.each_with_index do |player, index| %>
+          <li style="margin-bottom: 15px; width: 100px;">
+            <% if !player.user.photo %>
+              <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+            <% else %>
+              <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
+            <% end %>
               <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
-                <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
-                <%= player.user.username %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
 
+                <div class="badge-container">
+                  <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large going" %>
+                  <div class="badge badge-blue hidden">f</div>
+                </div>
+
+                <%= player.user.username %>
+                <% unless current_user.nil? || current_user.token.nil? %>
+                  <% content_for(:after_js) do %>
+                    <script>
+                      $(document).on('ready', function() {
+                        var accessToken = "<%= j current_user.token %>"; // copy your access token here
+                        // Get basic data from facebook
+                        $.get("https://graph.facebook.com/me?fields=first_name,last_name,friends,email",
+                          { access_token: accessToken },
+                          function(data) {
+                            // console.log(data);
+                            data.friends.data.forEach(function(friend){
+                              if(friend.id === "<%= j player.user.uid %>"){
+                                $('.badge').eq(<%= index %>).removeClass("hidden");
+                              }
+                            });
+                          });
+                      });
+                    </script>
+                  <% end %>
+                <% end %>
+              <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -119,7 +143,7 @@
       <div class="captain-name">
         <h4><%= @event.user.first_name %> ( <%= @event.user.username %>)</h4>
         <p><%= @event.user.created_at.strftime("Joined in %B, %Y") %></p>
-      <p> Sportl events captained: <%= @event.user.events.count %> </p>
+        <p> Sportl events captained: <%= @event.user.events.count %> </p>
       </div>
     </div>
     <div class="col-xs-12 col-md-7 col-lg-8">
@@ -129,34 +153,45 @@
 </div>
 
 
- <script>
+<script>
   <% content_for(:after_js) do %>
     <%= javascript_tag do %>
-      $(document).on('ready', function() {
-        var handler = Gmaps.build('Google');
-        handler.buildMap({ internal: { id: 'map' } }, function(){
+    $(document).on('ready', function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function(){
 
-         <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
-           markers = handler.addMarkers([
-               {
-                 lat: <%= event.latitude %>,
-                 lng: <%= event.longitude %>,
-                 picture: {
-                   url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
-                   width:  50,
-                   height: 50
-                 }
-               }
-             ]);
-           <% end %>
+       <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
+       markers = handler.addMarkers([
+       {
+         lat: <%= event.latitude %>,
+         lng: <%= event.longitude %>,
+         picture: {
+           url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+           width:  50,
+           height: 50
+         }
+       }
+       ]);
+       <% end %>
 
-         markers.forEach(function(marker) {
-           handler.bounds.extendWith(marker);
-         });
-         handler.fitMapToBounds();
-        handler.getMap().setZoom(14);
+       markers.forEach(function(marker) {
+         handler.bounds.extendWith(marker);
        });
-      });
+       handler.fitMapToBounds();
+       handler.getMap().setZoom(14);
+     });
+    });
+
+      // var link = $('.going a');
+      // link.forEach(function(userLink){
+      //   numbers = userLink.match(/\d/g);
+      //   var number = "";
+      //   numbers.forEach(function(element){
+      //     number += element;
+      //   });
+      // });
+      // alert(number);
+
     <% end %>
   <% end %>
 </script>
