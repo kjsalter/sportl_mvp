@@ -2,7 +2,7 @@ class ChatRoomsController < ApplicationController
   def index
 #    @chat_rooms = ChatRoom.all
     @users = User.all
-    @chat_rooms = policy_scope(ChatRoom).includes(:posts).order("posts.created_at")
+    @chat_rooms = policy_scope(ChatRoom).includes(:posts).order("posts.created_at DESC")
   end
 
   def show
