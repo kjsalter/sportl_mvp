@@ -1,0 +1,151 @@
+<!-- details -->
+<div class="container">
+  <div class="row">
+    <!-- buttons -->
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="buttons-show">
+        <div class="col-xs-8">
+          <div class="booking-button-show text-center">
+            <%= render 'bookings/form' %>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="chat-button-show text-center">
+            <%= link_to "Chat to Event owner", chat_rooms_path(sender_id: current_user.id, recipient_id: @event.user.id), method: :post, class: "btn btn-success btn-lg" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
+      <div class="row">
+        <div class="col-xs-6">
+          <h3>Level:
+            <% @event.level.times do %>
+              <i class="fa fa-square colour-icon" aria-hidden="true"></i>
+            <% end %>
+            <% (5 - @event.level).times do %>
+              <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
+            <% end %>
+          </h3>
+        </div>
+        <div class="col-xs-6">
+          <h3>Players needed:
+            <% @event.missing_player.times do %>
+              <i class="fa fa-user colour-icon" aria-hidden="true"></i>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+      <h3>Date:</h3>
+      <p>
+        <% if @event.start_time.to_date == @event.end_time.to_date %>
+          <%= @event.start_time.strftime("%A %d %B") %>
+        <% else %>
+          <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
+        <% end %>
+      </p>
+      <h3>Time:</h3>
+        <% if @event.start_time.to_date == @event.end_time.to_date %>
+          <%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %>
+        <% else %>
+          <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> - <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
+        <% end %>
+      <h3>Description:</h3>
+      <p><%= @event.description %></p>
+      <h3>Kit requirements:</h3>
+      <% if @event.requirements == "" %>
+        None
+      <% else %>
+        <p><%= @event.requirements %></p>
+      <% end %>
+    </div>
+<!-- map -->
+    <div class="col-xs-12 col-md-4">
+      <h3>Location:</h3>
+      <p><%= @event.venue_name %></p>
+      <p><%= @event.full_address %></p>
+      <div id="map" style="width: 100%; height: 375px;"></div>
+
+      <% if @event.players.length > 0 %>
+        <ul class="list-inline text-center" style="margin-top: 15px;">
+          <!-- <h5>People going:</h5> -->
+          <% @event.players.each_with_index do |player, index| %>
+            <li style="margin-bottom: 15px; width: 75px;">
+              <% if !player.user.photo %>
+                <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+              <% else %>
+                <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
+              <% end %>
+              <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
+                <div class="badge-container">
+                  <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
+                  <% if current_user.friend_uids.include? player.user.uid %>
+                    <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
+                  <% end %>
+                  <h6>
+                    <%= player.user.username %>
+                  </h6>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+    </div>
+  </div>
+  <div class="row">
+    <h3>Captain:</h3>
+    <div class="col-xs-5 col-md-2 col-lg-2">
+      <div class="captain-face">
+        <% avatar_url = @event.user.photo? ? cl_image_path(@event.user.photo.path) : @event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+        <%= image_tag avatar_url, class: "avatar-xlarge" %>
+      </div>
+    </div>
+    <div class="col-xs-7 col-md-3 col-lg-2">
+      <div class="captain-name">
+        <h4><%= @event.user.first_name %> ( <%= @event.user.username %>)</h4>
+        <p><%= @event.user.created_at.strftime("Joined in %B, %Y") %></p>
+      <p> Sportl events captained: <%= @event.user.events.count %> </p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-7 col-lg-8">
+      <p> <%= @event.user.bio %> </p>
+    </div>
+  </div>
+</div>
+
+
+ <script>
+  <% content_for(:after_js) do %>
+    <%= javascript_tag do %>
+      $(document).on('ready', function() {
+        var handler = Gmaps.build('Google');
+        handler.buildMap({ internal: { id: 'map' } }, function(){
+
+         <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
+           markers = handler.addMarkers([
+               {
+                 lat: <%= event.latitude %>,
+                 lng: <%= event.longitude %>,
+                 picture: {
+                   url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                   width:  50,
+                   height: 50
+                 }
+               }
+             ]);
+           <% end %>
+
+         markers.forEach(function(marker) {
+           handler.bounds.extendWith(marker);
+         });
+         handler.fitMapToBounds();
+        handler.getMap().setZoom(14);
+       });
+      });
+    <% end %>
+  <% end %>
+</script>
