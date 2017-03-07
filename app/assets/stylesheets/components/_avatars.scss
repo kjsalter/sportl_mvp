@@ -6,7 +6,9 @@
 }
 .avatar-large {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .avatar-bordered {
   width: 30px;
@@ -19,4 +21,10 @@
   border-radius: 0px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
+}
+.avatar-xlarge {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
 }

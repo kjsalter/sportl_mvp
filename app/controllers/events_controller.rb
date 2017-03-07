@@ -14,6 +14,7 @@ class EventsController < ApplicationController
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if Sport.all.map(&:name).include? params[:sports]
     @events = @events.where('missing_player >= ?', params[:missing_player]) unless params[:missing_player] == "Party size"
     @events = @events.where('missing_player > 0')
+    @events = @events.where('gender = ?', params[:gender])
     @events = @events.where("active = true")
 
     @searcher_coordinates = Geocoder.coordinates(params[:location])
@@ -112,7 +113,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level, player_ids: []) # May need to add players / player_id / player_ids. I don't know :)
+    params.require(:event).permit(:title, :user_id, :description, :postcode, :sport_id, :start_time, :end_time, :missing_player, :requirements, :level, :address, :city, :country, :venue_name, player_ids: [])
   end
 
 end

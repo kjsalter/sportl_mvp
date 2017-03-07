@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :chat_rooms, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :players
+  has_many :notifications
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

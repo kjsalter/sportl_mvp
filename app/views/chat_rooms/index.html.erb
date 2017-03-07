@@ -1,34 +1,20 @@
+<h1 class="text-center"> Messages</h1>
+
 <div class="container">
-  <div class="row">
-    <div class="col-xs-5">
-
-<h2>Existing chats!</h2>
-
-
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-1 text-center">
+        <p> User</p>
+      </div>
+      <div class="col-xs-6 text-center">
+      <p> Last Message</p>
+      </div>
+      <div class="col-xs-2 text-center">
+      <p> Upcoming Event</p>
+      </div>
+      <br>
+  </div>
 
   <%= render @chat_rooms %>
+<br>
 
-
-<h2> Users in database (To be removed)</h2>
-    <% @users.each do |user| %>
-        <% if user.id != current_user.id %>
-            <% if user.first_name? %>
-              <p> <%= user.first_name %>  <%= link_to "Send a message", chat_rooms_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
-            <% elsif user.username?  %>
-              <p> <%= user.username %> <%= link_to "Send a message", chat_rooms_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
-            <% else %>
-              <p> <%= user.email %> <%= link_to "Send a message", chat_rooms_path(sender_id: current_user.id, recipient_id: user.id), method: "post"%> </p>
-            <% end %>
-        <% end %>
-    <% end %>
-
-    </div>
-  <div class="col-xs-7">
-
-
-
-
-
-  </div>
-  </div>
 </div>
