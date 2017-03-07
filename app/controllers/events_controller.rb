@@ -42,8 +42,9 @@ class EventsController < ApplicationController
 
   # perform create action
   def create
-    @event = Event.create(event_params)
+    @event = Event.create(event_params.except(:player_ids))
     authorize @event
+    create_players
 
     # Create players using @event and selected user(s)
     @event.user = current_user
