@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-skip_after_action :verify_authorized
+  skip_after_action :verify_authorized
 
   def my_profile
     @user = current_user

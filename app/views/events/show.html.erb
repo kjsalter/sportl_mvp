@@ -85,6 +85,26 @@
       <p><%= @event.venue_name %></p>
       <p><%= @event.full_address %></p>
       <div id="map" style="width: 100%; height: 375px;"></div>
+
+      <% if @event.players.length > 0 %>
+        <ul class="list-inline">
+          <h3>People going:</h3>
+          <% @event.players.each do |player| %>
+            <li style="margin-bottom: 15px;">
+              <% if !player.user.photo %>
+                <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+              <% else %>
+                <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
+              <% end %>
+              <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
+                <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
+                <%= player.user.username %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
     </div>
   </div>
   <div class="row">
