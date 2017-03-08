@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :players
 
   validates :missing_player, :sport, :title, :postcode, :start_time, :end_time, :level, presence: true
-  validates :level, inclusion: { in: [0,1,2,3,4,5], allow_nil: false }
+  validates :level, inclusion: { in: [1,2,3], allow_nil: false }
 
   has_many :notifications, as: :notificationable
   validates :gender, presence: true

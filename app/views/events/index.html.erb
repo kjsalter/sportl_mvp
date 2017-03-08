@@ -68,15 +68,17 @@
               </label>
             <% end %>
           </div>
+
           <h4>Friends</h4>
           <div class="form-group">
             <label class="form-check-label">
-              <input type="radio" value="friends" name="friends_radio" /> Friends only
+              <input type="radio" value="friends" name="friends_radio" <%= 'checked' if params[:friends_radio] && params[:friends_radio] == 'friends' %> /> Friends only
             </label>
             <label class="form-check-label">
-              <input type="radio" value="all" name="friends_radio" checked /> Everyone
+              <input type="radio" value="all" name="friends_radio" <%= 'checked' if params[:friends_radio] && params[:friends_radio] == "all" %> /> Everyone
             </label>
           </div>
+
           <input type="submit" value="Search" class="btn btn-lg btn-success">
         </form>
       </div>
@@ -144,32 +146,28 @@
               <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
               <%= image_tag avatar_url, class: "avatar" %>
             </div>
-            <div style="position: absolute; right: 25px; bottom: -30px;">
+            <div style="position: absolute; right: 36px; bottom: -30px;">
 
 
             <% if event.players.length > 0 %>
-            <ul class="list-inline">
-              <!-- <h5>People going:</h5> -->
-              <% event.players.each_with_index do |player, index| %>
-                <li style="margin-bottom: 15px;">
-                  <% if !player.user.photo %>
-                    <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
-                  <% else %>
-                    <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
-                  <% end %>
-                    <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
+              <ul class="list-inline">
+                <!-- <h5>People going:</h5> -->
+                <% event.players.each_with_index do |player, index| %>
+                  <li style="margin-bottom: 15px;">
+                      <% profile_image = player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                      <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
 
-                      <% if current_user.friend_uids.include? player.user.uid %>
-                        <div class="badge-container">
-                          <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar", style: "margin: 10px;" %>
-                          <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
-                        </div>
+                        <% if current_user.friend_uids.include? player.user.uid %>
+                          <div class="badge-container">
+                            <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar", style: "margin: 10px;" %>
+                            <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
+                          </div>
+                        <% end %>
+
                       <% end %>
-
-                    <% end %>
-                </li>
-              <% end %>
-            </ul>
+                  </li>
+                <% end %>
+              </ul>
             <% end %>
             </div>
             <%= link_to "", event_path(event), class:"card-link" %>

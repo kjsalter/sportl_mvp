@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     @events = @events.where("active = true")
 # by location
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
-    @radius = 15
+    @radius = 15 # Default radius
     @events = @events.near(params[:location], @radius) if params[:location].present?
 # by time
     @events = @events.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?    # by sports
@@ -27,7 +27,11 @@ class EventsController < ApplicationController
 # by type
     @events = @events.where(gender: params[:event_type]) if params[:event_type].present?
 # by friends
-    # @events = @events.where('friends = ?', params[:friends_radio]) if params[:friends_radio].present?
+
+    friend_events = []
+    @events.all.each { |event| event.players.each { |player| friend_events << event if current_user.friend_uids.include?(player.user.uid) } }
+
+    @events = friend_events.uniq if params[:friends_radio] && params[:friends_radio] == "friends"
 
     @sports_list = Event.all.map { |event| event.sport.name }.uniq
     @searcher_coordinates = Geocoder.coordinates(params[:location])

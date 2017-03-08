@@ -136,11 +136,7 @@
               <div class="row">
                 <% @event.players.each do |player| %>
                   <div class="col-xs-6">
-                    <% if !player.user.photo %>
-                      <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
-                    <% else %>
-                      <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
-                    <% end %>
+                    <% profile_image = player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
                     <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
                       <div class="text-center">
                         <div class="badge-container">
