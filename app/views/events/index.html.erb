@@ -27,6 +27,7 @@
               <span></span> <b class="caret"></b>
           </div> -->
           <div name='reportrange' type="text" id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <input name="startend" type='hidden' value='' id="dateparamsinput">
             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
               <span></span> <b class="caret"></b>
           </div>
@@ -174,6 +175,8 @@
 
           function cb(start, end) {
               $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+              // feed hidden input value with start and end
+              $("#dateparamsinput").val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
           }
 
           $('#reportrange').daterangepicker({
