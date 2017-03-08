@@ -8,7 +8,7 @@ class ChatRoomsChannel < ApplicationCable::Channel
   end
 
   def send_post(data)
-    current_user.posts.create!(body: data['post'], chat_room_id: data['chat_room_id'])
-    # process data sent from the page
+    is_sender = current_user == ChatRoom.find(data['chat_room_id']).sender
+      current_user.posts.create!(body: data['post'], chat_room_id: data['chat_room_id'], sender_read: is_sender, recipient_read: !is_sender)
   end
 end

@@ -9,8 +9,14 @@ class ChatRoomsController < ApplicationController
     @chat_room = ChatRoom.includes(:posts).find_by(id: params[:id])
     authorize @chat_room
     @post = Post.new
+    if @chat_room.sender == current_user
+      @chat_room.posts.each { |post| post.update(sender_read: true) }
+    elsif @chat_room.recipient == current_user
+      @chat_room.posts.each { |post| post.update(recipient_read: true) }
+    end
 
-    @chat_room.posts.where(each { |post| post.update(read: true) }
+
+
   end
 
 
