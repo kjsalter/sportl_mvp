@@ -5,22 +5,30 @@
       <span class="banner-event-title"> <%= @event.title %> | </span>
       <span class="banner-sport-name"> <%= @event.sport.name %> </span>
     </h1>
-    <%= render 'bookings/form' unless @event.user.id == current_user.id %>
-    <% if  current_user == @event.user %>
-      <div class="edit-delete">
-        <%= link_to edit_event_path(@event) do %>
-        <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
-        <% end %>
-        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
-        <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
-        <% end %>s
-      </div>
+    <% if user_signed_in? %>
+      <%= render 'bookings/form' unless @event.user.id == current_user.id %>
+      <% if current_user == @event.user %>
+        <div class="edit-delete">
+          <%= link_to edit_event_path(@event) do %>
+            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+          <% end %>
+          <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
+            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render 'bookings/form' %>
     <% end %>
   </div>
 </div>
 
-<% if @event.user.id == current_user.id %>
-  <%= render 'event_owner' %>
+<% if user_signed_in? %>
+  <% if @event.user.id == current_user.id %>
+    <%= render 'event_owner' %>
+  <% else %>
+    <%= render 'event_viewer'%>
+  <% end %>
 <% else %>
   <%= render 'event_viewer'%>
 <% end %>
