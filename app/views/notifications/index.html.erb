@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <ul class="notification-index-list">
-      <% if $notifications_count != 0 %>
-        <h1 class="text-center"> Notifications ( <%= $notifications_count %> )</h1>
+      <% if current_user.notifications.count != 0 %>
+        <h1 class="text-center"> Notifications ( <%= current_user.notifications.count %> )</h1>
       <% else %>
         <h1 class="text-center"> Notifications </h1>
       <% end %>

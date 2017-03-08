@@ -1,8 +1,7 @@
-
-<%if $unread_messages_count != 0 %>
-  <h1 class="text-center"> Messages ( <%= $unread_messages_count %> ) </h1>
+<% if unread_messages != 0 %>
+  <h1 class="text-center"> Messages (<%= unread_messages %>) </h1>
 <% else %>
-   <h1 class="text-center"> Messages </h1>
+  <h1 class="text-center"> Messages </h1>
 <% end %>
 
 <div class="container">
