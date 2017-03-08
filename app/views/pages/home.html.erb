@@ -12,43 +12,35 @@
 </div>
 
 <div id="home-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h2 class="text-center">Find your team</h2>
-        <div class="cats-flexbox">
-          <form action="<%= events_path %>" method="get" class="form-inline" id="sport-form">
-            <div class="form-group">
-              <input type="text" name="location" placeholder="Postcode" class="form-control" style="width: 120px"/>
-              <input type="hidden" name="radius", value="15" />
-              <% if user_signed_in? %>
-                <input type="hidden" name="missing_player" value=1 />
-                <% if current_user.gender == "Female" %>
-                  <input type="hidden" name="event_type[]", value="ladies" />
-                <% elsif current_user.gender == "Male" %>
-                  <input type="hidden" name="event_type[]", value="mens" />
-                <% else %>
-                  <input type="hidden" name="event_type[]", value="ladies" />
-                  <input type="hidden" name="event_type[]", value="mens" />
-                <% end %>
-                <input type="hidden" name="event_type[]", value="mixed" />
-              <% end %>
-              <input type="submit" class="btn btn-success btn-lg sport-form-submit" value="Search"/>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+  <div class="home-wrapper-content">
+    <h2>Looking for a game?</h2>
+    <form action="<%= events_path %>" method="get" class="form-inline" id="sport-form">
+      <input type="text" name="location" placeholder="Postcode" class="form-control input-lg" style="width: 120px"/>
+      <input type="hidden" name="radius", value="15" />
+      <% if user_signed_in? %>
+        <input type="hidden" name="missing_player" value=1 />
+        <% if current_user.gender == "Female" %>
+          <input type="hidden" name="event_type[]", value="ladies" />
+        <% elsif current_user.gender == "Male" %>
+          <input type="hidden" name="event_type[]", value="mens" />
+        <% else %>
+          <input type="hidden" name="event_type[]", value="ladies" />
+          <input type="hidden" name="event_type[]", value="mens" />
+        <% end %>
+        <input type="hidden" name="event_type[]", value="mixed" />
+      <% end %>
+      <input type="submit" class="btn btn-success btn-lg" value="Search"/>
+    </form>
   </div>
 </div>
 
 
-<div class="bigscreen-image-banner" style="background-image: url('<%= image_path 'library/basketball.jpeg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
+<div class="bigscreen-image-banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 50%), url('<%= image_path 'library/basketball.jpeg' %>'); background-attachment: fixed; background-size: cover; background-position: center;">
   <div class="image-banner-contents">
-    <h1>Looking for team mates?</h1>
+    <h2>Looking for team mates?</h2>
     <div class="text-center">
       <%= link_to new_event_path do %>
-        <div class="btn btn-lg btn-primary find-player-btn">find a player</div>
+        <div class="btn btn-lg btn-danger btn-lg">Add your game</div>
       <% end %>
     </div>
   </div>
@@ -58,7 +50,7 @@
   <%= javascript_tag do %>
     $(function(){
       $(".home-banner-typed").typed({
-          strings: ["^1000 Looking for something to do tonight?"],
+          strings: ["^1000 Looking for something to do tonight?", "Join a game and have fun!"],
           typeSpeed: 10
       });
     });

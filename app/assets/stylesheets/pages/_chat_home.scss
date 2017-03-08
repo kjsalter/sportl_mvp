@@ -103,11 +103,68 @@
 }
 
 
-
 #posts {
-  max-height: 450px;
-  overflow-y: auto;
+  // max-height: 450px;
+  // overflow-y: auto;
   .avatar {
     margin: 0.5rem;
   }
 }
+.chatroom-container {
+  margin: 20px;
+  input {
+    border: none;
+    background: #f9f9f9;
+  }
+}
+.chatroom-header {
+  text-align: center;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  background: #F3F3F3;
+  h2 {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  h4 {
+    margin-bottom: 0px;
+  }
+}
+
+.posts-container {
+  height: 350px;
+  overflow-y: scroll;
+  border-left: 1px solid #F3F3F3;
+  border-right: 1px solid #F3F3F3;
+}
+
+
+.post-content {
+  background: #dcdcff;
+  width: 250px;
+  border-radius: 0 10px 10px 10px;
+  padding: 5px;
+  p:last-child {
+    font-size: 11px;
+    opacity: 0.5;
+  }
+}
+.post-box {
+  display: flex;
+  margin-top: 10px;
+  &.my {
+    flex-direction: row-reverse;
+    .post-content {
+      border-radius: 10px 0 10px 10px;
+      background: #d1ffd1;
+    }
+  }
+}
+
+
+
+
