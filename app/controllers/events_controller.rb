@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if params[:sports].present? && Sport.all.map(&:name).include?(params[:sports][0])
 # by spaces
     @events = @events.where('missing_player >= ?', params[:missing_player]) if params[:missing_player].present?
-    # @events = @events.where('missing_player > 0')
+    @events = @events.where('missing_player > 0')
 # by vibe
     @events = @events.where(level: params[:event_vibe]) if params[:event_vibe].present?
     # @events = @events.where('gender = ?', params[:gender]) if (params[:gender].downcase == "male") || (params[:gender].downcase == "female")

@@ -121,11 +121,11 @@
                 </div>
               </div>
               <div class="card-details">
-                <p> level
+                <p> <%= Event::LEVELS[event.level - 1].humanize %>
                     <% event.level.times do %>
                       <i class="fa fa-square colour-icon" aria-hidden="true"></i>
                     <% end %>
-                    <% (5 - event.level).times do %>
+                    <% (3 - event.level).times do %>
                       <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
                     <% end %> -
                   <%= event.missing_player %> spot(s)
@@ -190,7 +190,7 @@
           $('.selectpicker').multiselect({
             selectAll: true,
             search: true,
-            columns: 3,
+            columns: 2,
             placeholder: 'Select sports',
           });
           var handler = Gmaps.build('Google');
@@ -198,18 +198,20 @@
             var markers = []
             <% @events.each do |event| %>
               <% @hash = Gmaps4rails.build_markers(event) do |event, marker| %>
-                markers.push(handler.addMarkers([
-                  {
-                    lat: <%= event.latitude %>,
-                    lng: <%= event.longitude %>,
-                    infowindow: '<h3><%= event.title %></h3> <p> <%= event.description %> </p> <p> <%= event.start_time.strftime("%H %M") %> </p> ',
-                    picture: {
-                      url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
-                      width:  50,
-                      height: 50
+                <% if event.latitude %>
+                  markers.push(handler.addMarkers([
+                    {
+                      lat: <%= event.latitude %>,
+                      lng: <%= event.longitude %>,
+                      infowindow: '<h3><%= event.title %></h3> <p> <%= event.description %> </p> <p> <%= event.start_time.strftime("%H %M") %> </p> ',
+                      picture: {
+                        url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                        width:  50,
+                        height: 50
+                      }
                     }
-                  }
-                ]));
+                  ]));
+                <% end %>
               <% end %>
             <% end %>
             markers.forEach(function(marker) {
