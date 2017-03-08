@@ -5,12 +5,12 @@
         <%= simple_form_for @event do |f| %>
           <%= f.association :sport, collection: Sport.order('name ASC')  %>
           <%= f.input :title %>
-          <%= f.input :gender, collection: ['Any','Male', 'Female'], label: 'Required gender', default: 'Any' %>
+          <%= f.input :gender, collection: event_type, label: 'Event type', default: 'mixed' %>
           <%= f.input :venue_name %>
           <%= f.input :address %>
           <%= f.input :city %>
           <%= f.input :postcode %>
-          <%= f.input :country, priority: [ 'FR' ] %>
+          <%= f.input :country, priority: [ 'UK' ] %>
           <div class="row">
             <div class="col-xs-6">
               <div class="form-group">

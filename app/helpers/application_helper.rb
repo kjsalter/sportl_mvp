@@ -12,11 +12,17 @@ module ApplicationHelper
   end
 
   def levels_list
-    levels = %w(casual competitive serious)
-    levels.map.with_index do |lvl, index|
-      [lvl, index]
+    Event::LEVELS.map.with_index do |lvl, index|
+      [lvl, index+1]
     end
   end
+
+  # levels_disp =
+  #   {
+  #     1 => "casual",
+  #     2 => "competitive",
+  #     3 => "serious"
+  #   }
 
   def users_list
     usernames = []
@@ -32,7 +38,7 @@ module ApplicationHelper
   end
 
   def event_type
-    ['mens', 'ladies', 'mixed']
+    ['mixed', 'mens', 'ladies']
   end
 
   def sports_list
