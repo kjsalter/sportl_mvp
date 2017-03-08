@@ -6,7 +6,7 @@
       <span class="banner-sport-name"> <%= @event.sport.name %> </span>
     </h1>
   </div>
-  <% if  current_user = @event.user %>
+  <% if  current_user == @event.user %>
     <div class="edit-delete">
       <%= link_to edit_event_path(@event) do %>
       <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
