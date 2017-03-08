@@ -38,13 +38,13 @@
               <div class="profile-card-header">
                 <div class="profile-card-avatar">
                   <%= link_to profile_path(booking.user) do %>
-                    <%= image_tag avatar_url, class: "avatar-large text-center"%>
+                    <%= cl_image_tag avatar_url, class: "avatar-large text-center"%>
                   <% end %>
                 </div>
               </div>
               <div class="profile-card-body">
                 <h3><%= booking.user.first_name %></h3>
-                <p><%= booking.user.bio %></p>
+                <p><%= booking.user.bio? ? booking.user.bio : hi %></p>
                 <div class="match-details">
                   <% if booking.pending? %>
                     <div class="accept-btn">
