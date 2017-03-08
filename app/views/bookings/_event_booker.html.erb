@@ -1,56 +1,223 @@
-<div class="booking-wrapper">
-  <div class="container">
-    <div class="row booking-event-wrapper">
-        <div class="col-xs-12 col-md-6">
-          <p style="font-size: 25px;">
-            <%= link_to profile_path(@booking.event.user) do %>
-            <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : @booking.event.user.photo.path || "https://api.adorable.io/avatars/285/sportl.png" %>
-            <%= cl_image_tag avatar_url, class: "avatar-large" %>
-            <% end %>
-            Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
-          </p>
+<!-- details -->
 
-          <p>
-            <% if @booking.event.start_time.today? %>
-              Today, <%= @booking.event.start_time.strftime("%H:%M") %>
-            <% elsif @booking.event.start_time.to_date == Date.tomorrow %>
-              Tomorrow, <%= @booking.event.start_time.strftime("%H:%M") %>
-            <% else %>
-              <%= @booking.event.start_time.strftime("%a %d %b, %H:%M") %>
-            <% end %>
-          </p>
+<div class="large-page-container">
 
+  <!-- GAME DETAILS -->
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <div style="margin-bottom: 20px">
+        <p style="font-size: 25px" class="text-center">
+          <%= link_to profile_path(@booking.event.user) do %>
+          <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : @booking.event.user.photo.path || "https://api.adorable.io/avatars/285/sportl.png" %>
+          <%= cl_image_tag avatar_url, class: "avatar-large" %>
+          <% end %>
+          Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
+        </p>
+        <p class="text-center">
+          <% if @booking.event.start_time.today? %>
+            Today, <%= @booking.event.start_time.strftime("%H:%M") %>
+          <% elsif @booking.event.start_time.to_date == Date.tomorrow %>
+            Tomorrow, <%= @booking.event.start_time.strftime("%H:%M") %>
+          <% else %>
+            <%= @booking.event.start_time.strftime("%a %d %b, %H:%M") %>
+          <% end %>
+        </p>
+        <div class="text-center">
           <%= link_to "Chat to #{@booking.event.user.username}", chat_rooms_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary" %>
         </div>
-      <div class="col-xs-12 col-md-6">
-        <h3>See you at:<%= @booking.event.venue_name %>, <%= @booking.event.full_address %></h3>
-        <div id="map" style="width: 525px; height: 40vh; border-radius: 5px;"></div>
       </div>
+
     </div>
   </div>
-</div>
 
-<% content_for(:after_js) do %>
-<script>
-  $(document).on('ready', function() {
-    var handler = Gmaps.build('Google');
-    handler.buildMap({ internal: { id: 'map' } }, function(){
+  <div class="grey-container">
+    <h3 class="text-center">GAME DETAILS</h3>
+    <div class="row"> <!-- beginning of main content -->
+      <div class="col-md-8"> <!-- left side of main -->
 
-      <% @hash = Gmaps4rails.build_markers(@booking.event) do |event, marker| %>
-      markers = handler.addMarkers([
-      {
-       lat: <%= event.latitude %>,
-       lng: <%= event.longitude %>
-     }
-     ]);
-      <% end %>
+        <div class="row"> <!-- event details top -->
+          <div class="col-sm-6">
 
-      markers.forEach(function(marker) {
-       handler.bounds.extendWith(marker);
-     });
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(14);
-    });
-  });
+            <!-- MATCH DETAILS -->
+            <div class="flex-container-column white-box">
+
+              <h5 class="text-center">LEVEL</h5>
+              <p class="text-center">
+                <% @booking.event.level.times do %>
+                  <i class="fa fa-square colour-icon" aria-hidden="true"></i>
+                <% end %>
+                <% (3 - @booking.event.level).times do %>
+                  <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
+                <% end %>
+              </p>
+              <h5 class="text-center">PLAYERS NEEDED</h5>
+              <p class="text-center">
+                <% @booking.event.missing_player.times do %>
+                  <i class="fa fa-user colour-icon" aria-hidden="true"></i>
+                <% end %>
+              </p>
+              <h5 class="text-center">GENDERED? </h5>
+              <p class="text-center">
+                <% if @booking.event.gender.downcase == "female" %>
+                  <i class="fa fa-venus colour-icon"></i> ladies
+                <% elsif @booking.event.gender.downcase == "male" %>
+                  <i class="fa fa-mars colour-icon"></i> mens
+                <% else %>
+                  mixed
+                <% end %>
+              </p>
+
+            </div> <!-- end of flex-container-column -->
+          </div><!-- end of col-sm-6 -->
+
+          <div class="col-sm-6">
+
+            <!-- EXTRA INFO -->
+            <div class="flex-container-column white-box">
+              <h5 class="text-center">DETAILS</h5>
+              <div class="flex-space-between">
+                <p><i class="fa fa-calendar"></i></p>
+                <p>
+                  <% if @booking.event.start_time.to_date == @booking.event.end_time.to_date %>
+                    <%= @booking.event.start_time.strftime("%A %d %B") %>
+                  <% else %>
+                    <%= @booking.event.start_time.strftime("%A %d %B") %> - <%= @booking.event.end_time.strftime("%A %d %B") %>
+                  <% end %>
+                </p>
+              </div>
+               <div class="flex-space-between">
+                <p><i class="fa fa-clock-o"></i></p>
+                <p>
+                  <% if @booking.event.start_time.to_date == @booking.event.end_time.to_date %>
+                    <%= @booking.event.start_time.strftime("%H:%M") %> - <%= @booking.event.end_time.strftime("%H:%M") %>
+                  <% else %>
+                    <%= @booking.event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @booking.event.start_time.strftime("%A %d") %>)</span> - <%= @booking.event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @booking.event.end_time.strftime("%A %d") %>)</span>
+                  <% end %>
+                </p>
+              </div>
+              <div class="flex-space-between">
+                <p><i class="fa fa-suitcase"></i></p>
+                <p>
+                  <% if @booking.event.requirements == "" %>
+                      None
+                  <% else %>
+                    <%= @booking.event.requirements %>
+                  <% end %>
+                </p>
+              </div>
+
+            </div> <!-- end of flex-container-column -->
+          </div> <!-- end of col-sm-6 -->
+
+        </div> <!-- end of row -->
+
+        <div class="row">
+          <div class="col-sm-12">
+
+            <div class="flex-container-column white-box">
+              <h5 class="text-center">DESCRIPTION</h5>
+              <p><%= @booking.event.description %></p>
+            </div>
+
+          </div>
+        </div> <!-- end of row -->
+
+        <div class="row"> <!-- final row (captain and players) -->
+
+          <!-- CAPTAIN DETAILS -->
+          <div class="col-sm-9">
+            <div class="flex-container-column white-box">
+              <h5 class="text-center">CAPTAIN</h5>
+              <div class="text-center">
+                <% avatar_url = @booking.event.user.photo? ? cl_image_path(@booking.event.user.photo.path) : @booking.event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                <%= image_tag avatar_url, class: "avatar-xl" %>
+              </div>
+              <h6 class="text-center" style="padding: 0px; margin: 5px;"><%= @booking.event.user.first_name %> ( <%= @booking.event.user.username %>)</h6>
+              <h6 class="text-center" style="padding: 0px; margin: 5px;"><%= @booking.event.user.created_at.strftime("Joined in %B, %Y") %></h6>
+              <p style="margin-top: 10px;"><%= @booking.event.user.bio %></p>
+            </div>
+          </div> <!-- end of captain details col-sm-9 -->
+
+          <!-- PLAYER DETAILS -->
+          <div class="col-sm-3">
+            <div class="flex-container-column white-box">
+              <h5 class="text-center">OTHER PLAYERS</h5>
+              <% if @booking.event.players.length > 0 %>
+              <div class="row">
+                <% @booking.event.players.each do |player| %>
+                  <div class="col-xs-6">
+                    <% if !player.user.photo %>
+                      <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+                    <% else %>
+                      <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
+                    <% end %>
+                    <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
+                      <div class="text-center">
+                        <div class="badge-container">
+                          <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
+                          <% if current_user.friend_uids.include? player.user.uid %>
+                            <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
+                          <% end %>
+                        </div>
+                      </div>
+                      <div class="text-center">
+                      <%= player.user.username %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+              <% end %>
+            </div>
+          </div> <!-- end of player details col-sm-3 -->
+
+        </div> <!-- end of final row (captain and players) -->
+      </div> <!-- end of left main col-md-8 -->
+
+      <!-- MAP -->
+      <div class="col-md-4">
+        <div class="flex-container-column white-box">
+          <h5 class="text-center">LOCATION</h5>
+          <p><strong><%= @booking.event.venue_name %></strong></p>
+          <p><%= @booking.event.full_address %></p>
+          <div id="map" style="width: 100%; height: 500px;"></div>
+        </div>
+      </div>
+
+    </div>  <!-- end of row -->
+  </div> <!-- end of grey-container -->
+
+</div> <!-- end of page/container -->
+
+ <script>
+  <% content_for(:after_js) do %>
+    <%= javascript_tag do %>
+      $(document).on('ready', function() {
+        var handler = Gmaps.build('Google');
+        handler.buildMap({ internal: { id: 'map' } }, function(){
+
+         <% @hash = Gmaps4rails.build_markers(@booking.event) do |event, marker| %>
+           markers = handler.addMarkers([
+               {
+                 lat: <%= event.latitude %>,
+                 lng: <%= event.longitude %>,
+                 picture: {
+                   url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                   width:  50,
+                   height: 50
+                 }
+               }
+             ]);
+           <% end %>
+
+         markers.forEach(function(marker) {
+           handler.bounds.extendWith(marker);
+         });
+         handler.fitMapToBounds();
+        handler.getMap().setZoom(14);
+       });
+      });
+    <% end %>
+  <% end %>
 </script>
-<% end %>
