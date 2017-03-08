@@ -10,6 +10,11 @@
   padding-bottom: 5em;
 }
 
+.spaced-buttons {
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+
 // Backgrounds
 .bg-black {
   background: #4a4a4a;
@@ -24,35 +29,6 @@
   background: #3b5998;
 }
 
-.cats-flexbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.myFlex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-};
-
-.myFlex2 {
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-
-  span {
-    margin-left: 5px;
-  }
-}
-
-.flex-container-column {
-  display: flex;
-  flex-direction: column;
-  padding-top: 5px;
-}
 
 /* Hang */
 @-webkit-keyframes hvr-hang {

@@ -1,0 +1,46 @@
+<div id="home-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="text-center">Find your team</h2>
+        <div class="cats-flexbox">
+          <%= form_tag("events", method: "get", class: "form-inline", id: "sport-form") do %>
+          <div class="form-group">
+            <%= select_tag "sports", options_for_select(@sports_list) %>
+          </div>
+          <div class="form-group date-picker">
+            <div class='input-group date' id='datetimepicker3' >
+              <input type='text' class="form-control" name="start" placeholder="from" />
+              <span class="input-group-addon">
+              <span class="fa fa-calendar"></span>
+              </span>
+            </div>
+          </div>
+           <div class="form-group date-picker">
+            <div class='input-group date' id='datetimepicker4' >
+              <input type='text' class="form-control" name="end" placeholder="until" />
+              <span class="input-group-addon">
+              <span class="fa fa-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= select_tag "missing_player", options_for_select(@party_size), placeholder: "Party size" %>
+          </div>
+          <div class="form-group">
+            <%= select_tag "gender", options_for_select(['Any', 'Male', 'Female']), placeholder: "Any" %>
+          </div>
+          <div class="form-group">
+            <input type="text" name="location" placeholder="Postcode" class="form-control" style="width: 120px">
+          </div>
+          <div class="form-group">
+            <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" style="width: 122px"/>
+          </div>
+          <%= submit_tag("Search", class: "btn btn-success btn-lg sport-form-submit") %>
+          <div id="slider"></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

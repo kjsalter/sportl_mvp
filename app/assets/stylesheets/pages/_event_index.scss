@@ -13,3 +13,17 @@
   padding: 10px;
   // box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
 }
+
+.search-box{
+  background-color: $light-grey;
+  padding: 10px;
+}
+
+.date_search{
+  border: 1px solid $dark-grey;
+  text-align: center;
+  padding: 5px;
+  margin: 5px, 0px;
+  border-radius: 5%;
+  background-color: $blue-grey;
+}
