@@ -11,26 +11,21 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-offset-3">
-      <% ["all", "this week", "Today", "Tomorrow", (Date.today()+2).strftime("%a %d/%m"), (Date.today()+3).strftime("%a %d/%m")].each do |day| %>
-      <div class="col-xs-12 col-md-2 date_search">
-        <%= day %>
-      </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
   <!-- Search bar -->
     <div class="col-xs-12 col-md-3">
       <div class="search-box">
         <h4>Sports</h4>
         <form action="<%= events_path %>">
           <select name='sports[]' multiple="multiple" class="selectpicker">
-            <% @sports_list.each do |sport| %>
+            <% @sports_list.sort.each do |sport| %>
               <option <%= 'selected' if params[:sports] && params[:sports].include?(sport) %> value="<%= sport %>"><%= sport %></option>
             <% end %>
           </select>
+          <h4>Date</h4>
+          <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+              <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+              <span></span> <b class="caret"></b>
+          </div>
           <h4>Time</h4>
           < ADD SLIDER >
           <h4>Location</h4>
@@ -185,12 +180,35 @@
     <% content_for(:after_js) do %>
       <%= javascript_tag do %>
         $(document).on('ready', function() {
+
+          var start = moment();
+          var end = moment();
+
+          function cb(start, end) {
+              $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+          }
+
+          $('#reportrange').daterangepicker({
+              startDate: start,
+              endDate: end,
+              ranges: {
+                 'Today': [moment(), moment()],
+                 'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
+                 'This week': [moment(), moment().add(6, 'days')],
+                 'Next 30 days': [moment(), moment().add(29, 'days')],
+                 'All': [moment(), moment().add(1, 'years')]
+              }
+          }, cb);
+          cb(start, end);
+
+
           $('.selectpicker').multiselect({
             selectAll: true,
             search: true,
             columns: 2,
             placeholder: 'Select sports',
           });
+
           var handler = Gmaps.build('Google');
           handler.buildMap({ internal: { id: 'map' } }, function(){
             var markers = []
@@ -216,6 +234,7 @@
               handler.bounds.extendWith(marker);
             });
             handler.fitMapToBounds();
+
           });
         });
       <% end %>

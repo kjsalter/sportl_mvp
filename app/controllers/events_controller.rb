@@ -12,7 +12,6 @@ class EventsController < ApplicationController
     @events = @events.where("active = true")
 # by location
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
-    @radius = 15 # Default radius
     @events = @events.near(params[:location], @radius) if params[:location].present?
 # by time
     @events = @events.where(['start_time >= ? and end_time <= ?', params[:start], params[:end]]) if params[:start].present? && params[:end].present?    # by sports
