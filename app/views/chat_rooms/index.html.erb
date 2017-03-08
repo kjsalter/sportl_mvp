@@ -1,6 +1,6 @@
 
-<%if @sender_unread.count + @recipient_unread.count != 0 %>
-  <h1 class="text-center"> Messages ( <%= @sender_unread.count + @recipient_unread.count %> ) </h1>
+<%if $unread_messages_count != 0 %>
+  <h1 class="text-center"> Messages ( <%= $unread_messages_count %> ) </h1>
 <% else %>
    <h1 class="text-center"> Messages </h1>
 <% end %>
