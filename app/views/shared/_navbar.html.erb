@@ -81,6 +81,9 @@
             <%= link_to "#", class: "hvr-grow toggle-messages" do %>
               <!-- <i class="fa fa-envelope-o" style="font-size: 40px"></i> -->
               messages
+                <% if $notifications_count + $unread_messages_count != 0 %>
+                  (<%= $notifications_count + $unread_messages_count %>)
+                <% end %>
             <% end %>
           </div>
         <% end %>
@@ -224,10 +227,18 @@
 <div class="sub-nav-holder nav-messages">
   <div class="sub-nav-inner">
     <div class="sub-nav-link">
-      <%= link_to "chats", "#" %>
+      <% if $unread_messages_count != 0 %>
+        <%= link_to "chats (#{$unread_messages_count})" , chat_rooms_path %>
+      <% else %>
+      <%= link_to "chats", chat_rooms_path %>
+      <% end %>
     </div>
     <div class="sub-nav-link">
-      <%= link_to "notifications", "#" %>
+      <% if $notifications_count != 0 %>
+        <%= link_to "notifications (#{$notifications_count})", notifications_path %>
+      <% else %>
+        <%= link_to "notifications", notifications_path %>
+      <% end %>
     </div>
   </div>
 </div>
