@@ -15,7 +15,7 @@
   <div class="home-wrapper-content">
     <h2>Looking for a game?</h2>
     <form action="<%= events_path %>" method="get" class="form-inline" id="sport-form">
-      <input type="text" name="location" placeholder="Postcode" class="form-control input-lg" style="width: 120px"/>
+      <input type="text" name="location" placeholder="Location" class="form-control input-lg" style="width: 120px"/>
       <input type="hidden" name="radius", value="15" />
       <% if user_signed_in? %>
         <input type="hidden" name="missing_player" value=1 />

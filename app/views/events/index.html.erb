@@ -21,13 +21,13 @@
               <option <%= 'selected' if params[:sports] && params[:sports].include?(sport) %> value="<%= sport %>"><%= sport %></option>
             <% end %>
           </select>
-          
+
           <h4>Date-Time</h4>
           <div class="form-group">
             <div class='input-group date' id='datetimepicker1'>
                 <input type='text' class="form-control" name="start_time" />
                 <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
+                    <span class="fa fa-calendar"></span>
                 </span>
             </div>
           </div>
@@ -35,7 +35,7 @@
             <div class='input-group date' id='datetimepicker2'>
                 <input type='text' class="form-control" name="end_time"/>
                 <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
+                    <span class="fa fa-calendar"></span>
                 </span>
             </div>
           </div>
@@ -182,10 +182,21 @@
       <%= javascript_tag do %>
         $(document).on('ready', function() {
           $(function () {
-              $('#datetimepicker1').datetimepicker({format: "DD/MM/YYYY HH:mm"});
+              $('#datetimepicker1').datetimepicker({
+                format: "DD/MM/YYYY HH:mm",
+                // sideBySide: true,
+                minDate: moment(),
+                stepping: 30,
+                useCurrent: false,
+                defaultDate: moment().add(1,'hours')
+              });
               $('#datetimepicker2').datetimepicker({
                 format: "DD/MM/YYYY HH:mm",
-                useCurrent: false //Important! See issue #1075
+                // sideBySide: true,
+                minDate: moment(),
+                stepping: 30,
+                useCurrent: false,
+                defaultDate: moment().add(6, 'days')
               });
 
               $("#datetimepicker1").on("dp.change", function (e) {
@@ -195,7 +206,7 @@
                   $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
               });
           });
-          
+
 //           var start = moment();
 //           var end = moment();
 
