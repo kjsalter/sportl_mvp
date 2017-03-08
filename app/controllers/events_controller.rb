@@ -5,15 +5,14 @@ class EventsController < ApplicationController
   skip_after_action :verify_policy_scoped, only: :index
 
   def index
-
 # This is the search
 # Overall list
     @events = Event.all
     @events = @events.where("active = true")
 # by location
     @events = @events.near(params[:location], params[:radius]) if params[:location].present? && params[:radius].present?
-# by date
-    @events = @events.where(['start_time >= ? and end_time <= ?', params[:start_time], params[:end_time]]) if params[:start_time].present? && params[:end_time].present?
+# by time
+    @events = @events.where(['start_time >= ? and end_time <= ?', DateTime.parse(params[:start_time]), DateTime.parse(params[:end_time])]) if params[:start_time].present? && params[:end_time].present?
 # by sports
     @events = @events.joins(:sport).where(sports: { name: params[:sports] }) if params[:sports].present? && Sport.all.map(&:name).include?(params[:sports][0])
 # by spaces
