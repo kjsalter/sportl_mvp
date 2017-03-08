@@ -3,6 +3,12 @@ class ChatRoomsController < ApplicationController
 #    @chat_rooms = ChatRoom.all
     @users = User.all
     @chat_rooms = policy_scope(ChatRoom).includes(:posts).order("posts.created_at DESC")
+    @sender_chatrooms = @chat_rooms.where(sender: current_user)
+    @recipient_chatrooms = @chat_rooms.where(recipient: current_user)
+    @sender_unread = []
+    @recipient_unread = []
+    @sender_chatrooms.each { |chat_room| @sender_unread << chat_room if chat_room.posts.where(sender_read: false).any? }
+    @recipient_chatrooms.each { |chat_room| @recipient_unread << chat_room if chat_room.posts.where(recipient_read: false).any? }
   end
 
   def show

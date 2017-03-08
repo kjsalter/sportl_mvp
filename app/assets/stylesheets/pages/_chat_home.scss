@@ -1,6 +1,18 @@
 .unread {
   border: 2px solid $turq;
+  padding-top: 5px;
+  position: relative;
+}
 
+.some-space {
+  padding: 5px;
+}
+
+
+.chat-border {
+  border: 1px dotted $light-grey;
+  padding-top: 5px;
+  position: relative;
 }
 
 .clear-header {
@@ -90,11 +102,6 @@
   padding: 3px;
 }
 
-.chat-border {
-  border: 1px dotted $light-grey;
-  padding-top: 5px;
-  position: relative;
-}
 
 
 #posts {
