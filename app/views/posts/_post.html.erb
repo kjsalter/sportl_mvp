@@ -6,21 +6,11 @@
 <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
 <% end %>
 
-
-<div class="container">
-  <div class="row">
-      <div class=" col-xs-offset-2 col-xs-8 chat-border ">
-      <div class="col-xs-2">
-             <p style="margin-bottom: 0px;"> <%= cl_image_tag avatar_url, crop: :fill, responsive_placeholder: "blank", class: "avatar"%> </p>
-            </div>
-            <div class="col-xs-9">
-              <p> <%= post.body %> </p>
-            </div>
-            <div class="col-xs-1">
-              <p> <%= post.timestamp %> </p>
-            </div>
-      </div>
-    </div>
+<div class="post-box <%= (post.user == post.chat_room.sender) ? 'my' : '' %>">
+  <%= cl_image_tag avatar_url, crop: :fill, responsive_placeholder: "blank", class: "avatar"%>
+  <div class="post-content">
+    <p> <%= post.body %> </p>
+    <p> <%= post.timestamp %> </p>
+  </div>
 </div>
-
 

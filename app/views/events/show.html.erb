@@ -1,21 +1,22 @@
 <!-- banner -->
-<div class="show-banner" style="background-image: linear-gradient(-225deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 50%), url(<%= image_path "sports-photos/#{@event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 50vh; background-position: center;">
-  <div class="container text-center">
-    <h1 style="padding-top: 10vh; font-size: 50px">
+<div class="show-banner text-center" style="background-image: linear-gradient(-225deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 50%), url(<%= image_path "sports-photos/#{@event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 50vh; background-position: center;">
+  <div class="show-banner-content">
+    <h1>
       <span class="banner-event-title"> <%= @event.title %> | </span>
       <span class="banner-sport-name"> <%= @event.sport.name %> </span>
     </h1>
+    <%= render 'bookings/form' unless @event.user.id == current_user.id %>
+    <% if  current_user == @event.user %>
+      <div class="edit-delete">
+        <%= link_to edit_event_path(@event) do %>
+        <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
+        <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+        <% end %>s
+      </div>
+    <% end %>
   </div>
-  <% if  current_user == @event.user %>
-    <div class="edit-delete">
-      <%= link_to edit_event_path(@event) do %>
-      <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure?' } do%>
-      <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
-      <% end %>
-    </div>
-  <% end %>
 </div>
 
 <% if @event.user.id == current_user.id %>

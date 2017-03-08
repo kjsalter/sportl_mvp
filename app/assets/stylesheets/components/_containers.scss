@@ -13,10 +13,24 @@
 
 .grey-container {
   background-color: #f5f5f5;
-  padding: 3vmin;
+  padding: 5vmin;
 }
 
 .large-page-container {
   width: 100%;
-  padding: 4vmin;
+}
+
+.full-container {
+  height: calc(100vh - 140px);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  font-family: $header-font;
+  justify-content: space-around;
+  .full-container-content {
+    background: #f5f5f5;
+    padding: 30px;
+    border-radius: 4px;
+    font-weight: lighter;
+  }
 }
