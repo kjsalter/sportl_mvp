@@ -22,7 +22,4 @@ class ChatRoom < ApplicationRecord
     return all_active_pairs.min_by { |event| event.start_time } #closest event
   end
 
-
-
-
 end

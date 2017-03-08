@@ -17,7 +17,7 @@
               <%= image_tag (background_image) %>
               <figcaption>
                 <h2> <%= event.title %> </h2>
-                <p><%= event.description %></p>
+                <p><%= event.description.truncate_words(10) %></p>
                 <p><%= event.start_time %></p>
                 <%= link_to "", event_path(event), class: "card-link"%>
               </figcaption>
@@ -42,7 +42,7 @@
               <%= image_tag (background_image) %>
               <figcaption>
                 <h2> <%= event.title %> </h2>
-                <p><%= event.description %></p>
+                <p><%= event.description.truncate_words(10) %></p>
                 <p><%= event.start_time %></p>
                 <%= link_to "", event_path(event), class: "card-link"%>
               </figcaption>

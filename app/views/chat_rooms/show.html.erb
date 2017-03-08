@@ -14,58 +14,44 @@
 <% avatar_url_2 = "https://api.adorable.io/avatars/285/sportl.png" %>
 <% end %>
 
-
-<br>
-<div class="container">
+<div class="container chatroom-container">
   <div class="row">
-
-
-    <div class="col-xs-offset-2 col-xs-8 flex-between">
-      <span>
-        <%= link_to "Back to messages", chat_rooms_path %>
-      </span>
-      <span>
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="chatroom-header text-center">
         <% if @chat_room.sender_id == current_user.id %>
-        <span> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
+          <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+          <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+          <h2>Chat between <strong><%= @chat_room.sender.first_name %></strong> and <strong><%= @chat_room.recipient.first_name %></strong></h2>
+          <h4> You are talking about the event '<%= current_user.bookings.last.event.title %>'</h4>
         <% else %>
-        <span> <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %> </span>
+          <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+          <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
+          <h2>Chat between <strong><%= @chat_room.recipient.first_name %></strong> and <strong><%= @chat_room.sender.first_name %></strong></h2>
+          <h4> You are talking about the event ' <%= @chat_room.sender.bookings.last.event.title %>'</h4>
         <% end %>
-      </span>
-    </div>
-    <br>
-    <div class="row">
 
-    <div class="col-xs-offset-2 col-xs-8 text-center">
-        <% if !@chat_room.find_conversation.nil? %>
-        <p> <%= @chat_room.find_conversation.title %> -- <%= @chat_room.find_conversation.sport.name %> -- <%= @chat_room.find_conversation.start_time.strftime("%H:%M") %>  </p>
-        <% else  %>
-          <p> Message log </p>
-        <% end %>
-        <br>
       </div>
-
-
     </div>
   </div>
 
-  <div id="posts" data-chat-room-id="<%= @chat_room.id %>">
-    <%= render @chat_room.posts %>
+  <div class="row">
+    <div class=" col-xs-offset-2 col-xs-8">
+      <div class="posts-container"  id="posts" data-chat-room-id="<%= @chat_room.id %>">
+        <%= render @chat_room.posts %>
+      </div>
+    </div>
   </div>
 
 
   <div class="row">
     <div class="col-xs-offset-2 col-xs-8">
+      <%= simple_form_for @post, url: '#' do |f| %>
 
+      <%= f.input :body, as: :string, label: false, class: 'form-control', placeholder: "enter your message" %>
+      <small class="text-muted">From 2 to 1000 characters</small>
 
-      <%= form_for @post, url: '#' do |f| %>
-      <div class="form-group">
-        <%= f.text_area :body, class: 'form-control' %>
-        <small class="text-muted">From 2 to 1000 characters</small>
-      </div>
-
-      <%= f.submit "Post", class: 'btn btn-primary btn-lg' %>
+      <% f.submit "Post", class: 'btn btn-primary btn-lg' %>
       <% end %>
-
     </div>
   </div>
 </div>

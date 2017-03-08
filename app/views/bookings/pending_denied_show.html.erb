@@ -1,3 +1,25 @@
+<div class="full-container">
+  <div class="full-container-content text-center">
+    <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : "https://api.adorable.io/avatars/285/sportl.png" || @booking.event.user.photo.path %>
+    <%= cl_image_tag avatar_url, class: "avatar-large" %>
+    <%= image_tag ("sports/" + @booking.event.sport.name + ".png"), style: "width: 50px" %>
+
+    <h1>Thanks!</h1>
+    <p>
+      You want to join <strong>"<%= @booking.event.title %>"</strong>.
+    </p>
+    <p>
+      Captain <%= @booking.event.user.username %> will get back to you
+    </p>
+
+    <%= link_to "Ask captain a question", chat_rooms_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: :post %>
+  </div>
+</div>
+
+
+
+<% if false %>
+
 <div class="show-banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= image_path "sports-photos/#{@booking.event.sport.name}.jpg" %>); width: 100%; background-size: cover; height: 40vh; background-position: center;">
  <div class="container text-center">
    <h1 style="padding-top: 10vh; font-size: 50px">
@@ -30,7 +52,7 @@
         </p>
 
         <div style="float:right;">
-          <%= link_to "Chat to #{@booking.event.user.username}", "#", class: "btn btn-primary btn-lg"  %>
+          <%= link_to "chat to event owner", chat_rooms_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: :post, class: "btn btn-success btn-lg" %>
           <%# link_to "Chat to #{@booking.event.user.username}", conversations_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: "post", class: "btn btn-primary btn-lg"  %>
         </div>
       </div>
@@ -49,3 +71,6 @@
     </div>
   </div>
 </div>
+
+
+<% end %>

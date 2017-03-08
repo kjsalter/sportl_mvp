@@ -1,78 +1,89 @@
-             <% if booking.user.photo %>
-        <% avatar_url = booking.user.photo.path %>
-      <% elsif booking.user.facebook_picture_url %>
-        <% avatar_url = booking.user.facebook_picture_url.gsub("square", "large") %>
-      <% else %>
-        <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
-      <% end %>
+<% if booking.user.photo %>
+<% avatar_url = booking.user.photo.path %>
+<% elsif booking.user.facebook_picture_url %>
+<% avatar_url = booking.user.facebook_picture_url.gsub("square", "large") %>
+<% else %>
+<% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+<% end %>
 
-        <div class="profile-card">
+<div class="profile-card" style="margin:0">
 
-          <div class="front">
-            <div class="background">
-              <div class="profile-card-header">
-                <div class="profile-card-avatar">
-                  <%= cl_image_tag avatar_url, class: "avatar-large text-center" %>
-                </div>
-              </div>
-              <div class="profile-card-body">
-                <h3><%= booking.user.first_name %></h3>
-                <p>wants to join:</p>
-                <div class="match-details">
-                  <div class="sport-image">
-                    <%= image_tag ("sports/" + booking.event.sport.name + ".png"), style: "width: 7vmin" %>
-                    <h6><%= booking.event.title %></h6>
-                  </div>
-                  <p>on</p>
-                  <div class="sport-time">
-                    <h6><%= booking.event.start_time.strftime("%e %B %Y") %></h6>
-                    <h6><%= booking.event.start_time.strftime("%y:%S") %></h6>
-                  </div>
-                </div>
-              </div>
+  <div class="front">
+    <div class="background">
+
+      <div class="profile-card-header">
+        <div class="profile-card-avatar">
+          <%= cl_image_tag avatar_url, class: "avatar-large text-center" %>
+        </div>
+      </div>
+
+      <div class="profile-card-body">
+        <h3><%= booking.user.first_name %></h3>
+        <p>wants to join:</p>
+        <div class="match-details">
+          <div class="sport-image">
+            <%= image_tag ("sports/" + booking.event.sport.name + ".png"), style: "width: 4vmin" %>
+            <p><%= booking.event.title %></p>
+          </div>
+          <div class="on">
+          <p>on</p>
+          </div>
+          <div class="sport-time">
+            <p><%= booking.event.start_time.strftime("%e %B %Y") %></p>
+            <p><%= booking.event.start_time.strftime("%y:%S") %></p>
+          </div>
+        </div> <!-- end of match-details -->
+      </div> <!-- end of body -->
+
+    </div> <!-- end of background -->
+  </div> <!-- end of front -->
+
+  <div class="back">
+    <div class="background">
+
+      <div class="profile-card-header">
+        <div class="profile-card-avatar">
+          <%= link_to profile_path(booking.user) do %>
+            <%= cl_image_tag avatar_url, class: "avatar-large text-center"%>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="profile-card-body">
+        <h3><%= booking.user.first_name %></h3>
+        <% if booking.user.bio? %>
+          <p><%= booking.user.bio.truncate_words(10) %></p>
+        <% else %>
+          <p>no bio</p>
+        <% end %>
+
+        <div class="match-details">
+          <% if booking.pending? %>
+            <div class="accept-btn">
+              <%= simple_form_for(booking) do |f| %>
+                <%= f.hidden_field :booking_state, value: 1 %>
+                <%= f.button :submit, "Accept", class: "btn accept-btn" %>
+              <% end %>
             </div>
-          </div>
-
-          <div class="back">
-            <div class="background">
-              <div class="profile-card-header">
-                <div class="profile-card-avatar">
-                  <%= link_to profile_path(booking.user) do %>
-                    <%= image_tag avatar_url, class: "avatar-large text-center"%>
-                  <% end %>
-                </div>
-              </div>
-              <div class="profile-card-body">
-                <h3><%= booking.user.first_name %></h3>
-                <p><%= booking.user.bio %></p>
-                <div class="match-details">
-                  <% if booking.pending? %>
-                    <div class="accept-btn">
-                      <%= simple_form_for(booking) do |f| %>
-                        <%= f.hidden_field :booking_state, value: 1 %>
-                        <%= f.button :submit, "Accept", class: "btn accept-btn" %>
-                      <% end %>
-                    </div>
-                    <div class="deny-btn">
-                      <%= simple_form_for(booking) do |f| %>
-                        <%= f.hidden_field :booking_state, value: 2 %>
-                        <%= f.button :submit, "Deny", class: "btn deny-btn" %>
-                      <% end %>
-                    </div>
-                    <% elsif booking.accepted? %>
-                      <div class="accepted-sign">
-                        <p class="text-center">Accepted</p>
-                      </div>
-                    <% elsif booking.denied? %>
-                      <div class="denied-sign">
-                        <p class="text-center">Denied</p>
-                      </div>
-
-                    <!-- <p> <%#= link_to "Chat to requestee", conversations_path(sender_id: current_user.id, recipient_id: booking.user.id), method: "post", class: "btn btn-primary"%></p> -->
-
-                  <% end %>
-                </div>
-              </div>
+            <div class="deny-btn">
+              <%= simple_form_for(booking) do |f| %>
+                <%= f.hidden_field :booking_state, value: 2 %>
+                <%= f.button :submit, "Deny", class: "btn deny-btn" %>
+              <% end %>
             </div>
-          </div>
-          </div>
+            <% elsif booking.accepted? %>
+              <div class="accepted-sign">
+                <p class="text-center">Accepted</p>
+              </div>
+            <% elsif booking.denied? %>
+              <div class="denied-sign">
+                <p class="text-center">Denied</p>
+              </div>
+          <% end %>
+        </div> <!-- end of match details -->
+      </div> <!-- end of profile card body -->
+
+    </div> <!-- end of background -->
+  </div> <!-- end of back -->
+
+</div> <!-- end of whole card -->

@@ -1,74 +1,169 @@
-<div class="container">
+<!-- details -->
 
-  <div class="row">
-  <div class="col-xs-4">
-    <h2> Key information </h2>
-          <h3>Time:</h3>
-      <p>
-        <% if @event.start_time.to_date == @event.end_time.to_date %>
-          <%= @event.start_time.strftime("%A %d %B") %>
-        <% else %>
-          <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
-        <% end %>
+<div class="large-page-container">
 
-          from
+  <!-- GAME DETAILS -->
 
-        <% if @event.start_time.to_date == @event.end_time.to_date %>
-          <%= @event.start_time.strftime("%H:%M") %> to <%= @event.end_time.strftime("%H:%M") %>
-        <% else %>
-          <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> to <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
-        <% end %>
-      </p>
-      <h3> Players accepted:</h3>
-          <% @event.bookings.where(booking_state: 1).each do |booking| %>
-            <p> <%= link_to (booking.user.username? ? booking.user.username : booking.user.email), profile_path(booking.user) %>
-              <%= link_to chat_rooms_path(sender_id: current_user.id, recipient_id: booking.user.id), method: "post" do %>
-               <i class="fa fa-commenting"></i>
-              <% end %>
+  <div class="grey-container">
+    <h3 class="text-center">GAME DETAILS</h3>
+    <div class="row"> <!-- beginning of main content -->
 
-             </p>
+      <div class="col-sm-8"> <!-- left side of main -->
+        <div class="row"> <!-- left side (requests) -->
+
+          <% if @event.bookings.where(booking_state: 0).any? %>
+            <div class="col-sm-12">
+              <div class="white-box">
+                <div class="row">
+                  <h5 class="text-center" style="padding-bottom: 5px">PENDING BOOKINGS</h5>
+                  <% @event.bookings.where(booking_state: 0).each do |booking| %>
+                    <div class="col-sm-4">
+                      <%= render 'card', booking: booking %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="col-sm-12">
+              <div class="white-box">
+                <h5 class="text-center"> No Pending Bookings!</h5>
+              </div>
+            </div>
+          <% end %>
+
+        </div> <!-- end of row (requests to join) -->
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="white-box">
+              <h5 class="text-center">ACCEPTED REQUESTS</h5>
+              <div class="flex-space-around">
+                <% @event.bookings.where(booking_state: 1).each do |booking| %>
+                  <% if booking.user.photo %>
+                    <% avatar_url = booking.user.photo.path %>
+                  <% elsif booking.user.facebook_picture_url %>
+                    <% avatar_url = booking.user.facebook_picture_url.gsub("square", "large") %>
+                  <% else %>
+                    <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+                  <% end %>
+                  <p> <%= cl_image_tag avatar_url, class: "avatar-large" %> <%= link_to (booking.user.username? ? booking.user.username : booking.user.email), profile_path(booking.user) %>
+                  <%= link_to chat_rooms_path(sender_id: current_user.id, recipient_id: booking.user.id), method: "post" do %>
+                    <i class="fa fa-commenting"></i>
+                  <% end %>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- end of left main col-md-8 -->
+
+      <!-- EVENT DETAILS -->
+      <div class="col-sm-4">
+        <div class="flex-container-column white-box">
+          <h5 class="text-center">LEVEL</h5>
+          <p class="text-center">
+            <% @event.level.times do %>
+              <i class="fa fa-square colour-icon" aria-hidden="true"></i>
             <% end %>
-
-
-                <h3>Players needed:
+            <% (3 - @event.level).times do %>
+              <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
+            <% end %>
+          </p>
+          <h5 class="text-center">PLAYERS NEEDED</h5>
+          <p class="text-center">
             <% @event.missing_player.times do %>
               <i class="fa fa-user colour-icon" aria-hidden="true"></i>
             <% end %>
-          </h3>
+          </p>
+          <h5 class="text-center">GENDERED? </h5>
+          <p class="text-center">
+            <% if @event.gender.downcase == "female" %>
+              <i class="fa fa-venus colour-icon"></i> ladies
+            <% elsif @event.gender.downcase == "male" %>
+              <i class="fa fa-mars colour-icon"></i> mens
+            <% else %>
+              mixed
+            <% end %>
+          </p>
+        </div> <!-- end of flex-container-column -->
 
+        <!-- EXTRA INFO -->
+        <div class="flex-container-column white-box">
+          <h5 class="text-center">DETAILS</h5>
+          <div class="flex-space-between">
+            <p><i class="fa fa-calendar"></i></p>
+            <p>
+              <% if @event.start_time.to_date == @event.end_time.to_date %>
+                <%= @event.start_time.strftime("%A %d %B") %>
+              <% else %>
+                <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
+              <% end %>
+            </p>
+          </div>
+           <div class="flex-space-between">
+            <p><i class="fa fa-clock-o"></i></p>
+            <p>
+              <% if @event.start_time.to_date == @event.end_time.to_date %>
+                <%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %>
+              <% else %>
+                <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> - <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
+              <% end %>
+            </p>
+          </div>
+          <div class="flex-space-between">
+            <p><i class="fa fa-suitcase"></i></p>
+            <p>
+              <% if @event.requirements == "" %>
+                  None
+              <% else %>
+                <%= @event.requirements %>
+              <% end %>
+            </p>
+          </div>
 
+        </div> <!-- end of flex-container-column -->
 
-
-
-
-  </div>
-
-<div class="col-xs-8">
-  <!-- loop through booking requests -->
-<% if @event.bookings.where(booking_state: 0).any? %>
-  <h1 class="text-center"> Pending Bookings!</h1>
-    <% @event.bookings.where(booking_state: 0).each do |booking| %>
-    <!-- set image of person requesting a place -->
-
-
-      <div class="col-xs-4">
-      <!-- start of profile card -->
-      <%= render 'card', booking: booking%>
-
+        <div class="flex-container-column white-box">
+          <h5 class="text-center">DESCRIPTION</h5>
+          <p><%= @event.description %></p>
         </div>
+      </div> <!-- end of col-md-4 (right-side details) -->
+    </div> <!-- end of main row -->
+  </div> <!-- end of grey-container -->
+</div> <!-- end of page/container -->
+
+ <script>
+  <% content_for(:after_js) do %>
+    <%= javascript_tag do %>
+      $(document).on('ready', function() {
+        $(".profile-card").flip();
+        var handler = Gmaps.build('Google');
+        handler.buildMap({ internal: { id: 'map' } }, function(){
+
+         <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
+           markers = handler.addMarkers([
+               {
+                 lat: <%= event.latitude %>,
+                 lng: <%= event.longitude %>,
+                 picture: {
+                   url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                   width:  50,
+                   height: 50
+                 }
+               }
+             ]);
+           <% end %>
+
+         markers.forEach(function(marker) {
+           handler.bounds.extendWith(marker);
+         });
+         handler.fitMapToBounds();
+        handler.getMap().setZoom(14);
+       });
+      })
     <% end %>
-  <% else %>
-  <h1 class="text-center"> No Pending Bookings!</h1>
   <% end %>
-  </div>
-  </div>
-</div>
-
-
-<% content_for(:after_js) do %>
-   <script>
-   $(document).ready(function(){
-    $(".profile-card").flip();
-   });
-   </script>
-<% end %>
+</script>

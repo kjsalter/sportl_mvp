@@ -1,23 +1,6 @@
 <!-- details -->
 
 <div class="large-page-container">
-
-  <!-- buttons -->
-  <div class="spaced-buttons">
-    <div class="row">
-      <div class="col-xs-6">
-        <div class="text-center">
-          <%= render 'bookings/form' %>
-        </div>
-      </div>
-      <div class="col-xs-6">
-        <div class="chat-button-show text-center">
-          <%= link_to "chat to event owner", chat_rooms_path(sender_id: current_user.id, recipient_id: @event.user.id), method: :post, class: "btn btn-success btn-lg" %>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- GAME DETAILS -->
 
   <div class="grey-container">
