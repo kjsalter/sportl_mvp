@@ -1,0 +1,68 @@
+<div class="container">
+
+  <div class="row">
+  <div class="col-xs-4">
+    <h2> Key information </h2>
+          <h3>Time:</h3>
+      <p>
+        <% if @event.start_time.to_date == @event.end_time.to_date %>
+          <%= @event.start_time.strftime("%A %d %B") %>
+        <% else %>
+          <%= @event.start_time.strftime("%A %d %B") %> - <%= @event.end_time.strftime("%A %d %B") %>
+        <% end %>
+
+          from
+
+        <% if @event.start_time.to_date == @event.end_time.to_date %>
+          <%= @event.start_time.strftime("%H:%M") %> to <%= @event.end_time.strftime("%H:%M") %>
+        <% else %>
+          <%= @event.start_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.start_time.strftime("%A %d") %>)</span> to <%= @event.end_time.strftime("%H:%M") %> <span class="grey-text">(<%= @event.end_time.strftime("%A %d") %>)</span>
+        <% end %>
+      </p>
+      <h3> Players accepted:</h3>
+          <% @event.bookings.where(booking_state: 1).each do |booking| %>
+            <p> <%= link_to (booking.user.username? ? booking.user.username : booking.user.email), profile_path(booking.user) %>
+              <%= link_to chat_rooms_path(sender_id: current_user.id, recipient_id: booking.user.id), method: "post" do %>
+               <i class="fa fa-commenting"></i>
+              <% end %>
+
+             </p>
+            <% end %>
+
+
+                <h3>Players needed:
+            <% @event.missing_player.times do %>
+              <i class="fa fa-user colour-icon" aria-hidden="true"></i>
+            <% end %>
+          </h3>
+  </div>
+
+<div class="col-xs-8">
+  <!-- loop through booking requests -->
+<% if @event.bookings.where(booking_state: 0).any? %>
+  <h1 class="text-center"> Pending Bookings!</h1>
+    <% @event.bookings.where(booking_state: 0).each do |booking| %>
+    <!-- set image of person requesting a place -->
+
+
+      <div class="col-xs-4">
+      <!-- start of profile card -->
+      <%= render 'card', booking: booking%>
+
+        </div>
+    <% end %>
+  <% else %>
+  <h1 class="text-center"> No Pending Bookings!</h1>
+  <% end %>
+  </div>
+  </div>
+</div>
+
+
+<% content_for(:after_js) do %>
+   <script>
+   $(document).ready(function(){
+    $(".profile-card").flip();
+   });
+   </script>
+<% end %>
