@@ -2,10 +2,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://www.sportl.org" }
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.action_cable.allowed_request_origins = ['https://www.sportl.org',
-                                              'http://www.sportl.org']
+  config.action_cable.allowed_request_origins = ['/https:\/\/*/',
+                                              '/https:\/\/*/']
 
-  config.action_cable.url = "ws://sportl.org/cable"
+  config.action_cable.url = "wss://sportl.herokuapp.com/cable"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
