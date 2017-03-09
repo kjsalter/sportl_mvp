@@ -10,7 +10,7 @@ Rails.application.configure do
                                                  'http://sportl.herokuapp.com',
                                             ]
 
-  config.action_cable.url = "wss://sportl.herokuapp.com/cable"
+  config.action_cable.url = "wss://sportl.org/cable"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
