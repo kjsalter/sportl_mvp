@@ -20,6 +20,11 @@
   width: 100%;
 }
 
+.full-everything-container {
+  height: calc(100vh - 140px);
+  padding: 3vmin;
+}
+
 .full-container {
   height: calc(100vh - 140px);
   font-size: 20px;
