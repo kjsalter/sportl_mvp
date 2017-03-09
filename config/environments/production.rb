@@ -3,9 +3,14 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.action_cable.allowed_request_origins = ['https://www.sportl.org',
-                                              'http://www.sportl.org']
+                                                 'http://www.sportl.org',
+                                                 'http://sportl.org',
+                                                 'https://sportl.org',
+                                                 'https://sportl.herokuapp.com',
+                                                 'http://sportl.herokuapp.com',
+                                            ]
 
-  config.action_cable.url = "ws://sportl.org/cable"
+  config.action_cable.url = "wss://sportl.org/cable"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
