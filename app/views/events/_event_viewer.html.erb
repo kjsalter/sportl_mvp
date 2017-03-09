@@ -14,14 +14,9 @@
             <!-- MATCH DETAILS -->
             <div class="flex-container-column white-box">
 
-              <h5 class="text-center">LEVEL</h5>
+              <h5 class="text-center">VIBE</h5>
               <p class="text-center">
-                <% @event.level.times do %>
-                  <i class="fa fa-square colour-icon" aria-hidden="true"></i>
-                <% end %>
-                <% (3 - @event.level).times do %>
-                  <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
-                <% end %>
+                <%= Event::LEVELS[@event.level - 1].humanize %>
               </p>
               <h5 class="text-center">PLAYERS NEEDED</h5>
               <p class="text-center">
@@ -29,7 +24,7 @@
                   <i class="fa fa-user colour-icon" aria-hidden="true"></i>
                 <% end %>
               </p>
-              <h5 class="text-center">GENDERED? </h5>
+              <h5 class="text-center">TYPE</h5>
               <p class="text-center">
                 <% if @event.gender.downcase == "female" %>
                   <i class="fa fa-venus colour-icon"></i> ladies
@@ -71,8 +66,8 @@
               <div class="flex-space-between">
                 <p><i class="fa fa-suitcase"></i></p>
                 <p>
-                  <% if @event.requirements == "" %>
-                      None
+                  <% if @event.requirements.nil? %>
+                    no kit needed
                   <% else %>
                     <%= @event.requirements %>
                   <% end %>
@@ -149,7 +144,7 @@
           <h5 class="text-center">LOCATION</h5>
           <p><strong><%= @event.venue_name %></strong></p>
           <p><%= @event.full_address %></p>
-          <div id="map" style="width: 100%; height: 500px;"></div>
+          <div id="map3" style="width: 100%; height: 500px;"></div>
         </div>
       </div>
 
@@ -158,34 +153,32 @@
 
 </div> <!-- end of page/container -->
 
- <script>
-  <% content_for(:after_js) do %>
-    <%= javascript_tag do %>
-      $(document).on('ready', function() {
-        var handler = Gmaps.build('Google');
-        handler.buildMap({ internal: { id: 'map' } }, function(){
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).on('ready', function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map3' } }, function(){
 
-         <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
-           markers = handler.addMarkers([
-               {
-                 lat: <%= event.latitude %>,
-                 lng: <%= event.longitude %>,
-                 picture: {
-                   url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
-                   width:  50,
-                   height: 50
-                 }
+       <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
+         markers = handler.addMarkers([
+             {
+               lat: <%= event.latitude %>,
+               lng: <%= event.longitude %>,
+               picture: {
+                 url: "<%= image_path ("sports/thumbnails/" + event.sport.name + ".png") %>",
+                 width:  50,
+                 height: 50
                }
-             ]);
-           <% end %>
+             }
+           ]);
+         <% end %>
 
-         markers.forEach(function(marker) {
-           handler.bounds.extendWith(marker);
-         });
-         handler.fitMapToBounds();
-        handler.getMap().setZoom(14);
+       markers.forEach(function(marker) {
+         handler.bounds.extendWith(marker);
        });
-      });
-    <% end %>
+       handler.fitMapToBounds();
+      handler.getMap().setZoom(14);
+     });
+    });
   <% end %>
-</script>
+<% end %>

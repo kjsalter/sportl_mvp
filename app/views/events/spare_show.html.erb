@@ -84,7 +84,7 @@
       <h3>Location:</h3>
       <p><%= @event.venue_name %></p>
       <p><%= @event.full_address %></p>
-      <div id="map" style="width: 100%; height: 375px;"></div>
+      <div id="map5" style="width: 100%; height: 375px;"></div>
 
       <% if @event.players.length > 0 %>
         <ul class="list-inline">
@@ -134,7 +134,7 @@
     <%= javascript_tag do %>
       $(document).on('ready', function() {
         var handler = Gmaps.build('Google');
-        handler.buildMap({ internal: { id: 'map' } }, function(){
+        handler.buildMap({ internal: { id: 'map5' } }, function(){
 
          <% @hash = Gmaps4rails.build_markers(@event) do |event, marker| %>
            markers = handler.addMarkers([

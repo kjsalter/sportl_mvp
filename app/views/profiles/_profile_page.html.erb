@@ -54,25 +54,6 @@
           </div>
         </div>
 
-        <% content_for(:after_js) do %>
-        <script>
-          $(document).ready(function() {
-            $('.about-me-head').click(function() {
-
-              if($('.about-me-head').hasClass('open')){
-                $('.about-me-body').slideUp( "slow", function() {});
-              }else{
-                $('.about-me-body').slideDown( "slow", function() {});
-              }
-
-              $('.about-me-head').toggleClass("open");
-              $('.black-icon-right > .fa').toggleClass('fa-chevron-up');
-              $('.black-icon-right > .fa').toggleClass('fa-chevron-down');
-            });
-          });
-        </script>
-        <% end %>
-
       </div>
     </div>
 
@@ -117,12 +98,28 @@
     <!-- profile page map -->
     <div class="col-sm-4">
       <div class="map">
-        <div id="map" style="width: 100%; height: 600px;"></div>
-        <% content_for(:after_js) do %>
+        <div id="map6" style="width: 100%; height: 600px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<% content_for(:after_js) do %>
         <script>
           $(document).ready(function() {
+            $('.about-me-head').click(function() {
+              if($('.about-me-head').hasClass('open')){
+                $('.about-me-body').slideUp( "slow", function() {});
+              }else{
+                $('.about-me-body').slideDown( "slow", function() {});
+              }
+              $('.about-me-head').toggleClass("open");
+              $('.black-icon-right > .fa').toggleClass('fa-chevron-up');
+              $('.black-icon-right > .fa').toggleClass('fa-chevron-down');
+            });
             var handler = Gmaps.build('Google');
-            handler.buildMap({ internal: { id: 'map' } }, function() {
+            handler.buildMap({ internal: { id: 'map6' } }, function() {
               markers = handler.addMarkers(<%= raw @hash.to_json %>);
               handler.bounds.extendWith(markers);
               handler.fitMapToBounds();
@@ -135,9 +132,4 @@
           });
         </script>
         <% end %>
-      </div>
-    </div>
-
-  </div>
-</div>
 
