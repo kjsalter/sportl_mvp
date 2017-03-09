@@ -97,13 +97,13 @@
             <div class="flex-container-column white-box">
               <h5 class="text-center">CAPTAIN</h5>
               <div class="text-center">
-              <% if @event.user.photo?
-                avatar_url = cl_image_path(@event.user.photo.path)
-                elsif @event.user.facebook_picture_url?
-                avatar_url = @event.user.facebook_picture_url.gsub("square", "large")
-                else
-                avatar_url = "https://api.adorable.io/avatars/285/sportl.png"
-                end %>
+              <% if @event.user.photo? %>
+                <% avatar_url = cl_image_path(@event.user.photo.path) %>
+              <% elsif @event.user.facebook_picture_url? %>
+                <% avatar_url = @event.user.facebook_picture_url.gsub("square", "large") %>
+              <% else %>
+                <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+              <% end %>
                 <%= image_tag avatar_url, class: "avatar-xl" %>
               </div>
               <h6 class="text-center" style="padding: 0px; margin: 5px;"><%= @event.user.first_name %> ( <%= @event.user.username %>)</h6>
@@ -121,7 +121,7 @@
                 <% @event.players.each do |player| %>
                   <div class="col-xs-6">
                   <% if player.user.photo? %>
-                    <% profile_image = player.user.photo? %>
+                    <% profile_image = cl_image_path(player.user.photo.path) %>
                   <% elsif player.user.facebook_picture_url %>
                     <% profile_image = player.user.facebook_picture_url.gsub("square", "large") %>
                   <% else %>
@@ -130,7 +130,7 @@
                     <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
                       <div class="text-center">
                         <div class="badge-container">
-                          <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
+                          <%= image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
                           <% if user_signed_in? && current_user.friend_uids.include?(player.user.uid) %>
                             <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
                           <% end %>
