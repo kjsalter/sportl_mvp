@@ -1,18 +1,19 @@
-<div class="full-container">
-  <div class="full-container-content text-center">
-    <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : "https://api.adorable.io/avatars/285/sportl.png" || @booking.event.user.photo.path %>
-    <%= cl_image_tag avatar_url, class: "avatar-large" %>
-    <%= image_tag ("sports/" + @booking.event.sport.name + ".png"), style: "width: 50px" %>
 
-    <h1>Thanks!</h1>
+<div class="full-container">
+  <%= image_tag ('logo.png'), class: "pending-denied-logo" %>
+  <div class="full-container-content text-center">
+    <%= image_tag ("sports/" + @booking.event.sport.name + ".png"), style: "width: 60px" %>
+
+    <h1>Thanks, <%= @booking.user.first_name %>!</h1>
     <p>
       You want to join <strong>"<%= @booking.event.title %>"</strong>.
     </p>
     <p>
-      Captain <%= @booking.event.user.username %> will get back to you
+      Captain <%= @booking.event.user.first_name %> will get back to you
     </p>
-
-    <%= link_to "Ask captain a question", chat_rooms_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: :post %>
+    <p><% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : "https://api.adorable.io/avatars/285/sportl.png" || @booking.event.user.photo.path %>
+    <%= cl_image_tag avatar_url, class: "avatar-large" %>
+    <%= link_to "Ask captain a question", chat_rooms_path(sender_id: current_user.id, recipient_id: @booking.event.user.id), method: :post %></p>
   </div>
 </div>
 
