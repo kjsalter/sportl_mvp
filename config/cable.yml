@@ -6,4 +6,4 @@ test:
 
 production:
   adapter: redis
-  url: http://localhost:3000/
+  url: <%= ENV["REDISCLOUD_URL"] %>
