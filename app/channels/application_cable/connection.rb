@@ -9,10 +9,18 @@ module ApplicationCable
 
     protected
 
-    def find_verified_user # this checks whether a user is authenticated with devise
-      if current_user#verified_user = env['warden'].user
-        # verified_user
-        current_user
+    # def find_verified_user # this checks whether a user is authenticated with devise
+    #   # if current_user#verified_user = env['warden'].user
+    #     # verified_user
+    #     current_user
+    #   else
+    #     reject_unauthorized_connection
+    #   end
+    # end
+
+    def find_verified_user
+      if verified_user = User.find_by(id: cookies.signed['user.id'])
+        verified_user
       else
         reject_unauthorized_connection
       end
