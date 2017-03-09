@@ -5,7 +5,7 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = ['https://www.sportl.org',
                                               'http://www.sportl.org']
 
-  config.action_cable.url = "wss://sportl.org/cable"
+  config.action_cable.url = "ws://sportl.org/cable"
   # Code is not reloaded between requests.
   config.cache_classes = true
 
