@@ -55,27 +55,63 @@ sports_list.each do |s|
   Sport.create!(name: s)
 end
 
+pre_sport_title = ['WE KNOW YOU WANT TO PLAY ', 'Drunk game of ', 'Spicy night of ', 'Burn that belly with a game of ', 'Fabulous session of ', 'Players DESPERATELY needed for ', 'Weekly & Cheeky ']
+post_sport_title = [". No Republicans!", ". Bonus points if you're fluent in Latin.", '. This is a paid gig.', '. Beers (Tequila) after.', '. Competition format.', '. Long-term Coach wanted.']
+descs =  ["Group of friends having a blast. We make up for our naivety regarding the basic rules with our athletic prowess. Note: We all work office jobs and this is our sole bout of exercise each week.", "'The best defence is a good offence' ~ Katie Salter. Unfortunately, our two attackers broke their necks last week - so you're our only option. To be explicit, it was taking part in a similar event to this one.", "Life getting you down? Fear not. Embrace your natural high to the beat of classics such as 'Don't stop believing', the 'Macarena', and 'Ice Ice Baby'.", "Come with your game face on & let's make some magic. P.S we dress all in black to intimidate the opposition. P.P.S We perform a Haka; if you want to learn the dance come 20 minutes early, otherwise screaming and shouting will suffice.", "Do you ever feel something missing in your life? Congratulations, you've stumbled upon it. I know what you're thinking, and you're right. It's Sportl. Sportl is the best designed website I have ever encountered. I credit it with saving my marriage, fixing my broken leg and Ed Sheeran's new album." ]
+
+start_seed = Faker::Time.between(DateTime.now, DateTime.now + 5)
+
 5.times do
-  user = User.create!(
+  user = User.create(
     email: Faker::Internet.email,
-    password: Faker::Internet.password(8)
-  )
-  10.times do
-    start_seed = Faker::Time.between(DateTime.now, DateTime.now + 5)
-    event = Event.create!(
-      sport: Sport.all.sample,
-      title: Faker::Team.creature,
+    password: "passWord123",
+    username: Faker::Internet.user_name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    address: postcodes.sample,
+    bio: Faker::Company.catch_phrase,
+    gender: ["Male", "Female", "Other"].sample
+    )
+  3.times do
+    sport_item = Sport.all.sample
+    event = Event.create(
+      sport: sport_item,
+      title: pre_sport_title.sample + sport_item.name + post_sport_title.sample,
       gender: ["mens", "ladies", "mixed"].sample,
       city: "London",
       postcode: postcodes.sample,
       start_time: start_seed,
       end_time: start_seed + 1.hour,
-      description: Faker::ChuckNorris.fact,
+      description: descs.sample,
       level: (1..3).to_a.sample,
       missing_player: (1..5).to_a.sample,
       user: user
-    )
+      )
   end
+
 end
+
+# 5.times do
+#   user = User.create!(
+#     email: Faker::Internet.email,
+#     password: Faker::Internet.password(8)
+#   )
+#   10.times do
+#     start_seed = Faker::Time.between(DateTime.now, DateTime.now + 5)
+#     event = Event.create!(
+#       sport: Sport.all.sample,
+#       title: Faker::Team.creature,
+#       gender: ["mens", "ladies", "mixed"].sample,
+#       city: "London",
+#       postcode: postcodes.sample,
+#       start_time: start_seed,
+#       end_time: start_seed + 1.hour,
+#       description: Faker::ChuckNorris.fact,
+#       level: (1..3).to_a.sample,
+#       missing_player: (1..5).to_a.sample,
+#       user: user
+#     )
+#   end
+# end
 
 
