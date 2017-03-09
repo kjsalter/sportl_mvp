@@ -198,7 +198,7 @@
                         <% end %>
                       </div>
                     </div>
-                    <% if event.players.length > 0 %>
+                    <% if event.players.length > 0 && user_signed_in? %>
                       <ul class="list-inline">
                         <% event.players.each_with_index do |player, index| %>
                           <li style="margin-bottom: 15px;">
