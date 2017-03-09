@@ -19,6 +19,7 @@ module ApplicationCable
     # end
 
     def find_verified_user
+      puts "USER COOKIE #{cookies.signed['user.id']}"
       if verified_user = User.find_by(id: cookies.signed['user.id'])
         verified_user
       else
