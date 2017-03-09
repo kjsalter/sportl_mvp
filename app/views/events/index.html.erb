@@ -1,35 +1,38 @@
 <div class="container-index">
   <br>
   <div class="row">
-
-  </div>
-  <div class="row">
   <!-- Search bar -->
     <div class="col-xs-12 col-md-3">
       <div class="search-box">
-        <h4>Sports</h4>
-        <form action="<%= events_path %>">
+
+      <form action="<%= events_path %>">
+
+        <h4 id="sport-list-dropdown">Sports <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+        <div class="hide-me" id="reveal-sport">
           <select name='sports[]' multiple="multiple" class="selectpicker">
             <% @sports_list.sort.each do |sport| %>
               <option <%= 'selected' if params[:sports] && params[:sports].include?(sport) %> value="<%= sport %>"><%= sport %></option>
             <% end %>
           </select>
+        </div>
 
-          <h4>Date-Time</h4>
-          <div class="form-group">
-            <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" name="start_time" />
-                <span class="input-group-addon">
-                    <span class="fa fa-calendar"></span>
-                </span>
+          <h4 id="date-dropdown">Date-Time <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-date">
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker1'>
+                  <input type='text' class="form-control" name="start_time" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class='input-group date' id='datetimepicker2'>
-                <input type='text' class="form-control" name="end_time"/>
-                <span class="input-group-addon">
-                    <span class="fa fa-calendar"></span>
-                </span>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker2'>
+                  <input type='text' class="form-control" name="end_time"/>
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
             </div>
           </div>
 <!--           <h4>Date</h4> -->
@@ -38,50 +41,64 @@
 <!--             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp; -->
 <!--               <span></span> <b class="caret"></b> -->
 <!--           </div> -->
-          <h4>Location</h4>
-          <div class="col-md-8" style='padding-left:0px'>
-            <div class="form-group">
-              <input type="text" name="location" placeholder="location" class="form-control" value="<%= params[:location] %>" />
+
+          <h4 id="location-dropdown">Location <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-location">
+            <div class="col-md-8" style='padding-left:0px'>
+              <div class="form-group">
+                <input type="text" name="location" placeholder="location" class="form-control" value="<%= params[:location] %>" />
+              </div>
             </div>
-          </div>
-          <div class="col-md-4" style='padding:0px'>
-            <div class="form-group">
-              <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" value="<%= params[:radius] %>"/>
+            <div class="col-md-4" style='padding:0px'>
+              <div class="form-group">
+                <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" value="<%= params[:radius] %>"/>
+              </div>
             </div>
-          </div>
-          <h4>Number of spaces needed</h4>
-          <div class="form-group">
-            <% party_size.each do |p| %>
-              <label class="form-check-label">
-                <input type="radio" value="<%= p %>" name="missing_player" <%= 'checked' if params[:missing_player] && params[:missing_player].include?(p.to_s) %> /> <%= p %>
-              </label>
-            <% end %>
-          </div>
-          <h4>Type</h4>
-          <div class="form-group">
-            <% event_type.each do |t| %>
-              <label class="checkbox-inline">
-                <input type="checkbox" name="event_type[]" value="<%= t %>" <%= 'checked' if params[:event_type] && params[:event_type].include?(t) %> /> <%= t %>
-              </label>
-            <% end %>
-          </div>
-          <h4>Vibe</h4>
-          <div class="form-group">
-            <% levels_list.each do |v| %>
-              <label class="checkbox-inline">
-                <input type="checkbox" name="event_vibe[]" value="<%= v[1] %>" <%= 'checked' if params[:event_vibe] && params[:event_vibe].include?(v[1].to_s) %> /> <%= v[0] %>
-              </label>
-            <% end %>
           </div>
 
-          <h4>Friends</h4>
-          <div class="form-group">
-            <label class="form-check-label">
-              <input type="radio" value="friends" name="friends_radio" <%= 'checked' if params[:friends_radio] && params[:friends_radio] == 'friends' %> /> Friends only
-            </label>
-            <label class="form-check-label">
-              <input type="radio" value="all" name="friends_radio" <%= 'checked' if !params[:friends_radio] || params[:friends_radio] == "all" %> /> Everyone
-            </label>
+          <h4 id="space-needed-dropdown">Number of spaces needed <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-space-needed">
+            <div class="form-group">
+              <% party_size.each do |p| %>
+                <label class="form-check-label">
+                  <input type="radio" value="<%= p %>" name="missing_player" <%= 'checked' if params[:missing_player] && params[:missing_player].include?(p.to_s) %> /> <%= p %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <h4 id="type-dropdown">Type <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-type">
+            <div class="form-group">
+              <% event_type.each do |t| %>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="event_type[]" value="<%= t %>" <%= 'checked' if params[:event_type] && params[:event_type].include?(t) %> /> <%= t %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <h4 id="vibe-dropdown">Vibe <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-vibe">
+            <div class="form-group">
+              <% levels_list.each do |v| %>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="event_vibe[]" value="<%= v[1] %>" <%= 'checked' if params[:event_vibe] && params[:event_vibe].include?(v[1].to_s) %> /> <%= v[0] %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <h4 id="friends-dropdown">Friends <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
+          <div class="hide-me" id="reveal-friends-needed">
+            <div class="form-group">
+              <label class="form-check-label">
+                <input type="radio" value="friends" name="friends_radio" <%= 'checked' if params[:friends_radio] && params[:friends_radio] == 'friends' %> /> Friends only
+              </label>
+              <label class="form-check-label">
+                <input type="radio" value="all" name="friends_radio" <%= 'checked' if !params[:friends_radio] || params[:friends_radio] == "all" %> /> Everyone
+              </label>
+            </div>
           </div>
 
           <input type="submit" value="Search" class="btn btn-lg btn-success">
@@ -275,6 +292,77 @@
             });
             handler.fitMapToBounds();
 
+          });
+
+          $('#sport-list-dropdown').click(function() {
+            if ($('#reveal-sport').hasClass('open')){
+              $('#reveal-sport').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-sport').slideDown( "slow", function() {});
+            }
+            $('#reveal-sport').toggleClass("open");
+            $('#sport-list-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#sport-list-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#date-dropdown').click(function() {
+            if ($('#reveal-date').hasClass('open')){
+              $('#reveal-date').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-date').slideDown( "slow", function() {});
+            }
+            $('#reveal-date').toggleClass("open");
+            $('#date-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#date-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#location-dropdown').click(function() {
+            if ($('#reveal-location').hasClass('open')){
+              $('#reveal-location').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-location').slideDown( "slow", function() {});
+            }
+            $('#reveal-location').toggleClass("open");
+            $('#location-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#location-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#space-needed-dropdown').click(function() {
+            if ($('#reveal-space-needed').hasClass('open')){
+              $('#reveal-space-needed').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-space-needed').slideDown( "slow", function() {});
+            }
+            $('#reveal-space-needed').toggleClass("open");
+            $('#space-needed-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#space-needed-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#type-dropdown').click(function() {
+            if ($('#reveal-type').hasClass('open')){
+              $('#reveal-type').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-type').slideDown( "slow", function() {});
+            }
+            $('#reveal-type').toggleClass("open");
+            $('#type-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#type-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#vibe-dropdown').click(function() {
+            if ($('#reveal-vibe').hasClass('open')){
+              $('#reveal-vibe').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-vibe').slideDown( "slow", function() {});
+            }
+            $('#reveal-vibe').toggleClass("open");
+            $('#vibe-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#vibe-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
+          });
+          $('#friends-dropdown').click(function() {
+            if ($('#reveal-friends-needed').hasClass('open')){
+              $('#reveal-friends-needed').slideUp( "slow", function() {});
+            } else {
+              $('#reveal-friends-needed').slideDown( "slow", function() {});
+            }
+            $('#reveal-friends-needed').toggleClass("open");
+            $('#friends-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
+            $('#friends-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
           });
         });
       <% end %>
