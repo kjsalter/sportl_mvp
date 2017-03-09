@@ -1,26 +1,36 @@
-// ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-//     color:    red !important;
-// }
-// :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-//    color:    red !important;
-// }
-// ::-moz-placeholder { /* Mozilla Firefox 19+ */
-//    color:    red !important;
-//    opacity:  1;
-// }
-// :-ms-input-placeholder { /* Internet Explorer 10-11 */
-//    color:    red !important;
-// }
-
 #sport-form {
   padding-left: 25px;
   padding-right: 25px;
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      font-size: 15px;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     font-size: 15px;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     font-size: 15px;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     font-size: 15px;
+  }
 .form-control {
   // background-color: #f5a7a3;
   border: none;
   border-radius: 2px;
+  border-bottom: 2px solid black;
   // color: white;
+  input {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-align: center;
+  &:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
   }
+  }
+}
 
   #sports, #missing_player {
     height: 40px;
