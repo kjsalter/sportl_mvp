@@ -14,14 +14,9 @@
             <!-- MATCH DETAILS -->
             <div class="flex-container-column white-box">
 
-              <h5 class="text-center">LEVEL</h5>
+              <h5 class="text-center">VIBE</h5>
               <p class="text-center">
-                <% @event.level.times do %>
-                  <i class="fa fa-square colour-icon" aria-hidden="true"></i>
-                <% end %>
-                <% (3 - @event.level).times do %>
-                  <i class="fa fa-square-o colour-icon" aria-hidden="true"></i>
-                <% end %>
+                <%= Event::LEVELS[@event.level - 1].humanize %>
               </p>
               <h5 class="text-center">PLAYERS NEEDED</h5>
               <p class="text-center">
@@ -29,7 +24,7 @@
                   <i class="fa fa-user colour-icon" aria-hidden="true"></i>
                 <% end %>
               </p>
-              <h5 class="text-center">GENDERED? </h5>
+              <h5 class="text-center">TYPE</h5>
               <p class="text-center">
                 <% if @event.gender.downcase == "female" %>
                   <i class="fa fa-venus colour-icon"></i> ladies
@@ -71,8 +66,8 @@
               <div class="flex-space-between">
                 <p><i class="fa fa-suitcase"></i></p>
                 <p>
-                  <% if @event.requirements == "" %>
-                      None
+                  <% if @event.requirements.nil? %>
+                    no kit needed
                   <% else %>
                     <%= @event.requirements %>
                   <% end %>
