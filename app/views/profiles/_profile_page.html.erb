@@ -1,10 +1,10 @@
 <!-- whole page -->
-<% if !@user.photo %>
-
+<% if @user.photo? %>
+  <% profile_image = @user.photo.path %>
+<% elsif  @user.facebook_picture_url %>
+  <% profile_image = @user.facebook_picture_url.gsub("square", "large") %>
+<% else %>
   <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
-  <% else %>
-  <% profile_image = @user.photo.path || @user.facebook_picture_url.gsub("square", "large") %>
-
 <% end %>
 
 <% if @user != current_user %>
@@ -18,7 +18,6 @@
     <%# link_to "Chat to #{@user.first_name}", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: "post", class: "btn btn-primary"%>
   </div>
 </div>
-
 <% end %>
 <!-- container for the main content  -->
 <div class="container main-content">
@@ -44,11 +43,11 @@
             <dl>
               <dt style="padding: 4px 0px;"><h5 style="font-weight: bold;" >Favourite Sports</h5></dt>
               <% if @user.sports %>
-              <% @user.sports.each do |sport| %>
-              <dd><h5><%= image_tag "sports/thumbnails/#{sport.name}.png", width: "30px" %> <%= sport.name %></h5></dd>
+                <% @user.sports.each do |sport| %>
+                <dd><h5><%= image_tag "sports/thumbnails/#{sport.name}.png", width: "30px" %> <%= sport.name %></h5></dd>
               <% end %>
               <% else %>
-              <dd>No sports to show </dd>
+                <dd>No sports to show </dd>
               <% end %>
             </dl>
           </div>
@@ -70,15 +69,15 @@
         <div>
           <h1>Hey, I'm <%= @user.first_name %>!</h1>
           <% if @user.address  %>
-          <% location = @user.address %>
+            <% location = @user.address %>
           <% else %>
-          <% location = "no location to show" %>
+            <% location = "no location to show" %>
           <% end %>
           <h5> <%= location %> · <%= @user.created_at.strftime("Joined in %B, %Y") %></h5>
           <% if @user == current_user %>
-          <%= link_to my_profile_edit_path do %>
-          Edit profile <i class="fa fa-pencil" aria-hidden="true"></i>
-          <% end %>
+            <%= link_to my_profile_edit_path do %>
+            Edit profile <i class="fa fa-pencil" aria-hidden="true"></i>
+            <% end %>
           <% end %>
 
         </div>

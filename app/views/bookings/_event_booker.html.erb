@@ -1,16 +1,24 @@
 <!-- details -->
 
+<% if !@booking.event.user.photo %>
+
+  <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+<% elsif @booking.event.user.facebook_picture_url %>
+  <% profile_image = @booking.event.user.facebook_picture_url.gsub("square", "large") %>
+<% else %>
+  <% profile_image = @booking.event.user.photo.path %>
+<% end %>
+
 <div class="large-page-container">
 
   <!-- GAME DETAILS -->
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
-      <div style="margin-bottom: 20px">
+      <div style="margin-bottom: 20px; margin-top: 20px">
         <p style="font-size: 25px" class="text-center">
           <%= link_to profile_path(@booking.event.user) do %>
-          <% avatar_url = @booking.event.user.facebook_picture_url.present? ? @booking.event.user.facebook_picture_url : @booking.event.user.photo.path || "https://api.adorable.io/avatars/285/sportl.png" %>
-          <%= cl_image_tag avatar_url, class: "avatar-large" %>
+          <%= cl_image_tag profile_image, class: "avatar-large" %>
           <% end %>
           Captain <%= @booking.event.user.username %> <%= "will see you there" if @booking.booking_state == "accepted" %>
         </p>
@@ -130,8 +138,7 @@
             <div class="flex-container-column white-box">
               <h5 class="text-center">CAPTAIN</h5>
               <div class="text-center">
-                <% avatar_url = @booking.event.user.photo? ? cl_image_path(@booking.event.user.photo.path) : @booking.event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
-                <%= image_tag avatar_url, class: "avatar-xl" %>
+                <%= image_tag profile_image, class: "avatar-xl" %>
               </div>
               <h6 class="text-center" style="padding: 0px; margin: 5px;"><%= @booking.event.user.first_name %> ( <%= @booking.event.user.username %>)</h6>
               <h6 class="text-center" style="padding: 0px; margin: 5px;"><%= @booking.event.user.created_at.strftime("Joined in %B, %Y") %></h6>
@@ -147,10 +154,12 @@
               <div class="row">
                 <% @booking.event.players.each do |player| %>
                   <div class="col-xs-6">
-                    <% if !player.user.photo %>
-                      <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
+                    <% if player.user.photo? %>
+                      <% profile_image = player.user.photo.path %>
+                    <% elsif player.user.facebook_picture_url %>
+                      <% profile_image = player.user.facebook_picture_url.gsub("square", "large") %>
                     <% else %>
-                      <% profile_image = player.user.photo.path || player.user.facebook_picture_url.gsub("square", "large") %>
+                      <% profile_image = "https://api.adorable.io/avatars/285/sportl.png" %>
                     <% end %>
                     <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
                       <div class="text-center">
