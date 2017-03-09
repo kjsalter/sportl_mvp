@@ -10,7 +10,6 @@
     </div>
   </div>
 </div>
-
 <div id="home-wrapper">
   <div class="home-wrapper-content">
     <h2>Looking for a game?</h2>
@@ -19,6 +18,12 @@
       <input type="hidden" name="radius", value="15" />
       <% if user_signed_in? %>
         <input type="hidden" name="missing_player" value=1 />
+        <% if @user.sports %>
+          <% pref_sports = @user.sports.map { |sport| sport.name }  %>
+          <% pref_sports.each do |pref| %>
+            <input type="hidden" name="sports[]" value=<%= pref %> />
+          <% end %>
+        <% end %>
         <% if current_user.gender == "Female" %>
           <input type="hidden" name="event_type[]", value="ladies" />
         <% elsif current_user.gender == "Male" %>
