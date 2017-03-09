@@ -105,101 +105,115 @@
         </form>
       </div>
     </div>
-<!-- Event cards -->
+
+<!-- RIGHT HAND SIDE -->
+
     <div class="col-xs-12 col-md-9">
       <div class="row">
         <div class="col-xs-12">
+
+          <!-- SORT BY -->
           <div class="sort-box">
-            Sort By:
-            <%= link_to events_path(params_for_event_index(sort: :start_time, order: :asc)) do %>
-              Date <i class="fa fa-angle-up"></i>
-            <% end %> |
-            <%= link_to events_path(params_for_event_index(sort: :start_time, order: :desc)) do %>
-              Date <i class="fa fa-angle-down"></i>
-            <% end %> |
-            <%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %> |
-            <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %> |
-            <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %>
+            <div>
+              Sort By:
+              <%= link_to events_path(params_for_event_index(sort: :start_time, order: :asc)) do %>
+                Date <i class="fa fa-angle-up"></i>
+              <% end %> |
+              <%= link_to events_path(params_for_event_index(sort: :start_time, order: :desc)) do %>
+                Date <i class="fa fa-angle-down"></i>
+              <% end %> |
+              <%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %> |
+              <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %> |
+              <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %>
+            </div>
+            <div>
+              Display: <a href="#"> <span id="list-style">list</span> </a> | <a href="#"><span id="map-style">map</span></a>
+            </div>
           </div>
+
         </div>
       </div>
+
+      <!-- SPORTS CARDS -->
       <div class="row">
         <div class="col-xs-12">
-          <% @events.each do |event| %>
-            <div class="col-xs-12">
-              <div class="list-card">
-                <div class="circles">
-                  <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
-                  <%= image_tag avatar_url, class: "avatar" %>
-                  <span class="sport-circle">
-                    <%= image_tag ("sports/" + event.sport.name + ".png") %>
-                  </span>
-                </div>
-                <div class="card-info">
-                  <div class="card-top-line">
-                    <div class="card-title">
-                      <h4><%= event.title %>
-                      <span class="card-details">
+          <div id="sports-cards-list">
+            <% @events.each do |event| %>
+              <div class="col-xs-12">
+                <div class="list-card">
+                  <div class="circles">
+                    <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                    <%= image_tag avatar_url, class: "avatar" %>
+                    <span class="sport-circle">
+                      <%= image_tag ("sports/" + event.sport.name + ".png") %>
+                    </span>
+                  </div>
+                  <div class="card-info">
+                    <div class="card-top-line">
+                      <div class="card-title">
+                        <h4><%= event.title %>
+                        <span class="card-details">
+                      </div>
+                    </div>
+                    <div class="card-details">
+                      <p> <%= Event::LEVELS[event.level - 1].humanize %>
+                          -
+                        <% event.missing_player.times do %>
+                          <i class="fa fa-user" aria-hidden="true"></i>
+                        <% end %>
+                      </p>
+                      <p> <%= event.city %>, <%= event.postcode.split[0] %>
+                      <% if params[:location].present? %>
+                        (<%= event.distance_from(@searcher_coordinates).round(0) %> miles away)
+                      <% end %>
+                      </p>
                     </div>
                   </div>
-                  <div class="card-details">
-                    <p> <%= Event::LEVELS[event.level - 1].humanize %>
-                        -
-                      <% event.missing_player.times do %>
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                      <% end %>
-                    </p>
-                    <p> <%= event.city %>, <%= event.postcode.split[0] %>
-                    <% if params[:location].present? %>
-                      (<%= event.distance_from(@searcher_coordinates).round(0) %> miles away)
-                    <% end %>
-                    </p>
-                  </div>
-                </div>
-                <div class="right-side">
-                  <div class="card-time">
-                    <% if event.start_time.today? %>
-                      Today, <%= event.start_time.strftime("%H:%M") %>
-                    <% elsif event.start_time.to_date == Date.tomorrow %>
-                      Tomorrow, <%= event.start_time.strftime("%H:%M") %>
-                    <% else %>
-                      <%= event.start_time.strftime("%a %d %b, %H:%M") %>
-                    <% end %>
-                    <br>
-                    <div style="text-align: right">
-                      <% if (event.end_time - event.start_time)/(60) < 120 %>
-                        (<%= ((event.end_time - event.start_time)/(60)).round(0) %> mins)
-                      <% elsif (event.end_time - event.start_time)/(60*60) > 24 %>
-                        (<%= ((event.end_time - event.start_time)/(60*60*24)).round(1) %> days)
+                  <div class="right-side">
+                    <div class="card-time">
+                      <% if event.start_time.today? %>
+                        Today, <%= event.start_time.strftime("%H:%M") %>
+                      <% elsif event.start_time.to_date == Date.tomorrow %>
+                        Tomorrow, <%= event.start_time.strftime("%H:%M") %>
                       <% else %>
-                        (<%= ((event.end_time - event.start_time)/(60*60)).round(1) %> hours)
+                        <%= event.start_time.strftime("%a %d %b, %H:%M") %>
                       <% end %>
+                      <br>
+                      <div style="text-align: right">
+                        <% if (event.end_time - event.start_time)/(60) < 120 %>
+                          (<%= ((event.end_time - event.start_time)/(60)).round(0) %> mins)
+                        <% elsif (event.end_time - event.start_time)/(60*60) > 24 %>
+                          (<%= ((event.end_time - event.start_time)/(60*60*24)).round(1) %> days)
+                        <% else %>
+                          (<%= ((event.end_time - event.start_time)/(60*60)).round(1) %> hours)
+                        <% end %>
+                      </div>
                     </div>
-                  </div>
-                  <% if event.players.length > 0 %>
-                    <ul class="list-inline">
-                      <% event.players.each_with_index do |player, index| %>
-                        <li style="margin-bottom: 15px;">
-                            <% profile_image = player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
-                            <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
-                              <% if current_user.friend_uids.include? player.user.uid %>
-                                <div class="badge-container">
-                                  <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar", style: "margin: 10px;" %>
-                                  <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
-                                </div>
+                    <% if event.players.length > 0 %>
+                      <ul class="list-inline">
+                        <% event.players.each_with_index do |player, index| %>
+                          <li style="margin-bottom: 15px;">
+                              <% profile_image = player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                              <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
+                                <% if current_user.friend_uids.include? player.user.uid %>
+                                  <div class="badge-container">
+                                    <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar", style: "margin: 10px;" %>
+                                    <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
+                                  </div>
+                                <% end %>
                               <% end %>
-                            <% end %>
-                        </li>
-                      <% end %>
-                    </ul>
-                  <% end %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </div>
+                  <%= link_to "", event_path(event), class:"card-link" %>
                 </div>
-                <%= link_to "", event_path(event), class:"card-link" %>
               </div>
-            </div>
-          <% end %>
-          <div class="map-index">
-            <div id="map" style="width: 100%; height: 375px;"></div>
+            <% end %>
+          </div>
+          <div class="map-index hide-me-map hidden">
+            <div id="map" style="width: 100%; height: 500px; z-index: 1000"></div>
           </div>
         </div>
       </div>
