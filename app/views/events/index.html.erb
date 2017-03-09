@@ -143,7 +143,13 @@
               <div class="col-xs-12">
                 <div class="list-card">
                   <div class="circles">
-                    <% avatar_url = event.user.photo? ? cl_image_path(event.user.photo.path) : event.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                  <% if event.user.photo? %>
+                    <% avatar_url = cl_image_path(event.user.photo.path) %>
+                  <% elsif event.user.facebook_picture_url %>
+                    <% avatar_url = event.user.facebook_picture_url.gsub('square', 'large')  %>
+                  <% else %>
+                    <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
+                  <% end %>
                     <%= image_tag avatar_url, class: "avatar" %>
                     <span class="sport-circle">
                       <%= image_tag ("sports/" + event.sport.name + ".png") %>
@@ -194,7 +200,7 @@
                       <ul class="list-inline">
                         <% event.players.each_with_index do |player, index| %>
                           <li style="margin-bottom: 15px;">
-                              <% profile_image = player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url || "https://api.adorable.io/avatars/285/sportl.png" %>
+                              <% profile_image = (player.user.photo? ? cl_image_path(player.user.photo.path) : player.user.facebook_picture_url  || "https://api.adorable.io/avatars/285/))sportl.png" ) %>
                               <%= link_to profile_path(player.user), style: "text-decoration: none;" do %>
                                 <% if current_user.friend_uids.include? player.user.uid %>
                                   <div class="badge-container">
@@ -204,6 +210,7 @@
                                 <% end %>
                               <% end %>
                           </li>
+                          <p><%= player.user.facebook_picture_url.gsub("square", "large") %></p>
                         <% end %>
                       </ul>
                     <% end %>
