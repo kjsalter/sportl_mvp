@@ -26,9 +26,9 @@
               </p>
               <h5 class="text-center">TYPE</h5>
               <p class="text-center">
-                <% if @event.gender.downcase == "female" %>
+                <% if @event.gender.downcase == "ladies" %>
                   <i class="fa fa-venus colour-icon"></i> ladies
-                <% elsif @event.gender.downcase == "male" %>
+                <% elsif @event.gender.downcase == "mens" %>
                   <i class="fa fa-mars colour-icon"></i> mens
                 <% else %>
                   mixed
@@ -131,7 +131,7 @@
                       <div class="text-center">
                         <div class="badge-container">
                           <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
-                          <% if current_user.friend_uids.include? player.user.uid %>
+                          <% if user_signed_in? && current_user.friend_uids.include?(player.user.uid) %>
                             <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
                           <% end %>
                         </div>

@@ -2,17 +2,22 @@
 <html>
   <head>
 
-    <meta property="og:title" content="Sportl"/>
-    <meta property="og:image" content="<%= image_path 'logo_writing.png' %>"/>
-    <meta property="og:site_name" content="Sportl.org"/>
-    <meta property="og:description" content="Sportl is a revolutionary new site that lets people meet new people to take part in team sports with! Sign up now and play sports with new people today! You just might make some friends out of it!"/>
-
-
     <title>Sportl.</title>
-    <%= csrf_meta_tags %>
-    <%= action_cable_meta_tag %>
+    <meta name="description" content="Sportl is a revolutionary new site that lets people meet new people to take part in team sports with! Sign up now and play sports with new people today! You just might make some friends out of it!">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta property="og:title" content="Sportl - play sport with people near you">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.sportl.org/">
+    <meta property="og:image" content="<%= image_path 'fb_logo.png' %>">
+    <meta property="og:description" content="Sportl is a revolutionary new site that lets people meet new people to take part in team sports with! Sign up now and play sports with new people today! You just might make some friends out of it!">
+    <meta property="og:site_name" content="Sportl">
+    <meta property="fb:app_id" content="1404627939601489" />
+
+
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
   <body>
