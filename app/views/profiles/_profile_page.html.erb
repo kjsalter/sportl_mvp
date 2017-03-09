@@ -98,7 +98,7 @@
     <!-- profile page map -->
     <div class="col-sm-4">
       <div class="map">
-        <div id="map" style="width: 100%; height: 600px;"></div>
+        <div id="map6" style="width: 100%; height: 600px;"></div>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
               $('.black-icon-right > .fa').toggleClass('fa-chevron-down');
             });
             var handler = Gmaps.build('Google');
-            handler.buildMap({ internal: { id: 'map' } }, function() {
+            handler.buildMap({ internal: { id: 'map6' } }, function() {
               markers = handler.addMarkers(<%= raw @hash.to_json %>);
               handler.bounds.extendWith(markers);
               handler.fitMapToBounds();

@@ -24,7 +24,7 @@
         </div>
       <div class="col-xs-12 col-md-6">
         <h3>See you at:<%= @booking.event.venue_name %>, <%= @booking.event.full_address %></h3>
-        <div id="map" style="width: 525px; height: 40vh; border-radius: 5px;"></div>
+        <div id="map2" style="width: 525px; height: 40vh; border-radius: 5px;"></div>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 <script>
   $(document).on('ready', function() {
     var handler = Gmaps.build('Google');
-    handler.buildMap({ internal: { id: 'map' } }, function(){
+    handler.buildMap({ internal: { id: 'map2' } }, function(){
 
       <% @hash = Gmaps4rails.build_markers(@booking.event) do |event, marker| %>
       markers = handler.addMarkers([

@@ -127,7 +127,7 @@
               <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %>
             </div>
             <div>
-              Display: <a href="#"> <span id="list-style">list</span> </a> | <a href="#"><span id="map-style">map</span></a>
+              Display: <span id="list-style" style="cursor: pointer; color: #FA6061">toggle map</span>
             </div>
           </div>
 
@@ -137,6 +137,7 @@
       <!-- SPORTS CARDS -->
       <div class="row">
         <div class="col-xs-12">
+
           <div id="sports-cards-list">
             <% @events.each do |event| %>
               <div class="col-xs-12">
@@ -212,19 +213,22 @@
               </div>
             <% end %>
           </div>
-          <div class="map-index hide-me-map hidden">
-            <div id="map" style="width: 100%; height: 500px; z-index: 1000"></div>
+
+          <div class="map-index" style="z-index: 1000; ">
+            <div id="map4" style="width: 100%; height: 500px; z-index: 1000"></div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
-  <script>
     <% content_for(:after_js) do %>
       <%= javascript_tag do %>
         $(document).on('ready', function() {
+
+
           $(function () {
               $('#datetimepicker1').datetimepicker({
                 format: "DD/MM/YYYY HH:mm",
@@ -251,27 +255,6 @@
               });
           });
 
-//           var start = moment();
-//           var end = moment();
-
-//           function cb(start, end) {
-//               $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-//               $("#dateparamsinput").val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-
-//           }
-
-//           $('#reportrange').daterangepicker({
-//               startDate: start,
-//               endDate: end,
-//               ranges: {
-//                  'Today': [moment(), moment()],
-//                  'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
-//                  'This week': [moment(), moment().add(6, 'days')],
-//                  'Next 30 days': [moment(), moment().add(29, 'days')],
-//                  'All': [moment(), moment().add(1, 'years')]
-//               }
-//           }, cb);
-//           cb(start, end);
 
           $('.selectpicker').multiselect({
             selectAll: true,
@@ -281,11 +264,11 @@
           });
 
           var handler = Gmaps.build('Google');
-          handler.buildMap({ internal: { id: 'map' } }, function(){
+          handler.buildMap({ internal: { id: 'map4' } }, function(){
             var markers = []
             <% @events.each do |event| %>
               <% @hash = Gmaps4rails.build_markers(event) do |event, marker| %>
-                <% if event.latitude %>
+                <%# if event.latitude %>
                   markers.push(handler.addMarkers([
                     {
                       lat: <%= event.latitude %>,
@@ -298,14 +281,13 @@
                       }
                     }
                   ]));
-                <% end %>
+                <%# end %>
               <% end %>
             <% end %>
             markers.forEach(function(marker) {
               handler.bounds.extendWith(marker);
             });
             handler.fitMapToBounds();
-
           });
 
           $('#sport-list-dropdown').click(function() {
@@ -378,8 +360,48 @@
             $('#friends-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-up');
             $('#friends-dropdown .black-icon-right-small > .fa').toggleClass('fa-chevron-down');
           });
+
+          $('#map-style').click(function() {
+            if ($('#sports-cards-list').hasClass('open')) {
+              $('#sports-cards-list').slideUp("fast", function() {});
+            } else {
+              $('#sports-cards-list').slideDown("fast", function() {});
+            }
+            $('#sports-cards-list').toggleClass("open");
+          });
+          $('#list-style').click(function() {
+            if ($('.map-index').hasClass('open')) {
+              $('.map-index').slideUp("fast", function() {});
+              $('#sports-cards-list').slideDown("fast", function() {});
+            } else {
+            $('.map-index').slideDown("fast", function() {});
+            $('#sports-cards-list').slideUp("fast", function() {});
+            }
+            $('.map-index').toggleClass("open");
+          });
         });
+
+//           var start = moment();
+//           var end = moment();
+
+//           function cb(start, end) {
+//               $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+//               $("#dateparamsinput").val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+//           }
+
+//           $('#reportrange').daterangepicker({
+//               startDate: start,
+//               endDate: end,
+//               ranges: {
+//                  'Today': [moment(), moment()],
+//                  'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
+//                  'This week': [moment(), moment().add(6, 'days')],
+//                  'Next 30 days': [moment(), moment().add(29, 'days')],
+//                  'All': [moment(), moment().add(1, 'years')]
+//               }
+//           }, cb);
+//           cb(start, end);
       <% end %>
     <% end %>
-  </script>
 
