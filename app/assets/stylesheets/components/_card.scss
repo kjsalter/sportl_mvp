@@ -69,10 +69,28 @@
 }
 .sport-circle{
   background-color: $turq;
-  padding: 20px;
+  display: flex;
+  height: 80px;
+  width: 80px;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 50%;
+  border: 5px solid white;
+  transform: translateX(-10px);
+  img {
+    width: 50px;
+  }
 }
 
 .sport_name{
   color: $turq;
+}
+
+.circles{
+  display: flex;
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border: 5px solid white;
+  }
 }
