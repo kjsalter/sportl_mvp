@@ -23,11 +23,11 @@ class EventsController < ApplicationController
 # by type
     @events = @events.where(gender: params[:event_type]) if params[:event_type].present?
 # by friends
-    friend_events = []
-    @events.all.each { |event| event.players.each { |player| friend_events << event if current_user.friend_uids.include?(player.user.uid) } }
-    @events = friend_events.uniq if params[:friends_radio] && params[:friends_radio] == "friends"
-
-
+    if user_signed_in?
+      friend_events = []
+      @events.all.each { |event| event.players.each { |player| friend_events << event if current_user.friend_uids.include?(player.user.uid) } }
+      @events = friend_events.uniq if params[:friends_radio] && params[:friends_radio] == "friends"
+    end
 
     @sports_list = Event.all.map { |event| event.sport.name }.uniq
     @searcher_coordinates = Geocoder.coordinates(params[:location])
