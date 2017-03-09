@@ -130,7 +130,7 @@
               Display: <span id="list-style" style="cursor: pointer; color: #FA6061">toggle map</span>
             </div>
           </div>
-
+          <p> <%= @events.count %> EVENTS AVAILABLE </p>
         </div>
       </div>
 
@@ -161,6 +161,14 @@
                           -
                         <% event.missing_player.times do %>
                           <i class="fa fa-user" aria-hidden="true"></i>
+                        <% end %>
+                        -
+                        <% if event.gender.downcase == "ladies" %>
+                          ladies
+                        <% elsif event.gender.downcase == "mens" %>
+                          mens
+                        <% else %>
+                          mixed
                         <% end %>
                       </p>
                       <p> <%= event.city %>, <%= event.postcode.split[0] %>
