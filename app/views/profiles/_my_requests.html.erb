@@ -54,7 +54,12 @@
                 </div>
               </div>
               <div class="profile-card-body">
-                <h3><%= booking.user.first_name? ? (booking.user.first_name) : hi %></h3>
+                <h3><% if booking.user.first_name %>
+                    <%= booking.user.first_name %>
+                  <% else %>
+                    user
+                    <% end %>
+                </h3>
                  <% if booking.user.bio? %>
                   <p><%= booking.user.bio.truncate_words(10) %></p>
                 <% else %>
