@@ -119,7 +119,7 @@
                       <div class="text-center">
                         <div class="badge-container">
                           <%= cl_image_tag profile_image, max_width: 200, crop: :fill, responsive_placeholder: "blank", class: "avatar-large" %>
-                          <% if current_user.friend_uids.include? player.user.uid %>
+                          <% if user_signed_in? && current_user.friend_uids.include?(player.user.uid) %>
                             <div class="badge badge-blue" style="position: absolute; top: 5px;">f</div>
                           <% end %>
                         </div>
