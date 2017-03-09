@@ -16,7 +16,7 @@
 
 <div class="container chatroom-container">
   <div class="row">
-    <div class="col-xs-offset-2 col-xs-8">
+    <div class="col-xs-offset-3 col-xs-9">
       <div class="chatroom-header text-center">
         <% if @chat_room.sender_id == current_user.id %>
           <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
@@ -27,7 +27,9 @@
           <%= cl_image_tag avatar_url_2, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
           <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
           <h2>Chat between <strong><%= @chat_room.recipient.first_name %></strong> and <strong><%= @chat_room.sender.first_name %></strong></h2>
+          <% if @chat_room.sender.bookings.any? %>
           <h4> You are talking about the event ' <%= @chat_room.sender.bookings.last.event.title %>'</h4>
+          <% end %>
         <% end %>
 
       </div>
@@ -35,7 +37,7 @@
   </div>
 
   <div class="row">
-    <div class=" col-xs-offset-2 col-xs-8">
+    <div class=" col-xs-offset-3 col-xs-9">
       <div class="posts-container"  id="posts" data-chat-room-id="<%= @chat_room.id %>">
         <%= render @chat_room.posts %>
       </div>
@@ -44,7 +46,7 @@
 
 
   <div class="row">
-    <div class="col-xs-offset-2 col-xs-8">
+    <div class="col-xs-offset-3 col-xs-9">
       <%= simple_form_for @post, url: '#' do |f| %>
 
       <%= f.input :body, as: :string, label: false, class: 'form-control', placeholder: "enter your message" %>
