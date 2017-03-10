@@ -111,7 +111,7 @@ time_operations = [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 user_seed.each do |user_info|
   user = User.create!(user_info)
   5.times do
-    start_seed = Faker::Time.between((DateTime.now + 2), (DateTime.now + 6)).at_noon + time_operations.sample.hour
+    start_seed = Faker::Time.between((DateTime.now + 1), (DateTime.now + 6)).at_noon + time_operations.sample.hour
     sport_item = Sport.all.sample
     event = Event.create!(
       sport: sport_item,

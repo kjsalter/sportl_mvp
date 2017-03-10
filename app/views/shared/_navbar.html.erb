@@ -95,7 +95,7 @@
 
   <div>
     <% if !user_signed_in? %>
-      <div class="sign-in-btn hidden-xs">
+      <div class="sign-in-btn">
         <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-sportl-item-item navbar-sportl-item-link hvr-grow" %>
       </div>
     <% end %>
@@ -103,17 +103,19 @@
 
 
   <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-sportl-item hidden-md hidden-lg" style="position: absolute; right: 10px;">
-    <div class="dropdown">
-      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu dropdown-menu-right">
-        <li><%= link_to "my profile", my_profile_path %></li>
-        <li><%= link_to "messages", chat_rooms_path %></li>
-        <li><%= link_to "notifications", notifications_path %></li>
-        <li><%= link_to "log out", destroy_user_session_path %></li>
-      </ul>
+  <% if user_signed_in? %>
+    <div class="navbar-sportl-item hidden-md hidden-lg" style="position: absolute; right: 10px;">
+      <div class="dropdown">
+        <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+        <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu dropdown-menu-right">
+            <li><%= link_to "my profile", my_profile_path %></li>
+            <li><%= link_to "messages", chat_rooms_path %></li>
+            <li><%= link_to "notifications", notifications_path %></li>
+            <li><%= link_to "log out", destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 </div>
 
