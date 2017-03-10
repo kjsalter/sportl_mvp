@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:index, :destroy]
 
-  get "/bookings/pending_denied_show/:id", to: "bookings#pending_denied_show", as: "pending"
+  # get "/bookings/pending_denied_show/:id", to: "bookings#pending_denied_show", as: "pending"
+  get "/bookings/pending/:id", to: "bookings#pending", as: "pending"
+
 
   mount Attachinary::Engine => "/attachinary"
 

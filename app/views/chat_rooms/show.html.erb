@@ -16,7 +16,7 @@
 
 <div class="container chatroom-container">
   <div class="row">
-    <div class="col-xs-offset-3 col-xs-9">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <div class="chatroom-header text-center">
         <% if @chat_room.sender_id == current_user.id %>
           <%= cl_image_tag avatar_url_1, crop: :fill, responsive_placeholder: "blank", class: "avatar" %>
@@ -37,7 +37,7 @@
   </div>
 
   <div class="row">
-    <div class=" col-xs-offset-3 col-xs-9">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <div class="posts-container"  id="posts" data-chat-room-id="<%= @chat_room.id %>">
         <%= render @chat_room.posts %>
       </div>
@@ -46,7 +46,7 @@
 
 
   <div class="row">
-    <div class="col-xs-offset-3 col-xs-9">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <%= simple_form_for @post, url: '#' do |f| %>
 
       <%= f.input :body, as: :string, label: false, class: 'form-control', placeholder: "enter your message" %>

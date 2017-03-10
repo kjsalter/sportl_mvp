@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
     # authorize @booking
   end
 
-  def pending_denied_show
+  def pending
     @booking = Booking.find(params[:id])
     authorize @booking
 
