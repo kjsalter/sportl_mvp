@@ -1,7 +1,8 @@
 <div class="home-banner" style="background-image: url('<%= image_path 'library/football-pitch.jpg' %>'); background-size: cover; background-position: center; background-attachment: fixed;">
   <div class="home-banner-caption">
     <span class="home-banner-typed"></span>
-    <h1>Play a game with a team near you</h1>
+    <h1 class="hidden-xs">Play a game with a team near you</h1>
+    <h1 class="visible-xs" style="font-size: 5vw">Play a game with a team near you</h1>
     <div class="text-center">
       <%= link_to '#home-wrapper' do %>
         <%= image_tag('down-chevron.png', class: "hvr-hang") %>
