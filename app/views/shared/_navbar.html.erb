@@ -106,10 +106,11 @@
   <div class="navbar-sportl-item hidden-md hidden-lg" style="position: absolute; right: 10px;">
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu">
-        <li><a href="#">Some mobile link</a></li>
-        <li><a href="#">Other one</a></li>
-        <li><a href="#">Other one</a></li>
+      <ul class="dropdown-menu dropdown-menu-sides navbar-sportl-dropdown-menu dropdown-menu-right">
+        <li><%= link_to "my profile", my_profile_path %></li>
+        <li><%= link_to "messages", chat_rooms_path %></li>
+        <li><%= link_to "notifications", notifications_path %></li>
+        <li><%= link_to "log out", destroy_user_session_path %></li>
       </ul>
     </div>
   </div>
