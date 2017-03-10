@@ -150,7 +150,7 @@
                   <% else %>
                     <% avatar_url = "https://api.adorable.io/avatars/285/sportl.png" %>
                   <% end %>
-                    <%= image_tag avatar_url, class: "avatar" %>
+                    <%= image_tag avatar_url, class: "avatar hidden-xs" %>
                     <span class="sport-circle">
                       <%= image_tag ("sports/" + event.sport.name + ".png") %>
                     </span>
@@ -158,7 +158,8 @@
                   <div class="card-info">
                     <div class="card-top-line">
                       <div class="card-title">
-                        <h4><%= event.title %>
+                        <h4 class="hidden-xs"><%= event.title %></h4>
+                        <h4 style="font-size: 16px" class="visible-xs"><%= event.title.truncate_words(3) %></h4>
                         <span class="card-details">
                       </div>
                     </div>
@@ -182,9 +183,27 @@
                         (<%= event.distance_from(@searcher_coordinates).round(0) %> miles away)
                       <% end %>
                       </p>
+                      <div class="card-time visible-xs">
+                        <p>
+                          <% if event.start_time.today? %>
+                            Today, <%= event.start_time.strftime("%H:%M") %>
+                          <% elsif event.start_time.to_date == Date.tomorrow %>
+                            Tomorrow, <%= event.start_time.strftime("%H:%M") %>
+                          <% else %>
+                            <%= event.start_time.strftime("%a %d %b, %H:%M") %>
+                          <% end %>
+                            <% if (event.end_time - event.start_time)/(60) < 120 %>
+                              (<%= ((event.end_time - event.start_time)/(60)).round(0) %> mins)
+                            <% elsif (event.end_time - event.start_time)/(60*60) > 24 %>
+                              (<%= ((event.end_time - event.start_time)/(60*60*24)).round(1) %> days)
+                            <% else %>
+                              (<%= ((event.end_time - event.start_time)/(60*60)).round(1) %> hours)
+                            <% end %>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div class="right-side">
+                  <div class="right-side hidden-xs">
                     <div class="card-time">
                       <% if event.start_time.today? %>
                         Today, <%= event.start_time.strftime("%H:%M") %>
