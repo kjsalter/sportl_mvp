@@ -66,8 +66,8 @@
               <div class="flex-space-between">
                 <p><i class="fa fa-suitcase"></i></p>
                 <p>
-                  <% if @event.requirements.nil? %>
-                    no kit needed
+                  <% if @event.requirements == "" || @event.requirements.nil? %>
+                      no kit needed
                   <% else %>
                     <%= @event.requirements %>
                   <% end %>
