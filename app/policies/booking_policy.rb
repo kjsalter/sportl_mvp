@@ -17,7 +17,7 @@ class BookingPolicy < ApplicationPolicy
     true
   end
 
-  def pending_denied_show?
+  def pending?
     user == record.user
   end
 end
