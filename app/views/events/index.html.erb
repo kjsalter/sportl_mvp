@@ -44,14 +44,16 @@
 
           <h4 id="location-dropdown">Location <span class="black-icon-right-small"><i class="fa fa-chevron-down"></i></span></h4>
           <div class="hide-me" id="reveal-location">
-            <div class="col-md-8" style='padding-left:0px'>
+            <div class="col-md-8" style='padding:0px'>
               <div class="form-group">
                 <input type="text" name="location" placeholder="location" class="form-control" value="<%= params[:location] %>" />
+                <label for="location">Location</label>
               </div>
             </div>
             <div class="col-md-4" style='padding:0px'>
               <div class="form-group">
                 <input id="radius" name="radius" type="number" placeholder="Radius (km)" class="form-control" value="<%= params[:radius] %>"/>
+                <label for="radius">Radius (mi)</label>
               </div>
             </div>
           </div>
@@ -169,6 +171,7 @@
                         <% event.missing_player.times do %>
                           <i class="fa fa-user" aria-hidden="true"></i>
                         <% end %>
+                        spot(s)
                         -
                         <% if event.gender.downcase == "ladies" %>
                           ladies
@@ -268,16 +271,14 @@
                 // sideBySide: true,
                 minDate: moment(),
                 stepping: 30,
-                useCurrent: false,
-                defaultDate: moment().add(1,'hours')
+                useCurrent: false
               });
               $('#datetimepicker2').datetimepicker({
                 format: "DD/MM/YYYY HH:mm",
                 // sideBySide: true,
                 minDate: moment(),
                 stepping: 30,
-                useCurrent: false,
-                defaultDate: moment().add(6, 'days')
+                useCurrent: false
               });
 
               $("#datetimepicker1").on("dp.change", function (e) {
