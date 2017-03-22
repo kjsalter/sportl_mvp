@@ -125,8 +125,10 @@
                 Date <i class="fa fa-angle-down"></i>
               <% end %> |
               <%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %> |
-              <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %> |
-              <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :asc)) %>
+              <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :desc)) %>
+              <% if params[:location] != "" %>
+                | <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %>
+              <% end %>
             </div>
             <div>
               Display: <span id="list-style" style="cursor: pointer; color: #FA6061">toggle map</span>
