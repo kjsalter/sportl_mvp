@@ -1,6 +1,6 @@
 module ApplicationHelper
   def params_for_event_index(args = {})
-    hash_new = {missing_player: params[:missing_player], sports: params[:sports], start_time: params[:start], end_time: params[:end], location: params[:location], radius: params[:radius] }
+    hash_new = {missing_player: params[:missing_player], sports: params[:sports], start_time: params[:start], end_time: params[:end], location: params[:location], radius: params[:radius], event_type: params[:event_type], event_vibe: params[:event_vibe], friends_radio: params[:friends_radio] }
     hash_new.merge(args)
   end
 
