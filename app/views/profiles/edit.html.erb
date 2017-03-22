@@ -17,7 +17,7 @@
 				<%= f.input :username, placeholder: "How users will see you" %>
 				<%= f.input :first_name %>
 				<%= f.input :last_name %>
-       	<%= f.input :gender, label: 'Gender', collection: ['Male', 'Female', 'Other']  %>
+       	<%= f.input :gender, label: 'Gender (to help us personalise your searches)', collection: ['Male', 'Female', 'Other']  %>
 				<%= f.input :address %>
 				<%= f.input :bio %>
 				<%= f.input :photo, as: :attachinary %>
@@ -26,7 +26,7 @@
 				<div class="form-group">
 
 					<label class="control-label check_boxes optional">
-						Sports Preferences
+						Sports Preferences (to help us personalise your searches)
 					</label>
 
 					<input type="hidden" name="user[sport_ids][]" value="">
