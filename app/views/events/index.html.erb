@@ -126,7 +126,7 @@
               <% end %> |
               <%= link_to "Sport", events_path(params_for_event_index(sort: :sport_id, order: :asc)) %> |
               <%= link_to "Free spots", events_path(params_for_event_index(sort: :missing_player, order: :desc)) %>
-              <% if params[:location] != "" %>
+              <% if params[:location] != "" && !params[:location].nil? %>
                 | <%= link_to "Distance", events_path(params_for_event_index(sort: :distance, order: :asc)) %>
               <% end %>
             </div>
