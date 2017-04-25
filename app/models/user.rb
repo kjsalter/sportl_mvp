@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :events
-  has_many :booking_events, through: :bookings, source: :events
+  #has_many :booking_events, through: :bookings, source: :events
   has_many :bookings
   has_many :event_bookings, through: :events, source: :bookings
   has_many :preferences
